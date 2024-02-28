@@ -9,7 +9,7 @@ steps = [
         heat boolean   NOT NULL,
         laundry boolean   NOT NULL,
         parking boolean   NOT NULL,
-        FOREIGN KEY(amenities_id) REFERENCES properties (amentites_id)
+        FOREIGN KEY(amenities_id) REFERENCES properties (amenities_id)
 );
 
         """,
