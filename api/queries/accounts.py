@@ -1,29 +1,22 @@
+import os
+from pymongo import MongoClient
+from bson.objectid import ObjectId
+from bson.errors import InvalidId
 from models import AccountIn
-from pydantic import BaseModel
-from starlette import status
+
+client = MongoClient(os.environ.get("DATABASE_URL", ""))
+db = client["mongo-data"]
 
 class DuplicateAccountError(ValueError):
     pass
 
-
 class AccountRepo:
-    
+    @property
+    def collection(self):
+        return db["accounts"]
     def create(self, info: AccountIn, hashed_password: str):
         if self.get(username=info.username) is not None:
             raise DuplicateAccountError
 
     def get(self, username: str):
         pass
-
-
-class CreateUserRequest(BaseModel):
-    username: str
-    email: str
-    first_name: str
-    last_name: str
-    password: str
-
-
-# @router.post("/",  status_code=status.HTTP_201_CREATED)
-# async def create_user( create_user_request: CreateUserRequest):
-#     create_user_model = Users()

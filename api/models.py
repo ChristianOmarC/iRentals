@@ -9,11 +9,11 @@ class AccountIn(BaseModel):
     password: str
 
 class AccountOut(BaseModel):
-    id: int
+    id: str
     email: str
-    username: str
     first_name: str
     last_name: str
+    username: str
 
 class Account(AccountOut):
     hashed_password: str
