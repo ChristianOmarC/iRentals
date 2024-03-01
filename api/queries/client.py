@@ -16,3 +16,10 @@ class MongoQueries:
     def collection(self):
         db = client["mongo-data"]
         return db[self.collection_name]
+
+
+
+# Use for the holding
+db_users = []
+db_properties = []
+db_reservations = []
