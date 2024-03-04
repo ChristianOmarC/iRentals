@@ -3,7 +3,6 @@ from bson.objectid import ObjectId
 from bson.errors import InvalidId
 from models import PropertyIn, PropertyOut
 from .client import MongoQueries
-from typing import List
 
 class PropertiesRepo(MongoQueries):
     collection_name = "properties"
@@ -23,6 +22,13 @@ class PropertiesRepo(MongoQueries):
             res.append(property)
         return res
 
+    def get_all_for_account(self, account_id: str):
+        res = []
+        for property in self.collection.find({'account_id': account_id}):
+            property['id'] = str(property['_id'])
+            res.append(property)
+        return res
+
     def get_one(self, property_id: str):
         try:
             property = self.collection.find_one({'_id': ObjectId(property_id)})
@@ -31,6 +37,10 @@ class PropertiesRepo(MongoQueries):
         if property is not None:
             property['id'] = str(property['_id'])
         return property
+# class PropertiesRepo:
+    # def __init__(self, db):
+    #     self.db = db
+    #     self.collection = self.db.properties  
 
     def update(self, property_id: str, property_update: PropertyIn) -> PropertyOut | None:
         try:
@@ -42,4 +52,7 @@ class PropertiesRepo(MongoQueries):
                 return self.get_one(property_id)
         except InvalidId:
             return None
+    def delete_property(self, property_id: str) -> bool:
+        result = self.collection.delete_one({"_id": ObjectId(property_id)})
+        return result.deleted_count > 0
 
