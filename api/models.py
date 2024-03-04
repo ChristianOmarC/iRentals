@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from jwtdown_fastapi.authentication import Token
 from bson.objectid import ObjectId
+from typing import List
 
 class PydanticObjectId(ObjectId):
     @classmethod
@@ -69,3 +70,6 @@ class PropertyOut(PropertyIn): #BookOut(BookIn)
     id: str
     property_name: str
     account_id: str
+
+class PropertyList(BaseModel):
+    properties: List[PropertyOut]
