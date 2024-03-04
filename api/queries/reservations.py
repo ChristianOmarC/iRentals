@@ -14,3 +14,31 @@ class ReservationsRepo(MongoQueries):
         reservation_dict["id"] = str(result.inserted_id)
         del reservation_dict["_id"]
         return ReservationOut(**reservation_dict)
+
+    def update(self, reservation_id: str, reservation_update: ReservationIn) -> ReservationOut | None:
+        try:
+            self.collection.update_one(
+                {'_id': ObjectId(reservation_id)},
+                {'$set': reservation_update.dict(exclude_unset=True)}
+            )
+            return self.get_one(reservation_id)
+        except InvalidId:
+            return None
+
+    def get_all(self) -> list[ReservationOut]:
+        res = []
+        for reservation in self.collection.find():
+            reservation['id'] = str(reservation['_id'])
+            del reservation["_id"]
+            res.append(ReservationOut(**reservation))
+        return res
+
+    def get_one(self, reservation_id: str) -> ReservationOut | None:
+        try:
+            reservation = self.collection.find_one({'_id': ObjectId(reservation_id)})
+            if reservation:
+                reservation['id'] = str(reservation['_id'])
+                del reservation["_id"]
+                return ReservationOut(**reservation)
+        except InvalidId:
+            return None

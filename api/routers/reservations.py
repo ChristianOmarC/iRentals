@@ -21,3 +21,21 @@ async def create_reservation(
         raise HTTPException(status_code=400, detail="Error creating reservation.")
 
     return new_reservation
+
+@router.put("/api/reservations/{reservation_id}", response_model=ReservationOut)
+async def update_reservation(
+    reservation_id: str,
+    reservation_update: ReservationIn,
+    reservations_repo: ReservationsRepo = Depends(get_reservations_repo)
+):
+    updated_reservation = reservations_repo.update(reservation_id, reservation_update)
+    if updated_reservation:
+        return updated_reservation
+    else:
+        raise HTTPException(status_code=404, detail="Reservation not found.")
+
+@router.get("/api/reservations", response_model=List[ReservationOut])
+async def list_reservations(reservations_repo: ReservationsRepo = Depends(get_reservations_repo)):
+    return reservations_repo.get_all()
+
+
