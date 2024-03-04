@@ -31,6 +31,10 @@ class PropertiesRepo(MongoQueries):
         if property is not None:
             property['id'] = str(property['_id'])
         return property
+# class PropertiesRepo:
+    # def __init__(self, db):
+    #     self.db = db
+    #     self.collection = self.db.properties  
 
     def update(self, property_id: str, property_update: PropertyIn) -> PropertyOut | None:
         try:
@@ -42,4 +46,7 @@ class PropertiesRepo(MongoQueries):
                 return self.get_one(property_id)
         except InvalidId:
             return None
+    def delete_property(self, property_id: str) -> bool:
+        result = self.collection.delete_one({"_id": ObjectId(property_id)})
+        return result.deleted_count > 0
 

@@ -40,3 +40,8 @@ async def update_property(
         return PropertyOut(**updated_property)
     else:
         raise HTTPException(status_code=404, detail="Property not found.")
+@router.delete("/api/properties/{property_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_property(property_id: str, repo: PropertiesRepo = Depends()):
+    if not repo.delete_property(property_id):
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Property not found")
+    return {"message": "Property deleted successfully"}
