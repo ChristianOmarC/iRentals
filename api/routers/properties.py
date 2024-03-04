@@ -14,6 +14,9 @@ from typing import List
 
 router = APIRouter()
 
+def get_properties_repo():
+    return PropertiesRepo()
+
 @router.post('/api/properties', response_model=PropertyOut)
 def create_property(
     property_in: PropertyIn,
@@ -26,3 +29,14 @@ def create_property(
 def list_property(repo: PropertiesRepo = Depends()):
     return PropertyList(properties=repo.get_all())
 
+@router.put("/api/properties/{property_id}", response_model=PropertyOut)
+async def update_property(
+    property_id: str,
+    property_update: PropertyIn,
+    properties_repo: PropertiesRepo = Depends(get_properties_repo)
+):
+    updated_property = properties_repo.update(property_id, property_update)
+    if updated_property:
+        return PropertyOut(**updated_property)
+    else:
+        raise HTTPException(status_code=404, detail="Property not found.")
