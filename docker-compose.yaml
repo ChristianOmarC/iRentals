@@ -25,7 +25,7 @@ services:
             CORS_HOST: http://localhost:5173
             DATABASE_URL: mongodb://example_user:secret@mongo
             DB_NAME: db-name-for-your-app-db
-            SIGNING_KEY: ${SIGNING_KEY}
+            SIGNING_KEY: ${SIGNINGKEY}
         build:
             context: api
             dockerfile: Dockerfile.dev
