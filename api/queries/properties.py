@@ -21,7 +21,7 @@ class PropertiesRepo(MongoQueries):
             property['id'] = str(property['_id'])
             res.append(property)
         return res
-    
+
     def get_all_for_account(self, account_id: str):
         res = []
         for property in self.collection.find({'account_id': account_id}):
