@@ -6,7 +6,8 @@ Reminder:
     -work on issues barnch and learn how to use it
         -create issue
         -git checkout [-b] [branch_name]
-        
+        -git push --set-upstream origin 11-learn-how-issues-work-back-up (using backup as a test)
+        -
 
 ## 2/28/2024
 

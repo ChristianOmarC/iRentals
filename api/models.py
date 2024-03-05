@@ -52,6 +52,7 @@ class ReservationIn(BaseModel):#LoanIn
     checkout: str
     reservation_name: str
     property_id: str    #?
+    
 
 class ReservationOut(ReservationIn): #LoanOut(LoanIn)
     id: str
