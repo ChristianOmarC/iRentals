@@ -67,7 +67,17 @@ class Reservation(ReservationIn): #Loan(LoanIn)
 class ReservationList(BaseModel):
     reservations : List[ReservationOut]
 
-class PropertyIn(BaseModel): #BookIn
+class Amenities(BaseModel):
+    AC: bool
+    Heating: bool
+    Washer_Dryer: bool
+    Parking: bool
+    Beer: bool
+    Wifi: bool
+    Pets_allowed: bool
+    Pool: bool
+
+class PropertyIn(BaseModel):
     property_name: str
     address: str
     city: str
@@ -77,19 +87,7 @@ class PropertyIn(BaseModel): #BookIn
     bathrooms: float
     price: float
     description: str
-    amenities: dict
-    {
-            "A/C": bool,
-            "Heating": bool,
-            "Washer/Dryer": bool,
-            "Parking": bool,
-            "Beer": bool,
-            "Wifi": bool,
-            "Pets allowed": bool,
-            "Pool": bool
-    }
-
-
+    amenities: Amenities
 
 class Property(PropertyIn):#Book
     id: PydanticObjectId
@@ -98,6 +96,7 @@ class PropertyOut(PropertyIn): #BookOut(BookIn)
     id: str
     account_id: str
 
-
 class PropertyList(BaseModel):
     properties: List[PropertyOut]
+
+
