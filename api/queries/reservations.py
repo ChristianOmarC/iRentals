@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
-from models import ReservationIn, ReservationOut
+from models import ReservationIn, ReservationOut, PropertyIn, PropertyOut
 from .client import MongoQueries
 
 class ReservationsRepo(MongoQueries):
@@ -10,9 +10,9 @@ class ReservationsRepo(MongoQueries):
     def create(self, reservation: ReservationIn, account_id: str) -> ReservationOut:
         reservation_dict = reservation.dict()
         reservation_dict['account_id'] = account_id
+    
         result = self.collection.insert_one(reservation_dict)
         reservation_dict["id"] = str(result.inserted_id)
-        del reservation_dict["_id"]
         return ReservationOut(**reservation_dict)
 
     def update(self, reservation_id: str, reservation_update: ReservationIn) -> ReservationOut | None:
@@ -42,3 +42,17 @@ class ReservationsRepo(MongoQueries):
                 return ReservationOut(**reservation)
         except InvalidId:
             return None
+
+    def delete_reservation(self, reservation_id: str) -> bool:
+        result = self.collection.delete_one({"_id": ObjectId(reservation_id)})
+        return result.deleted_count > 0
+    
+    def get_one(self, reservation_id: str):
+        try:
+            reservation = self.collection.find_one({'_id': ObjectId(reservation_id)})
+        except InvalidId:
+            reservation = None
+        if reservation is not None:
+            reservation['id'] = str(reservation['_id'])
+        return reservation
+    

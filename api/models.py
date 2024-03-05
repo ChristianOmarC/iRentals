@@ -57,8 +57,6 @@ class ReservationIn(BaseModel):#LoanIn
 class ReservationOut(ReservationIn): #LoanOut(LoanIn)
     id: str
     reservation_name: str #updated for reservation_name
-    property_id: str    #update for property_id
-    account_id: str #updated for account_id
 
 class Reservation(ReservationIn): #Loan(LoanIn)
     id: PydanticObjectId
