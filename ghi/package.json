@@ -11,7 +11,9 @@
     },
     "dependencies": {
         "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "react-dom": "^18.2.0",
+        "stream-chat": "^8.20.0",
+        "stream-chat-react": "^11.11.0"
     },
     "devDependencies": {
         "@types/node": "^20.10.7",
