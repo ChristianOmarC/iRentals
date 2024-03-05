@@ -52,25 +52,52 @@ class ReservationIn(BaseModel):#LoanIn
     checkout: str
     reservation_name: str
     property_id: str    #?
-    
+    account_id: str #updated for account_id
 
 class ReservationOut(ReservationIn): #LoanOut(LoanIn)
     id: str
+    reservation_name: str #updated for reservation_name
+    property_id: str    #update for property_id
+    account_id: str #updated for account_id
 
 class Reservation(ReservationIn): #Loan(LoanIn)
     id: PydanticObjectId
     account_id: str
 
+class ReservationList(BaseModel):
+    reservations : List[ReservationOut]
+
 class PropertyIn(BaseModel): #BookIn
     property_name: str
+    address: str
+    city: str
+    state: str
+    zip: str
+    bedrooms: int
+    bathrooms: float
+    price: float
+    description: str
+    amenities: dict
+    {
+            "A/C": bool,
+            "Heating": bool,
+            "Washer/Dryer": bool,
+            "Parking": bool,
+            "Beer": bool,
+            "Wifi": bool,
+            "Pets allowed": bool,
+            "Pool": bool
+    }
+
+
 
 class Property(PropertyIn):#Book
     id: PydanticObjectId
 
 class PropertyOut(PropertyIn): #BookOut(BookIn)
     id: str
-    property_name: str
     account_id: str
+
 
 class PropertyList(BaseModel):
     properties: List[PropertyOut]
