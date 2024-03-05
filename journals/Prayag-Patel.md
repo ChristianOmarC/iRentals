@@ -1,3 +1,13 @@
+##3/4/2024
+Today we tried to do our endpoint for propertites, we got most of them done.
+We need to work on our models tomorrow, so they work with reservation on work on front authentication.
+
+Reminder:
+    -work on issues barnch and learn how to use it
+        -create issue
+        -git checkout [-b] [branch_name]
+        
+
 ## 2/28/2024
 
 Today the team migrated the database and are working on Authentication. It wasn't easy!
