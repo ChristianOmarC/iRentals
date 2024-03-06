@@ -7,9 +7,9 @@ from .client import MongoQueries
 class ReservationsRepo(MongoQueries):
     collection_name = "reservations"
 
-    def create(self, reservation: ReservationIn, account_id: str) -> ReservationOut:
+    def create(self, reservation: ReservationIn, guest_id: str) -> ReservationOut:
         reservation_dict = reservation.dict()
-        reservation_dict['account_id'] = account_id
+        reservation_dict['account_id'] = guest_id
     
         result = self.collection.insert_one(reservation_dict)
         reservation_dict["id"] = str(result.inserted_id)

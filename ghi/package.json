@@ -10,8 +10,10 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@galvanize-inc/jwtdown-for-react": "^0.2.4",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
+        "react-router-dom": "^6.22.2",
         "stream-chat": "^8.20.0",
         "stream-chat-react": "^11.11.0"
     },

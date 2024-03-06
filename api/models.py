@@ -60,27 +60,30 @@ class ReservationOut(ReservationIn): #LoanOut(LoanIn)
 
 class Reservation(ReservationIn): #Loan(LoanIn)
     id: PydanticObjectId
-    account_id: str
+    guest_id: str
 
 class ReservationList(BaseModel):
     reservations : List[ReservationOut]
 
 class Amenities(BaseModel):
-    AC: bool
-    Heating: bool
-    Washer_Dryer: bool
-    Parking: bool
-    Beer: bool
-    Wifi: bool
-    Pets_allowed: bool
-    Pool: bool
+    ac: bool
+    heating: bool
+    washer_dryer: bool
+    parking: bool
+    beer: bool
+    wifi: bool
+    pets_allowed: bool
+    pool: bool
 
-class PropertyIn(BaseModel):
-    property_name: str
+class Address(BaseModel):
     address: str
     city: str
     state: str
     zip: str
+
+class PropertyIn(BaseModel):
+    name: str
+    address: Address
     bedrooms: int
     bathrooms: float
     price: float

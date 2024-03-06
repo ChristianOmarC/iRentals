@@ -8,17 +8,13 @@ from queries.properties import PropertiesRepo
 
 router = APIRouter()
 
-
-def get_reservations_repo():
-    return ReservationsRepo()
-
-@router.post("/api/reservations/", response_model=ReservationOut, status_code=201)
+@router.post("/api/reservations", response_model=ReservationOut, status_code=200)
 async def create_reservation(
     reservation_in: ReservationIn,
     account_data: dict = Depends(authenticator.get_current_account_data),
-    reservations_repo: ReservationsRepo = Depends(get_reservations_repo)
+    reservations_repo: ReservationsRepo = Depends()
 ):
-    new_reservation = reservations_repo.create(reservation=reservation_in , account_id=account_data["id"])
+    new_reservation = reservations_repo.create(reservation=reservation_in , guest_id=account_data["id"])
     if not new_reservation:
         raise HTTPException(status_code=400, detail="Error creating reservation.")
 
@@ -30,33 +26,33 @@ def update_reservation(
     reservation_id: str,
     reservation_update: ReservationIn,
     account_data: dict = Depends(authenticator.get_current_account_data),
-    reservations_repo: ReservationsRepo = Depends(get_reservations_repo)
+    reservations_repo: ReservationsRepo = Depends()
 ):
-    updated_reservation = reservations_repo.update(reservation_id, reservation_update, account_id=account_data["id"])
+    updated_reservation = reservations_repo.update(reservation_id, reservation_update, guest_id=account_data["id"])
     if updated_reservation:
         return updated_reservation
     else:
         raise HTTPException(status_code=404, detail="Reservation not found.")
 
 @router.get("/api/reservations", response_model=List[ReservationOut])
-def list_reservations_by_account(reservations_repo: ReservationsRepo = Depends(get_reservations_repo), account_data: dict = Depends(authenticator.get_current_account_data)):
+def list_reservations_by_account(reservations_repo: ReservationsRepo = Depends(), account_data: dict = Depends(authenticator.get_current_account_data)):
     return reservations_repo.get_all()
 
-@router.delete("/api/reservations/{reservation_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/api/reservations/{reservation_id}", status_code=status.HTTP_200_OK)
 def delete_reservation(
     reservation_id: str, repo: ReservationsRepo = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data)
     ):
-    if not repo.delete_reservation(reservation_id, account_id=account_data["id"]):
+    if not repo.delete_reservation(reservation_id, guest_id=account_data["id"]):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Reservation not found")
     return {"message": "Reservation deleted successfully"}
 
-@router.get("/reservations/{reservation_id}", response_model=ReservationOut)
+@router.get("/api/reservations/{reservation_id}", response_model=ReservationOut)
 def get_reservation_by_account(
     reservation_id: str, repo: ReservationsRepo = Depends(), 
     account_data: dict = Depends(authenticator.get_current_account_data)
     ):
-    reservation = repo.get_one(reservation_id, account_id=account_data["id"])
+    reservation = repo.get_one(reservation_id, guest_id=account_data["id"])
     if reservation is None:
         raise HTTPException(status_code=404, detail="Reservation not found")
     return reservation
