@@ -1,119 +1,132 @@
 import { useState } from 'react'
-import { useAuthContext } from '@galvanize-inc/jwtdown-for-react'
 import { useNavigate } from 'react-router-dom'
+import { useAuthContext } from '@galvanize-inc/jwtdown-for-react'
 import { login, register } from './services/auth'
 
-const SignupForm = () => {
+function SignUpForm() {
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [first_name, setFirstName] = useState('')
     const [last_name, setLastName] = useState('')
-    const { baseUrl, setToken } = useAuthContext()
+    const { setToken } = useAuthContext()
     const [errorMessage, setErrorMessage] = useState('')
     const navigate = useNavigate()
-    // console.log(baseUrl)
 
     const handleRegistration = async (e) => {
         e.preventDefault()
-        // It's very important to grab currentTarget now because
-        // when this callback ends, the browser sets it to null
-        const form = e.currentTarget
         const accountData = {
-            first_name: first_name,
-            last_name: last_name,
-            username: username,
-            password: password,
-            email: email,
+            email,
+            username,
+            password,
+            first_name,
+            last_name,
         }
+
         try {
             await register(accountData)
-            const token = await login(
-                baseUrl,
-                accountData.username,
-                accountData.password
-            )
-            setToken(token)
-            // Reset the form
-            form.reset()
-            navigate('/')
-        } catch (e) {
-            if (e instanceof Error) {
-                setErrorMessage(e.message)
+            const token = await login(username, password)
+            if (token) {
+                setToken(token)
+                navigate('/dashboard') // Adjust the redirect as needed
             }
-            console.error('Error: Redirect', e)
+        } catch (error) {
+            if (error instanceof Error) {
+                setErrorMessage(error.message)
+            } else {
+                console.error('Registration error:', error)
+                setErrorMessage('Failed to register. Please try again later.')
+            }
         }
     }
 
     return (
-        <div className="card text-bg-light mb-3">
-            <h5 className="card-header">Signup</h5>
-            <div className="card-body">
+        <div className="min-h-screen bg-gray-100 flex justify-center items-center">
+            <div className="bg-white rounded-lg shadow-md p-8">
+                <h2 className="text-3xl font-bold mb-4">Sign Up</h2>
+                {errorMessage && (
+                    <div
+                        className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-4 rounded"
+                        role="alert"
+                    >
+                        {errorMessage}
+                    </div>
+                )}
                 <form onSubmit={handleRegistration}>
-                    <div className="mb-3">
-                        {errorMessage ? <p>{errorMessage}</p> : ''}
-                        <label className="form-label">username</label>
+                    <div className="grid grid-cols-1 gap-4">
                         <input
+                            id="username"
                             name="username"
                             type="text"
-                            className="form-control"
-                            onChange={(e) => {
-                                setUsername(e.target.value)
-                            }}
+                            required
+                            placeholder="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            className="input"
                         />
-                    </div>
-                    <div className="mb-3">
-                        {errorMessage ? <p>{errorMessage}</p> : ''}
-                        <label className="form-label">First Name</label>
                         <input
-                            name="first_name"
-                            type="text"
-                            className="form-control"
-                            onChange={(e) => {
-                                setFirstName(e.target.value)
-                            }}
+                            id="email"
+                            name="email"
+                            type="email"
+                            autoComplete="email"
+                            required
+                            placeholder="Email address"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="input"
                         />
-                    </div>
-                    <div className="mb-3">
-                        {errorMessage ? <p>{errorMessage}</p> : ''}
-                        <label className="form-label">Last Name</label>
                         <input
-                            name="last_name"
-                            type="text"
-                            className="form-control"
-                            onChange={(e) => {
-                                setLastName(e.target.value)
-                            }}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">password</label>
-                        <input
+                            id="password"
                             name="password"
                             type="password"
-                            className="form-control"
-                            onChange={(e) => {
-                                setPassword(e.target.value)
-                            }}
+                            autoComplete="current-password"
+                            required
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="input"
                         />
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">email</label>
                         <input
-                            name="email"
+                            id="first_name"
+                            name="first_name"
                             type="text"
-                            className="form-control"
-                            onChange={(e) => {
-                                setEmail(e.target.value)
-                            }}
+                            autoComplete="given-name"
+                            required
+                            placeholder="First Name"
+                            value={first_name}
+                            onChange={(e) => setFirstName(e.target.value)}
+                            className="input"
                         />
-                    </div>
-                    <div>
                         <input
-                            className="btn btn-primary"
-                            type="submit"
-                            value="Register"
+                            id="last_name"
+                            name="last_name"
+                            type="text"
+                            autoComplete="family-name"
+                            required
+                            placeholder="Last Name"
+                            value={last_name}
+                            onChange={(e) => setLastName(e.target.value)}
+                            className="input"
                         />
+                        <button
+                            type="submit"
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        >
+                            Sign Up
+                        </button>
+                        <div className="flex items-center justify-center mt-4">
+                            <span className="mr-4">Or sign up with</span>
+                            <img
+                                src="google-icon.png"
+                                alt="Sign up with Google"
+                                className="w-8 h-8 cursor-pointer"
+                            />
+                            <img
+                                src="facebook-icon.png"
+                                alt="Sign up with Facebook"
+                                className="w-8 h-8 cursor-pointer ml-2"
+                            />
+                        </div>
                     </div>
                 </form>
             </div>
@@ -121,4 +134,4 @@ const SignupForm = () => {
     )
 }
 
-export default SignupForm
+export default SignUpForm

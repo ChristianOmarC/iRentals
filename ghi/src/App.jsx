@@ -1,21 +1,12 @@
-// This makes VSCode check types as if you are using TypeScript
-//@ts-check
-// import { useState, useEffect } from 'react'
-// import ErrorNotification from './ErrorNotification'
-// import Construct from './Construct'
-
-import './App.css'
 import { AuthProvider } from '@galvanize-inc/jwtdown-for-react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import SignupForm from './SignupForm'
 import LoginForm from './LoginForm'
 import LandingPage from './LandingPage'
+import './index.css'
 
-// All your environment variables in vite are in this object
 console.table(import.meta.env)
 
-// When using environment variables, you should do a check to see if
-// they are defined or not and throw an appropriate error message
 const API_HOST = import.meta.env.VITE_API_HOST
 const API_URL = import.meta.env.VITE_APP_API_HOST
 
