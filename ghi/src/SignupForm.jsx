@@ -28,7 +28,7 @@ function SignUpForm() {
             const token = await login(username, password)
             if (token) {
                 setToken(token)
-                navigate('/dashboard') // Adjust the redirect as needed
+                navigate('/dashboard') // Talk with team about the
             }
         } catch (error) {
             if (error instanceof Error) {

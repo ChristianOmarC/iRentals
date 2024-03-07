@@ -1,11 +1,28 @@
 //@ts-check
+import { Outlet } from 'react-router-dom'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
-// import './index.css'
+import './index.css'
+import Home from './pages/Home'
+import About from './pages/About'
+import Error from './pages/Error'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <App />,
+        errorElement: <Error />,
+        children: [
+            { index: true, element: <Home /> },
+            { path: 'about', element: <About /> },
+        ],
+    },
+])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <App />
+        <RouterProvider router={router} />
     </React.StrictMode>
 )
