@@ -15,7 +15,7 @@ from typing import List
 router = APIRouter()
 
 @router.post("/api/properties", response_model=PropertyOut)
-def create_property(
+def createProperty(
     property_in: PropertyIn,
     account_data: dict = Depends(authenticator.get_current_account_data),
     queries: PropertiesRepo = Depends()
@@ -28,11 +28,11 @@ def create_property(
     return new_property
 
 @router.get("/api/properties", response_model = PropertyList)
-def list_property(repo: PropertiesRepo = Depends()):
+def getAllProperties(repo: PropertiesRepo = Depends()):
     return PropertyList(properties=repo.get_all())
 
 @router.get("/api/properties/own", response_model = PropertyList)
-def list_properties_for_account(
+def getPropertiesForAccount(
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: PropertiesRepo = Depends()
     ):
@@ -40,7 +40,7 @@ def list_properties_for_account(
 
 
 @router.put("/api/properties/{property_id}", response_model=PropertyOut)
-async def update_property(
+async def updateProperty(
     
     property_id: str,
     property_update: PropertyIn,
@@ -54,13 +54,13 @@ async def update_property(
         raise HTTPException(status_code=404, detail="Property not found.")
 
 @router.delete("/api/properties/{property_id}", status_code=status.HTTP_200_OK)
-def delete_property(property_id: str, repo: PropertiesRepo = Depends(), account_data: dict = Depends(authenticator.get_current_account_data)):
+def deleteProperty(property_id: str, repo: PropertiesRepo = Depends(), account_data: dict = Depends(authenticator.get_current_account_data)):
     if not repo.delete_property(property_id, account_id=account_data['id']):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Property not found")
     return {"message": "Property deleted successfully"}
 
 @router.get("/api/properties/{property_id}", response_model=PropertyOut)
-def get_property(property_id: str, repo: PropertiesRepo = Depends()):
+def getProperty(property_id: str, repo: PropertiesRepo = Depends()):
     property = repo.get_one(property_id)
     if property is None:
         raise HTTPException(status_code=404, detail="Property not found")

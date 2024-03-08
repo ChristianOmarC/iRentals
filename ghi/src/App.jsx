@@ -1,6 +1,14 @@
 import { Outlet } from 'react-router-dom'
 import Nav from './components/Nav'
 
+
+const API_HOST = import.meta.env.VITE_API_HOST
+const API_URL = import.meta.env.VITE_APP_API_HOST
+
+if (!API_HOST) {
+    throw new Error('VITE_API_HOST is not defined')
+}
+
 const App = () => {
     return (
         <div>
@@ -22,12 +30,6 @@ export default App
 
 // console.table(import.meta.env)
 
-// const API_HOST = import.meta.env.VITE_API_HOST
-// const API_URL = import.meta.env.VITE_APP_API_HOST
-
-// if (!API_HOST) {
-//     throw new Error('VITE_API_HOST is not defined')
-// }
 
 // function App() {
 //     return (

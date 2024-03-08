@@ -43,6 +43,6 @@ services:
         volumes:
             - ./ghi:/app
         environment:
-            VITE_API_HOST: VITE_API_HOST
+            VITE_API_HOST: ${VITE_API_HOST}
         ports:
             - "5173:5173"

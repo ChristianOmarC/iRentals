@@ -1,134 +1,155 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuthContext } from '@galvanize-inc/jwtdown-for-react'
-import { login, register } from './services/auth'
+import { useSignupMutation } from './app/apiSlice'
+import signupImage from './assets/signupImage.jpg'
+
 
 function SignUpForm() {
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [passwordConfirmation, setPasswordConfirmation] = useState('')
     const [first_name, setFirstName] = useState('')
     const [last_name, setLastName] = useState('')
-    const { setToken } = useAuthContext()
-    const [errorMessage, setErrorMessage] = useState('')
     const navigate = useNavigate()
+    const [errorMessage, setErrorMessage] = useState('')
+    const [signup, signupStatus] = useSignupMutation()
+    
 
-    const handleRegistration = async (e) => {
+    useEffect(() => {
+        if (signupStatus.isSuccess) navigate ('/')
+        if (signupStatus.isError) setErrorMessage(signupStatus)
+    }, [signupStatus])
+    
+    const handleSubmit = (e) => {
         e.preventDefault()
-        const accountData = {
-            email,
-            username,
-            password,
-            first_name,
-            last_name,
-        }
+        if (password != passwordConfirmation) {
+            setErrorMessage("Password does not match")
+        } else {
+            signup({
+                first_name,
+                last_name,
+                email,
+                username,
+                password,
+                
 
-        try {
-            await register(accountData)
-            const token = await login(username, password)
-            if (token) {
-                setToken(token)
-                navigate('/dashboard') // Talk with team about the
-            }
-        } catch (error) {
-            if (error instanceof Error) {
-                setErrorMessage(error.message)
-            } else {
-                console.error('Registration error:', error)
-                setErrorMessage('Failed to register. Please try again later.')
-            }
+            })
         }
-    }
+    };
 
-    return (
-        <div className="min-h-screen bg-gray-100 flex justify-center items-center">
-            <div className="bg-white rounded-lg shadow-md p-8">
-                <h2 className="text-3xl font-bold mb-4">Sign Up</h2>
-                {errorMessage && (
-                    <div
-                        className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-4 rounded"
-                        role="alert"
-                    >
-                        {errorMessage}
-                    </div>
-                )}
-                <form onSubmit={handleRegistration}>
-                    <div className="grid grid-cols-1 gap-4">
-                        <input
-                            id="username"
-                            name="username"
-                            type="text"
-                            required
-                            placeholder="Username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            className="input"
-                        />
-                        <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            autoComplete="email"
-                            required
-                            placeholder="Email address"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="input"
-                        />
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            autoComplete="current-password"
-                            required
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="input"
-                        />
-                        <input
-                            id="first_name"
-                            name="first_name"
-                            type="text"
-                            autoComplete="given-name"
-                            required
-                            placeholder="First Name"
-                            value={first_name}
-                            onChange={(e) => setFirstName(e.target.value)}
-                            className="input"
-                        />
-                        <input
-                            id="last_name"
-                            name="last_name"
-                            type="text"
-                            autoComplete="family-name"
-                            required
-                            placeholder="Last Name"
-                            value={last_name}
-                            onChange={(e) => setLastName(e.target.value)}
-                            className="input"
-                        />
-                        <button
-                            type="submit"
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        >
-                            Sign Up
-                        </button>
-                        <div className="flex items-center justify-center mt-4">
-                            <span className="mr-4">Or sign up with</span>
-                            <img
-                                src="google-icon.png"
-                                alt="Sign up with Google"
-                                className="w-8 h-8 cursor-pointer"
-                            />
-                            <img
-                                src="facebook-icon.png"
-                                alt="Sign up with Facebook"
-                                className="w-8 h-8 cursor-pointer ml-2"
-                            />
+     return (
+        <div className="flex justify-center items-center min-h-screen">
+            <div className="flex flex-col md:flex-row bg-grey-100 shadow-xl">
+                {/* Left side with image */}
+
+                <div
+                    className="md:w-96 h-auto md:h-auto self-stretch bg-cover bg-no-repeat bg-center"
+                    style={{ backgroundImage: `url(${signupImage})` }}
+                >
+                    {/* Image is set via background-image */}
+                </div>
+                {/* Right side with form */}
+                <div className="p-10">
+                    <div className="w-full max-w-md">
+                        <h2 className="text-3xl font-bold text-center mb-10">
+                            Create Account
+                        </h2>
+
+                        {/* Social Media Sign Up */}
+                        {/* <div className="flex justify-center gap-4 mb-5">
+                            <button className="bg-blue-500 text-white rounded py-2 px-4 flex items-center justify-center space-x-2">
+                                <FaGoogle />
+                                <span>Sign up with Google</span>
+                            </button>
+                            <button className="bg-blue-700 text-white rounded py-2 px-4 flex items-center justify-center space-x-2">
+                                <FaFacebook />
+                                <span>Sign up with Facebook</span>
+                            </button>
+                        </div> */}
+
+                        <div className="flex items-center justify-center my-5">
+                            <span className="bg-gray-300 h-px flex-grow t-2 relative top-2 mx-2"></span>
+                            <span className="flex-none uppercase text-xs text-gray-400 whitespace-nowrap">
+                                or
+                            </span>
+                            <span className="bg-gray-300 h-px flex-grow t-2 relative top-2 mx-2"></span>
                         </div>
+
+                        {/* Sign Up Form */}
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            <input
+                                type="text"
+                                placeholder="First Name"
+                                value={first_name}
+                                onChange={(e) => setFirstName(e.target.value)}
+                                className="w-full p-3 border-b border-gray-300 focus:outline-none focus:border-green-500"
+                                required
+                            />
+                            <input
+                                type="text"
+                                placeholder="Last Name"
+                                value={last_name}
+                                onChange={(e) => setLastName(e.target.value)}
+                                className="w-full p-3 border-b border-gray-300 focus:outline-none focus:border-green-500"
+                                required
+                            />
+                            <input
+                                type="text"
+                                placeholder="Username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                className="w-full p-3 border-b border-gray-300 focus:outline-none focus:border-green-500"
+                                required
+                            />
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="w-full p-3 border-b border-gray-300 focus:outline-none focus:border-green-500"
+                                required
+                            />
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="w-full p-3 border-b border-gray-300 focus:outline-none focus:border-green-500"
+                                required
+                            />
+                            <input
+                                type="password"
+                                placeholder="Password Confirmation"
+                                value={passwordConfirmation}
+                                onChange={(e) => setPasswordConfirmation(e.target.value)}
+                                className="w-full p-3 border-b border-gray-300 focus:outline-none focus:border-green-500"
+                                required
+                            />
+                            <button
+                                type="submit"
+                                className="w-full bg-green-500 text-white py-3 px-6 rounded hover:bg-green-600 transition duration-200 ease-in-out"
+                            >
+                                Submit
+                            </button>
+                        </form>
+
+                        <p className="mt-6 text-center text-sm text-gray-600">
+                            Already have an account?{' '}
+                            <a
+                                href="#"
+                                className="text-green-600 hover:underline"
+                            >
+                                Log in
+                            </a>
+                        </p>
+                        {errorMessage && (
+                            <p className="text-center text-red-500 mt-2">
+                                {errorMessage}
+                            </p>
+                        )}
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     )

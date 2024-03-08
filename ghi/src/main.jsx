@@ -10,6 +10,9 @@ import Error from './pages/Error'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import store from './app/store'
 import { Provider } from 'react-redux'
+import ListProperties from './components/ListProperties'
+import SignUpForm from './SignupForm'
+import LoginForm from './LoginForm'
 
 const router = createBrowserRouter([
     {
@@ -19,6 +22,9 @@ const router = createBrowserRouter([
         children: [
             { index: true, element: <Home /> },
             { path: 'about', element: <About /> },
+            { path: 'properties', element: <ListProperties />},
+            { path: 'signup', element: <SignUpForm />},
+            { path: 'login', element: <LoginForm />},
         ],
     },
 ])

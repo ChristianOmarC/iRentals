@@ -1,26 +1,29 @@
-import { useAuthContext } from '@galvanize-inc/jwtdown-for-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './styles.css'
+import { useLoginMutation } from './app/apiSlice'
+import { useNavigate } from 'react-router-dom'
+
 const LoginForm = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
-    const { login } = useAuthContext() // Assuming login is correctly implemented in the context to handle authentication
+    const [errorMessage, setErrorMessage] = useState('')
+    const [ login, loginStatus ] = useLoginMutation()
+    const navigate = useNavigate()
 
-    const handleSubmit = async (e) => {
+
+    useEffect(() => {
+        if (loginStatus.isSuccess) navigate ('/')
+        if (loginStatus.isError) setErrorMessage(loginStatus)
+    }, [loginStatus])
+
+    const handleSubmit = (e) => {
         e.preventDefault()
-        setError('') // Clear any existing errors
-        try {
-            const success = await login(username, password)
-            if (!success) {
-                setError(
-                    'Login failed. Please check your username and password.'
-                )
-            }
-        } catch (error) {
-            setError(error.message || 'An unexpected error occurred.')
-            console.error('Login error:', error)
-        }
+        console.log('login')
+        login({
+            username,
+            password
+        })
     }
 
     return (
