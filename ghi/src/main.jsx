@@ -13,6 +13,7 @@ import { Provider } from 'react-redux'
 import ListProperties from './components/ListProperties'
 import SignUpForm from './SignupForm'
 import LoginForm from './LoginForm'
+import PropertyDetails from './components/PropertyDetails';
 
 const router = createBrowserRouter([
     {
@@ -22,9 +23,10 @@ const router = createBrowserRouter([
         children: [
             { index: true, element: <Home /> },
             { path: 'about', element: <About /> },
-            { path: 'properties', element: <ListProperties />},
-            { path: 'signup', element: <SignUpForm />},
-            { path: 'login', element: <LoginForm />},
+            { path: 'properties', element: <ListProperties /> },
+            { path: 'signup', element: <SignUpForm /> },
+            { path: 'login', element: <LoginForm /> },
+            { path: 'properties/:id', element: <PropertyDetails /> },
         ],
     },
 ])
