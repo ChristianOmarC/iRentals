@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSignupMutation } from './app/apiSlice'
 import signupImage from './assets/signupImage.jpg'
-
+import { FaGoogle, FaFacebook } from 'react-icons/fa'
 
 function SignUpForm() {
     const [email, setEmail] = useState('')
@@ -14,17 +14,16 @@ function SignUpForm() {
     const navigate = useNavigate()
     const [errorMessage, setErrorMessage] = useState('')
     const [signup, signupStatus] = useSignupMutation()
-    
 
     useEffect(() => {
-        if (signupStatus.isSuccess) navigate ('/')
+        if (signupStatus.isSuccess) navigate('/')
         if (signupStatus.isError) setErrorMessage(signupStatus)
     }, [signupStatus])
-    
+
     const handleSubmit = (e) => {
         e.preventDefault()
         if (password != passwordConfirmation) {
-            setErrorMessage("Password does not match")
+            setErrorMessage('Password does not match')
         } else {
             signup({
                 first_name,
@@ -32,13 +31,11 @@ function SignUpForm() {
                 email,
                 username,
                 password,
-                
-
             })
         }
-    };
+    }
 
-     return (
+    return (
         <div className="flex justify-center items-center min-h-screen">
             <div className="flex flex-col md:flex-row bg-grey-100 shadow-xl">
                 {/* Left side with image */}
@@ -57,7 +54,7 @@ function SignUpForm() {
                         </h2>
 
                         {/* Social Media Sign Up */}
-                        {/* <div className="flex justify-center gap-4 mb-5">
+                        <div className="flex justify-center gap-4 mb-5">
                             <button className="bg-blue-500 text-white rounded py-2 px-4 flex items-center justify-center space-x-2">
                                 <FaGoogle />
                                 <span>Sign up with Google</span>
@@ -66,7 +63,7 @@ function SignUpForm() {
                                 <FaFacebook />
                                 <span>Sign up with Facebook</span>
                             </button>
-                        </div> */}
+                        </div>
 
                         <div className="flex items-center justify-center my-5">
                             <span className="bg-gray-300 h-px flex-grow t-2 relative top-2 mx-2"></span>
@@ -122,7 +119,9 @@ function SignUpForm() {
                                 type="password"
                                 placeholder="Password Confirmation"
                                 value={passwordConfirmation}
-                                onChange={(e) => setPasswordConfirmation(e.target.value)}
+                                onChange={(e) =>
+                                    setPasswordConfirmation(e.target.value)
+                                }
                                 className="w-full p-3 border-b border-gray-300 focus:outline-none focus:border-green-500"
                                 required
                             />

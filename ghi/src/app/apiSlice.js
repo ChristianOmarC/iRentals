@@ -1,31 +1,30 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const iRentalApi = createApi({
-  reducerPath: 'iRentalApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_API_HOST}`,
-    credentials: 'include'
-  }),
+    reducerPath: 'iRentalApi',
+    baseQuery: fetchBaseQuery({
+        baseUrl: `${import.meta.env.VITE_API_HOST}`,
+        credentials: 'include',
+    }),
     endpoints: (builder) => ({
         getToken: builder.query({
             query: () => ({
                 url: '/token',
             }),
-            provideTags: ['Account']
+            provideTags: ['Account', 'Review'],
         }),
         signup: builder.mutation({
-            query : body => ({
+            query: (body) => ({
                 url: '/api/accounts',
                 body,
                 method: 'POST',
             }),
         }),
         login: builder.mutation({
-            query: info => {
-                let formData = null;
+            query: (info) => {
+                let formData = null
                 if (info instanceof HTMLElement) {
-                    formData = new FormData(info);
+                    formData = new FormData(info)
                 } else {
                     formData = new FormData()
                     formData.append('username', info.username)
@@ -36,31 +35,33 @@ export const iRentalApi = createApi({
                     body: formData,
                     method: 'POST',
                     credentials: 'include',
-                };              
+                }
             },
-            invalidateTags: result => {
-                return (result && ['Account']) || [];
+            invalidateTags: (result) => {
+                return (result && ['Account']) || []
             },
-        }),     
+        }),
         logout: builder.mutation({
             query: () => ({
                 url: '/token',
                 method: 'DELETE',
             }),
-            invalidateTags: ['Account']
+            invalidateTags: ['Account'],
         }),
         getAllProperties: builder.query({
             query: () => '/api/properties',
         }),
-        
-  }),
-});
 
-export const { 
+        getPropertyById: builder.query({
+            query: (id) => '',
+        }),
+    }),
+})
+
+export const {
     useGetTokenQuery,
     useSignupMutation,
     useLoginMutation,
     useLogoutMutation,
     useGetAllPropertiesQuery,
-
- } = iRentalApi;
+} = iRentalApi
