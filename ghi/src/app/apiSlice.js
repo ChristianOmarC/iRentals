@@ -36,12 +36,12 @@ export const iRentalApi = createApi({
                     body: formData,
                     method: 'POST',
                     credentials: 'include',
-                };              
+                };
             },
             invalidateTags: result => {
                 return (result && ['Account']) || [];
             },
-        }),     
+        }),
         logout: builder.mutation({
             query: () => ({
                 url: '/token',
@@ -52,11 +52,10 @@ export const iRentalApi = createApi({
         getAllProperties: builder.query({
             query: () => '/api/properties',
         }),
-        
   }),
 });
 
-export const { 
+export const {
     useGetTokenQuery,
     useSignupMutation,
     useLoginMutation,
