@@ -13,11 +13,6 @@ const PropertyCard = ({ property }) => {
         amenities,
         id,
     } = property
-    const navigate = useNavigate()
-
-    const handleButtonClick = () => {
-        alert(`Property Name: ${property.name}`)
-    }
 
     return (
         <div className="max-w-sm rounded overflow-hidden shadow-lg">
@@ -78,6 +73,7 @@ const PropertyCard = ({ property }) => {
                             Washer/Dryer
                         </span>
                     )}
+                    {/* <button onClick={handleButtonClick}>Show Property Name</button> */}
                     <button onClick={handleButtonClick}>
                         Show Property Name
                     </button>
