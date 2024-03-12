@@ -1,10 +1,9 @@
 import { Link, NavLink } from 'react-router-dom'
 import { useGetTokenQuery, useLogoutMutation } from '../app/apiSlice'
 
-
 const Nav = () => {
     const { data: account, isLoading } = useGetTokenQuery()
-    const [ logout , logoutStatus ] = useLogoutMutation()
+    const [logout, logoutStatus] = useLogoutMutation()
     console.log(logoutStatus)
 
     if (isLoading) return <div>Loading....</div>
@@ -25,6 +24,12 @@ const Nav = () => {
             </li>
             <li>
                 <NavLink to={'/properties'}>Properties</NavLink>
+            </li>
+            <li>
+                <NavLink to={'/createproperty'}>Create Property</NavLink>
+            </li>
+            <li>
+                <NavLink to={'/dashboard'}>Dashboard</NavLink>
             </li>
             {account && (
                 <button
