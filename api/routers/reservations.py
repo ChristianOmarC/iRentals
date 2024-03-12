@@ -49,7 +49,7 @@ def delete_reservation(
 
 @router.get("/api/reservations/{reservation_id}", response_model=ReservationOut)
 def get_reservation_by_account(
-    reservation_id: str, repo: ReservationsRepo = Depends(), 
+    reservation_id: str, repo: ReservationsRepo = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data)
     ):
     reservation = repo.get_one(reservation_id, guest_id=account_data["id"])

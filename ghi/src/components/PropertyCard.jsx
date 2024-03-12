@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, Route, useNavigate } from 'react-router-dom' // added route
-import PropertyDetails from './PropertyDetails' // added this
+
 
 const PropertyCard = ({ property }) => {
     const {
@@ -13,11 +13,6 @@ const PropertyCard = ({ property }) => {
         amenities,
         id,
     } = property
-    const navigate = useNavigate()
-
-    const handleButtonClick = () => {
-        alert(`Property Name: ${property.name}`)
-    }
 
     return (
         <div className="max-w-sm rounded overflow-hidden shadow-lg">
@@ -25,20 +20,6 @@ const PropertyCard = ({ property }) => {
                 <Link to={`/properties/${id}`}>
                     <div className="font-bold text-xl mb-2">{name}</div>
                 </Link>
-                <button
-                    className="btn btn-primary fw-bolder"
-                    onClick={() => navigate(`/properties/${id}`)}
-                >
-                    + Sale
-                </button>
-
-                {/* <Route
-                        path={`/properties/${id}`}  //can delete if doesn't work
-                        element={<PropertyDetails />}
-                    />
-                    <button className="btn btn-success"
-                        onClick={PropertyDetails}>Explore Courses
-                    </button> */}
                 <p className="text-gray-700 text-base">{description}</p>
             </div>
             <div className="px-6 py-4">
@@ -49,15 +30,35 @@ const PropertyCard = ({ property }) => {
                     {bathrooms} Bathrooms
                 </span>
             </div>
-            <div className="px-6 py-4">
+            {/* <div className="px-3 py-1">
                 <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-                    {address.address}, {address.city}, {address.state}{' '}
+                    Address: {address.address}, {address.city}, {address.state}{' '}
                     {address.zip}
                 </span>
+            </div> */}
+            {/* <div className="px-3 py-1">
+                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                    Address: {address.address}
+                </span>
+            </div> */}
+            <div className="px-3 py-1">
+                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                    City, State: {address.city}, {address.state}
+                </span>
             </div>
-            <div className="px-6 py-4">
+            {/* <div className="px-3 py-1">
+                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                    State: {address.state}
+                </span>
+            </div> */}
+            {/* <div className="px-3 py-1">
+                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                    Zip: {address.zip}
+                </span>
+            </div> */}
+            <div className="px-3 py-1">
                 <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">
-                    ${price}
+                    Price: ${price}
                 </span>
             </div>
             <div className="px-6 py-4">
@@ -78,9 +79,31 @@ const PropertyCard = ({ property }) => {
                             Washer/Dryer
                         </span>
                     )}
-                    <button onClick={handleButtonClick}>
-                        Show Property Name
-                    </button>
+                    {amenities.parking && (
+                        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                            Parking
+                        </span>
+                    )}
+                    {amenities.beer && (
+                        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                            Beer
+                        </span>
+                    )}
+                    {amenities.wifi && (
+                        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                            Wifi
+                        </span>
+                    )}
+                    {amenities.pets_allowed && (
+                        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                            Pets Allowed
+                        </span>
+                    )}
+                    {amenities.pool && (
+                        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                            Pool
+                        </span>
+                    )}
                 </div>
             </div>
         </div>

@@ -13,10 +13,12 @@ import { Provider } from 'react-redux'
 import ListProperties from './components/ListProperties'
 import SignUpForm from './SignupForm'
 import LoginForm from './LoginForm'
-import PropertyDetails from './components/PropertyDetails';
-
+import PropertyDetails from './components/PropertyDetails'
+import ListReservations from './components/ListReservations'
 import CreateProperty from './components/CreateProperty'
-import Dashboard from './components/Dashboard/dashboard'
+import Dashboard from './components/Dashboard/Dashboard'
+import CreateReservation from './components/CreateReservation'
+
 const router = createBrowserRouter([
     {
         path: '/',
@@ -26,11 +28,14 @@ const router = createBrowserRouter([
             { index: true, element: <Home /> },
             { path: 'about', element: <About /> },
             { path: 'properties', element: <ListProperties /> },
+            { path: 'properties/:id', element: <PropertyDetails /> },
             { path: 'signup', element: <SignUpForm /> },
             { path: 'login', element: <LoginForm /> },
             { path: 'properties/:id', element: <PropertyDetails /> },
             { path: 'createproperty', element: <CreateProperty /> },
             { path: 'dashboard', element: <Dashboard /> },
+            { path: 'reservations', element: <ListReservations /> },
+            { path: 'createreservation', element: <CreateReservation />},
         ],
     },
 ])

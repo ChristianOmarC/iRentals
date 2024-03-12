@@ -29,6 +29,12 @@ const Nav = () => {
                 <NavLink to={'/createproperty'}>Create Property</NavLink>
             </li>
             <li>
+                <NavLink to={'/reservations'}>Reservations</NavLink>
+            </li>
+            <li>
+                <NavLink to={'/createreservation'}>Create Reservation</NavLink>
+            </li>
+            <li>
                 <NavLink to={'/dashboard'}>Dashboard</NavLink>
             </li>
             {account && (

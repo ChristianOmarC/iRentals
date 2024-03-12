@@ -111,4 +111,6 @@ export const {
     useLogoutMutation,
     useGetAllPropertiesQuery,
     useCreatePropertyMutation,
+    useCreateReservationMutation,
+
 } = iRentalApi
