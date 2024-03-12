@@ -53,7 +53,7 @@ export const iRentalApi = createApi({
         }),
         getPropertyById: builder.query({
             query: (id) => `/api/properties/${id}`,
-            providesTags: (result, error, id) => [{ type: 'Property', id }],
+            providesTags: (result, error, id) => [{ type: 'Property', id: id }],
         }),
         updateProperty: builder.mutation({
             query: ({ id, ...put }) => ({
@@ -110,4 +110,5 @@ export const {
     useLoginMutation,
     useLogoutMutation,
     useGetAllPropertiesQuery,
+    useCreatePropertyMutation,
 } = iRentalApi
