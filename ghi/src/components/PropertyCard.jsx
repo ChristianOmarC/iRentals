@@ -25,6 +25,8 @@ const PropertyCard = ({ property }) => {
                 <Link to={`/properties/${id}`}>
                     <div className="font-bold text-xl mb-2">{name}</div>
                 </Link>
+<<<<<<< HEAD
+=======
                 <button
                     className="btn btn-primary fw-bolder"
                     onClick={() => navigate(`/properties/${id}`)}
@@ -39,6 +41,7 @@ const PropertyCard = ({ property }) => {
                     <button className="btn btn-success"
                         onClick={PropertyDetails}>Explore Courses
                     </button> */}
+>>>>>>> dashboard
                 <p className="text-gray-700 text-base">{description}</p>
             </div>
             <div className="px-6 py-4">
@@ -78,9 +81,13 @@ const PropertyCard = ({ property }) => {
                             Washer/Dryer
                         </span>
                     )}
+<<<<<<< HEAD
+                    {/* <button onClick={handleButtonClick}>Show Property Name</button> */}
+=======
                     <button onClick={handleButtonClick}>
                         Show Property Name
                     </button>
+>>>>>>> dashboard
                 </div>
             </div>
         </div>
