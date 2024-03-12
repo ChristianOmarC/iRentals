@@ -20,6 +20,20 @@ const PropertyCard = ({ property }) => {
                 <Link to={`/properties/${id}`}>
                     <div className="font-bold text-xl mb-2">{name}</div>
                 </Link>
+                <button
+                    className="btn btn-primary fw-bolder"
+                    onClick={() => navigate(`/properties/${id}`)}
+                >
+                    + Sale
+                </button>
+
+                {/* <Route
+                        path={`/properties/${id}`}  //can delete if doesn't work
+                        element={<PropertyDetails />}
+                    />
+                    <button className="btn btn-success"
+                        onClick={PropertyDetails}>Explore Courses
+                    </button> */}
                 <p className="text-gray-700 text-base">{description}</p>
             </div>
             <div className="px-6 py-4">
@@ -59,7 +73,13 @@ const PropertyCard = ({ property }) => {
                             Washer/Dryer
                         </span>
                     )}
+<<<<<<< HEAD
                     {/* <button onClick={handleButtonClick}>Show Property Name</button> */}
+=======
+                    <button onClick={handleButtonClick}>
+                        Show Property Name
+                    </button>
+>>>>>>> fa271b4 (resolved merge conflict)
                 </div>
             </div>
         </div>
