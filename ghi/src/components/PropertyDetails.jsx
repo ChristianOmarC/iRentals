@@ -3,12 +3,12 @@ import { useGetPropertyByIdQuery } from '../app/apiSlice'
 import { useParams } from 'react-router-dom'
 
 const PropertyDetails = () => {
-    const { propertyId } = useParams()
+    const { propertyid } = useParams()
     const {
         data: property,
         isLoading,
         isSuccess,
-    } = useGetPropertyByIdQuery(propertyId)
+    } = useGetPropertyByIdQuery(propertyid)
 
     if (isLoading) {
         return <div>Loading...</div>
