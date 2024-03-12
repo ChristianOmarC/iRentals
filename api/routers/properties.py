@@ -40,7 +40,7 @@ def getPropertiesForAccount(
 
 
 @router.put("/api/properties/{property_id}", response_model=PropertyOut)
-async def updateProperty(
+def updateProperty(
     
     property_id: str,
     property_update: PropertyIn,

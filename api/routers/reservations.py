@@ -9,7 +9,7 @@ from queries.properties import PropertiesRepo
 router = APIRouter()
 
 @router.post("/api/reservations", response_model=ReservationOut, status_code=200)
-async def create_reservation(
+def create_reservation(
     reservation_in: ReservationIn,
     account_data: dict = Depends(authenticator.get_current_account_data),
     reservations_repo: ReservationsRepo = Depends()
