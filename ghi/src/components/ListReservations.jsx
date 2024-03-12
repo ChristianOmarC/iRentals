@@ -1,6 +1,7 @@
 import React from 'react'
 import { useGetAllReservationsQuery } from '../app/apiSlice'
 import ReservationCard from './ReservationsCard'
+
 const ListReservations = () => {
     const { data, isLoading, isSuccess } = useGetAllReservationsQuery()
     if (isLoading) {
