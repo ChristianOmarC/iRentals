@@ -10,7 +10,7 @@ const ReservationDetail = () => {
         isLoading,
         isSuccess,
     } = useGetReservationByIdQuery(id)
-    
+
 // const PropertyDetails = () => {
 //     const { id } = useParams()
 //     const {
@@ -32,7 +32,7 @@ const ReservationDetail = () => {
             <h1>{reservation.reservation_name}</h1>
             <p>Check-In: {reservation.checkin}</p>
             <p>Check-out: {reservation.checkout}</p>
-            {/* <p>Property : {reservation.property_id.address}</p> */}
+            <p>Property : {reservation.property_id}</p>
             {/* <p>
                 Address: {property.address.address}, {property.address.city},{' '}
                 {property.address.state} {property.address.zip}
