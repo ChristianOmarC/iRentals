@@ -10,7 +10,7 @@ class ReservationsRepo(MongoQueries):
     def create(self, reservation: ReservationIn, guest_id: str) -> ReservationOut:
         reservation_dict = reservation.dict()
         reservation_dict['account_id'] = guest_id
-    
+
         result = self.collection.insert_one(reservation_dict)
         reservation_dict["id"] = str(result.inserted_id)
         return ReservationOut(**reservation_dict)
@@ -46,13 +46,12 @@ class ReservationsRepo(MongoQueries):
     def delete_reservation(self, reservation_id: str) -> bool:
         result = self.collection.delete_one({"_id": ObjectId(reservation_id)})
         return result.deleted_count > 0
-    
-    def get_one(self, reservation_id: str):
-        try:
-            reservation = self.collection.find_one({'_id': ObjectId(reservation_id)})
-        except InvalidId:
-            reservation = None
-        if reservation is not None:
-            reservation['id'] = str(reservation['_id'])
-        return reservation
-    
+
+    # def get_one(self, reservation_id: str):
+    #     try:
+    #         reservation = self.collection.find_one({'_id': ObjectId(reservation_id)})
+    #     except InvalidId:
+    #         reservation = None
+    #     if reservation is not None:
+    #         reservation['id'] = str(reservation['_id'])
+    #     return reservation

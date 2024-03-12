@@ -18,7 +18,7 @@ import ListReservations from './components/ListReservations'
 import CreateProperty from './components/CreateProperty'
 import Dashboard from './components/Dashboard/Dashboard'
 import CreateReservation from './components/CreateReservation'
-
+import ReservationDetail from './components/ReservationDetails'
 const router = createBrowserRouter([
     {
         path: '/',
@@ -35,6 +35,7 @@ const router = createBrowserRouter([
             { path: 'dashboard', element: <Dashboard /> },
             { path: 'reservations', element: <ListReservations /> },
             { path: 'createreservation', element: <CreateReservation />},
+            { path: 'reservations/:id', element: <ReservationDetail />},
         ],
     },
 ])

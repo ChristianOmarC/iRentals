@@ -20,12 +20,12 @@ const PropertyCard = ({ property }) => {
                 <Link to={`/properties/${id}`}>
                     <div className="font-bold text-xl mb-2">{name}</div>
                 </Link>
-                <button
+                {/* <button
                     className="btn btn-primary fw-bolder"
                     onClick={() => navigate(`/properties/${id}`)}
                 >
                     + Sale
-                </button>
+                </button> */}
 
                 {/* <Route
                         path={`/properties/${id}`}  //can delete if doesn't work

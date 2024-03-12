@@ -52,7 +52,7 @@ def get_reservation_by_account(
     reservation_id: str, repo: ReservationsRepo = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data)
     ):
-    reservation = repo.get_one(reservation_id, guest_id=account_data["id"])
+    reservation = repo.get_one(reservation_id)#, guest_id=account_data["id"])
     if reservation is None:
         raise HTTPException(status_code=404, detail="Reservation not found")
     return reservation
