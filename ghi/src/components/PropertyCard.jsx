@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, Route, useNavigate } from 'react-router-dom' // added route
-
+import PropertyDetails from './PropertyDetails' // added this
 
 const PropertyCard = ({ property }) => {
     const {
@@ -20,6 +20,20 @@ const PropertyCard = ({ property }) => {
                 <Link to={`/properties/${id}`}>
                     <div className="font-bold text-xl mb-2">{name}</div>
                 </Link>
+                <button
+                    className="btn btn-primary fw-bolder"
+                    onClick={() => navigate(`/properties/${id}`)}
+                >
+                    + Sale
+                </button>
+
+                {/* <Route
+                        path={`/properties/${id}`}  //can delete if doesn't work
+                        element={<PropertyDetails />}
+                    />
+                    <button className="btn btn-success"
+                        onClick={PropertyDetails}>Explore Courses
+                    </button> */}
                 <p className="text-gray-700 text-base">{description}</p>
             </div>
             <div className="px-6 py-4">
