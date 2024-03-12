@@ -15,6 +15,8 @@ import SignUpForm from './SignupForm'
 import LoginForm from './LoginForm'
 import CreateProperty from './components/CreateProperty'
 import Dashboard from './components/Dashboard/Dashboard'
+import PropertyDetails from './components/PropertyDetails'
+
 const router = createBrowserRouter([
     {
         path: '/',
@@ -24,6 +26,7 @@ const router = createBrowserRouter([
             { index: true, element: <Home /> },
             { path: 'about', element: <About /> },
             { path: 'properties', element: <ListProperties /> },
+            { path: 'properties/:id', element: <PropertyDetails /> },
             { path: 'signup', element: <SignUpForm /> },
             { path: 'login', element: <LoginForm /> },
             { path: 'createproperty', element: <CreateProperty /> },
