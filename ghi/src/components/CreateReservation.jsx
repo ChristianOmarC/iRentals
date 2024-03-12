@@ -7,7 +7,7 @@ const CreateReservation = () => {
     const [checkout, setCheckout ] = useState('')
     const [reservation_name, setReservationName ] = useState('')
     const [property_id, setPropertyId] =  useState('')
-    const [guest_id, setGuestId] = useState('')
+    const [account_id, setAccountId] = useState('')
 
     const [addReservation, { isLoading, isSuccess, isError, error }] =
         useCreateReservationMutation()
@@ -21,7 +21,7 @@ const CreateReservation = () => {
             checkout,
             reservation_name,
             property_id,
-            guest_id,
+            account_id,
         }
         console.log(reservationData)
         //setGuestId(self.account_id)
@@ -110,17 +110,17 @@ const CreateReservation = () => {
                     <div>
                         <label
                             className="block text-gray-700 text-sm font-bold mb-2"
-                            htmlFor="guest_id"
+                            htmlFor="Guest"
                         >
                             Guest ID
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="guest_id"
+                            id="account_id"
                             type="text"
-                            placeholder="guest_id"
-                            value={guest_id}
-                            onChange={(e) => setGuestId(e.target.value)}
+                            placeholder="Guest"
+                            value={account_id}
+                            onChange={(e) => setAccountId(e.target.value)}
                         />
                     </div>
                 <div className="flex items-center justify-between">

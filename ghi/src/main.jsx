@@ -31,7 +31,6 @@ const router = createBrowserRouter([
             { path: 'properties/:id', element: <PropertyDetails /> },
             { path: 'signup', element: <SignUpForm /> },
             { path: 'login', element: <LoginForm /> },
-            { path: 'properties/:id', element: <PropertyDetails /> },
             { path: 'createproperty', element: <CreateProperty /> },
             { path: 'dashboard', element: <Dashboard /> },
             { path: 'reservations', element: <ListReservations /> },
