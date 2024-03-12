@@ -80,7 +80,7 @@ export const iRentalApi = createApi({
             query: (id) => `/api/reservations/${id}`,
             providesTags: (result, error, id) => [{ type: 'Reservation', id: id}],
         }),
-        updateReservation: builder.query({
+        updateReservation: builder.mutation({
             query: ({ id, ...put }) => ({
                 url: `/api/reservations/${id}`,
                 method: 'PUT',
@@ -113,5 +113,6 @@ export const {
     useCreatePropertyMutation,
     useCreateReservationMutation,
     useGetReservationByIdQuery,
+    useUpdateReservationMutation,
 
 } = iRentalApi

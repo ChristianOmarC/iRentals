@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { useGetReservationByIdQuery, useGetPropertyByIdQuery } from '../app/apiSlice'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 
 const ReservationDetail = () => {
     const { id } = useParams()
@@ -33,6 +33,9 @@ const ReservationDetail = () => {
             <p>Check-In: {reservation.checkin}</p>
             <p>Check-out: {reservation.checkout}</p>
             <p>Property : {reservation.property_id}</p>
+            <Link to={`/reservations/${id}/update`}>
+                Update Reservation
+            </Link>
             {/* <p>
                 Address: {property.address.address}, {property.address.city},{' '}
                 {property.address.state} {property.address.zip}

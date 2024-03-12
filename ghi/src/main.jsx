@@ -15,9 +15,12 @@ import SignUpForm from './SignupForm'
 import LoginForm from './LoginForm'
 import PropertyDetails from './components/PropertyDetails';
 import CreateProperty from './components/CreateProperty'
-import Dashboard from './components/Dashboard/dashboard'
+import Dashboard from './components/Dashboard/Dashboard'
 import CreateReservation from './components/CreateReservation'
 import ReservationDetail from './components/ReservationDetails'
+import ListReservations from './components/ListReservations'
+import UpdateReservation from './components/UpdateReservation'
+
 const router = createBrowserRouter([
     {
         path: '/',
@@ -34,8 +37,9 @@ const router = createBrowserRouter([
             { path: 'createproperty', element: <CreateProperty /> },
             { path: 'dashboard', element: <Dashboard /> },
             { path: 'reservations', element: <ListReservations /> },
-            { path: 'createreservation', element: <CreateReservation />},
-            { path: 'reservations/:id', element: <ReservationDetail />},
+            { path: 'createreservation', element: <CreateReservation /> },
+            { path: 'reservations/:id', element: <ReservationDetail /> },
+            { path: 'reservations/:reservationId/update', element: <UpdateReservation />, },
         ],
     },
 ])

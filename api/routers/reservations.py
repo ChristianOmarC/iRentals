@@ -28,7 +28,7 @@ def update_reservation(
     account_data: dict = Depends(authenticator.get_current_account_data),
     reservations_repo: ReservationsRepo = Depends()
 ):
-    updated_reservation = reservations_repo.update(reservation_id, reservation_update, guest_id=account_data["id"])
+    updated_reservation = reservations_repo.update(reservation_id, reservation_update) #guest_id=account_data["id"])
     if updated_reservation:
         return updated_reservation
     else:
