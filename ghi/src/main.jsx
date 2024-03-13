@@ -13,7 +13,7 @@ import { Provider } from 'react-redux'
 import ListProperties from './components/ListProperties'
 import SignUpForm from './SignupForm'
 import LoginForm from './LoginForm'
-import PropertyDetails from './components/PropertyDetails';
+import PropertyDetails from './components/PropertyDetails'
 import CreateProperty from './components/CreateProperty'
 import Dashboard from './components/Dashboard/Dashboard'
 import CreateReservation from './components/CreateReservation'
