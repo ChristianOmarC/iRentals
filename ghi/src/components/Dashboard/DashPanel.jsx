@@ -1,39 +1,23 @@
-import { useState, useEffect } from 'react'
-import Card from './Card'
+import './dashboard.css'
 
-function DashPanel() {
-    const [cards, setCards] = useState([])
+import Cards from './Cards'
 
-    const fetchData = () => {
-        fetch('http://localhost:4000/cards')
-            .then((res) => res.json())
-            .then((data) => {
-                setCards(data)
-            })
-            .catch((e) => console.log(e.message))
-    }
-
-    useEffect(() => {
-        fetchData()
-    }, [])
-
+function Dashboard() {
     return (
-        <section className="dashoard section">
+        <section className="section dashboard">
             <div className="row">
                 <div className="col-lg-8">
-                    <div className="col-lg-4">
-                        <div className="row">
-                            {cards &&
-                                cards.length > 0 &&
-                                cards.map((card) => (
-                                    <Card key={card._id} card={card} />
-                                ))}
-                        </div>
+                    <div className="row">
+                        <Cards />
+                        <div className="col-12"></div>
+                        <div className="col-12"></div>
+                        <div className="col-12"></div>
                     </div>
                 </div>
+                <div className="col-lg-4"></div>
             </div>
         </section>
     )
 }
 
-export default DashPanel
+export default Dashboard
