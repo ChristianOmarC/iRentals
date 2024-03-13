@@ -14,7 +14,7 @@ import ListProperties from './components/ListProperties'
 import SignUpForm from './SignupForm'
 import LoginForm from './LoginForm'
 import CreateProperty from './components/CreateProperty'
-import Dashboard from './components/Dashboard/Dashboard'
+import Dashboard from './components/Dashboard/DashboardComponents/Dashboard'
 const router = createBrowserRouter([
     {
         path: '/',

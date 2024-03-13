@@ -1,5 +1,3 @@
-import React from 'react'
-
 function NavMessage() {
     return (
         <li className="nav-item dropdown">
