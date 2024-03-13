@@ -43,7 +43,7 @@ def delete_reservation(
     reservation_id: str, repo: ReservationsRepo = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data)
     ):
-    if not repo.delete_reservation(reservation_id, guest_id=account_data["id"]):
+    if not repo.delete_reservation(reservation_id): #guest_id=account_data["id"]):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Reservation not found")
     return {"message": "Reservation deleted successfully"}
 

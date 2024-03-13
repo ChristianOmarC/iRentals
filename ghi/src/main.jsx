@@ -20,6 +20,7 @@ import UpdateReservation from './components/UpdateReservation'
 import ListReservations from './components/ListReservations'
 import CreateReservation from './components/CreateReservation'
 import ReservationDetail from './components/ReservationDetails'
+import UpdateProperty from './components/UpdateProperty'
 const router = createBrowserRouter([
     {
         path: '/',
@@ -37,7 +38,8 @@ const router = createBrowserRouter([
             { path: 'reservations', element: <ListReservations />},
             { path: 'reservations/:id', element: <ReservationDetail />},
             { path: 'createreservation', element: <CreateReservation />},
-            { path: 'reservations/:id/update', element: <UpdateReservation /> }
+            { path: 'reservations/:id/update', element: <UpdateReservation /> },
+            { path: 'properties/:id/update', element: <UpdateProperty />},
 
         ],
     },

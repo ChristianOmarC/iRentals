@@ -1,15 +1,34 @@
 
-import React from 'react'
-import { useGetReservationByIdQuery, useGetPropertyByIdQuery } from '../app/apiSlice'
-import { useParams, Link } from 'react-router-dom'
+import React, {useState} from 'react'
+import { useGetReservationByIdQuery, useDeleteReservationMutation } from '../app/apiSlice'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 
 const ReservationDetail = () => {
+    const navigate = useNavigate()
     const { id } = useParams()
     const {
         data: reservation,
         isLoading,
         isSuccess,
     } = useGetReservationByIdQuery(id)
+const [deleteReservation, { isLoading: loading, isError: error}] = useDeleteReservationMutation();
+
+
+    if (!deleteReservation) {
+        alert('Failed to delete reservation')
+    } else {
+        alert('Reservation Deleted')
+        navigate('/reservations')
+    }
+// const handleDeleteReservation = async () => {
+//     //id.preventDefault()
+//     try {
+//       await deleteReservation(id);
+//       console.log(id)
+//     } catch (error) {
+//       console.error('Error deleting reservation:', error);
+//     }
+//   };
 
 // const PropertyDetails = () => {
 //     const { id } = useParams()
@@ -36,6 +55,12 @@ const ReservationDetail = () => {
             <Link to={`/reservations/${id}/update`}>
                 Update Reservation
             </Link>
+            <button
+                className="btn btn-primary fw-bolder"
+                onClick={() => deleteReservation(id)}>
+                Delete
+            </button>
+
             {/* <p>
                 Address: {property.address.address}, {property.address.city},{' '}
                 {property.address.state} {property.address.zip}
