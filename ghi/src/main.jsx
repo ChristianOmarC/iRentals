@@ -39,7 +39,7 @@ const router = createBrowserRouter([
             { path: 'reservations', element: <ListReservations /> },
             { path: 'createreservation', element: <CreateReservation /> },
             { path: 'reservations/:id', element: <ReservationDetail /> },
-            { path: 'reservations/:reservationId/update', element: <UpdateReservation />, },
+            { path: 'reservations/:id/update', element: <UpdateReservation />, },
         ],
     },
 ])
