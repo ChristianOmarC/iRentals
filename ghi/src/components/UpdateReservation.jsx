@@ -16,7 +16,7 @@ const UpdateReservation = () => {
         checkin: '',
         checkout: '',
         reservation_name: '',
-        
+
     })
 
     const handleChange = (e) => {
@@ -75,6 +75,51 @@ const UpdateReservation = () => {
                         id="checkout"
                         name="checkout"
                         value={formData.checkout}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="reservation_name"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                    >
+                        Reservation Name:
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        type="text"
+                        id="reservation_name"
+                        name="reservation_name"
+                        value={formData.reservation_name}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="property_id"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                    >
+                        Property ID:
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        type="text"
+                        id="property_id"
+                        name="property_id"
+                        value={formData.property_id}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="account_id"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                    >
+                        Account ID:
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        type="text"
+                        id="account_id"
+                        name="account_id"
+                        value={formData.account_id}
                         onChange={handleChange}
                     />
                 </div>
