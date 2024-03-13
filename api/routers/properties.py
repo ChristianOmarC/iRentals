@@ -47,7 +47,7 @@ def update_property(
     account_data: dict = Depends(authenticator.get_current_account_data),
     properties_repo: PropertiesRepo = Depends()
 ):
-    updated_property = properties_repo.update(property_id, property_update, account_id=account_data['id'])
+    updated_property = properties_repo.update(property_id, property_update) #account_id=account_data['id'])
     if updated_property:
         return PropertyOut(**updated_property)
     else:

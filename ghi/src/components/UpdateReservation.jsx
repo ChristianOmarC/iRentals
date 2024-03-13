@@ -6,9 +6,9 @@ import {
 } from '../app/apiSlice'
 
 const UpdateReservation = () => {
-    const { reservationId } = useParams()
+    const { id } = useParams()
     const { data: reservation, isLoading: reservationLoading } =
-        useGetReservationByIdQuery(reservationId)
+        useGetReservationByIdQuery(id)
     const [updateReservation, { isLoading: updateLoading }] =
         useUpdateReservationMutation()
 
@@ -16,6 +16,7 @@ const UpdateReservation = () => {
         checkin: '',
         checkout: '',
         reservation_name: '',
+        
     })
 
     const handleChange = (e) => {
@@ -25,10 +26,10 @@ const UpdateReservation = () => {
         })
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
         try {
-            await updateReservation({ id: reservationId, ...formData })
+             updateReservation({ id: id, ...formData })
         } catch (error) {
             console.error('Error updating reservation:', error)
         }
@@ -43,33 +44,34 @@ const UpdateReservation = () => {
     }
 
     return (
-        <div>
+        <div className="max-w-4xl mx-auto p-5">
             <h1>Update Reservation</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="reservation_name">Reservation Name</label>
+            <form onSubmit={handleSubmit}
+                className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <div className="mb-4">
+                    <label htmlFor="checkin"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                    >
+                        Check-in:
+                    </label>
                     <input
-                        type="text"
-                        id="reservation_name"
-                        name="reservation_name"
-                        value={formData.reservation_name}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="checkin">Check-in</label>
-                    <input
-                        type="text"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        type="date"
                         id="checkin"
                         name="checkin"
                         value={formData.checkin}
                         onChange={handleChange}
                     />
                 </div>
-                <div>
-                    <label htmlFor="checkout">Check-out</label>
+                <div className="mb-4">
+                    <label htmlFor="checkout"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                    >
+                        Check-out:
+                    </label>
                     <input
-                        type="text"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        type="date"
                         id="checkout"
                         name="checkout"
                         value={formData.checkout}
