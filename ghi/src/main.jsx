@@ -13,13 +13,7 @@ import ListProperties from './components/ListProperties'
 import SignUpForm from './SignupForm'
 import LoginForm from './LoginForm'
 import CreateProperty from './components/CreateProperty'
-import Dashboard from './components/Dashboard/Dashboard'
-import PropertyDetails from './components/PropertyDetails'
-import UpdateReservation from './components/UpdateReservation'
-import ListReservations from './components/ListReservations'
-import CreateReservation from './components/CreateReservation'
-import ReservationDetail from './components/ReservationDetails'
-import UpdateProperty from './components/UpdateProperty'
+import Dashboard from './components/Dashboard/DashboardComponents/Dashboard'
 const router = createBrowserRouter([
     {
         path: '/',
@@ -33,11 +27,11 @@ const router = createBrowserRouter([
             { path: 'login', element: <LoginForm /> },
             { path: 'createproperty', element: <CreateProperty /> },
             { path: 'dashboard', element: <Dashboard /> },
-            { path: 'reservations', element: <ListReservations />},
-            { path: 'reservations/:id', element: <ReservationDetail />},
-            { path: 'createreservation/:propertyId', element: <CreateReservation />},
+            { path: 'reservations', element: <ListReservations /> },
+            { path: 'reservations/:id', element: <ReservationDetail /> },
+            { path: 'createreservation/:propertyId', element: <CreateReservation /> },
             { path: 'reservations/:id/update', element: <UpdateReservation /> },
-            { path: 'properties/:id/update', element: <UpdateProperty />},
+            { path: 'properties/:id/update', element: <UpdateProperty /> },
 
         ],
     },

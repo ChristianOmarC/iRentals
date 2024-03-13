@@ -1,5 +1,6 @@
 import './sideBar.css'
-import navList from '../Dashboard/navList'
+// import navList from '../Dashboard/navList'
+import navList from './navList'
 
 function SideBar() {
     return (
