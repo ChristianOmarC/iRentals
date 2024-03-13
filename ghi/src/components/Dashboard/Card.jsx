@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import './card.css'
 import CardFilter from './CardFilter'
 
@@ -28,11 +28,10 @@ function Card({ card }) {
                                     : card.amount.toLocaleString('en-US')}
                             </h6>
                             <span
-                                className={`${
-                                    card.percentage > 0
+                                className={`${card.percentage > 0
                                         ? 'text-success'
                                         : 'text-danger'
-                                } small pt-1 fw-bold`}
+                                    } small pt-1 fw-bold`}
                             >
                                 {card.percentage > 0
                                     ? card.percentage * 100
