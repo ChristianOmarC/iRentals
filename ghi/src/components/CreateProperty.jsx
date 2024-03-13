@@ -11,6 +11,7 @@ const CreatePropertyForm = () => {
     const [bathrooms, setBathrooms] = useState(0)
     const [price, setPrice] = useState(0)
     const [description, setDescription] = useState('')
+    const [imageUrl, setImageUrl] = useState('')
     const initialAmenities = {
         ac: false,
         heating: false,
@@ -48,6 +49,7 @@ const CreatePropertyForm = () => {
             price: parseFloat(price),
             description,
             amenities,
+            image: imageUrl,
         }
 
         try {
@@ -68,6 +70,22 @@ const CreatePropertyForm = () => {
                 onSubmit={handleSubmit}
                 className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
             >
+                <div className="mb-4">
+                    <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="imageUrl"
+                    >
+                        Image URL
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="imageUrl"
+                        type="text"
+                        placeholder="Image URL"
+                        value={imageUrl}
+                        onChange={(e) => setImageUrl(e.target.value)}
+                    />
+                </div>
                 <div className="mb-4">
                     <label
                         className="block text-gray-700 text-sm font-bold mb-2"

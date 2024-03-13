@@ -89,6 +89,7 @@ class PropertyIn(BaseModel):
     price: float
     description: str
     amenities: Amenities
+    image: str
 
 class Property(PropertyIn):#Book
     id: PydanticObjectId
