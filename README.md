@@ -73,7 +73,6 @@ Follow these steps to get the application up and running on your local machine:
 ### Reservation System:
 
 -   **Reserve Properties**: Users can book properties for specific dates, with immediate confirmation.
--   **Payment Integration**: Secure payment processing for bookings and rentals.
 
 ## How It All Comes Together
 
