@@ -91,12 +91,14 @@ class PropertyIn(BaseModel):
     amenities: Amenities
     image: str
 
-class Property(PropertyIn):#Book
+class Property(PropertyIn):
     id: PydanticObjectId
+    rating: float = 0.0
 
-class PropertyOut(PropertyIn): #BookOut(BookIn)
+class PropertyOut(PropertyIn):
     id: str
     account_id: str
+    rating: float = 0.0
 
 class PropertyList(BaseModel):
     properties: List[PropertyOut]
