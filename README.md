@@ -102,35 +102,34 @@ iRental's frontend and backend systems work in harmony to provide a seamless use
 
 When creating or updating a property, send the following JSON payload:
 
-````json
+```json
 {
-  "name": "Ocean View Condo",
-  "address": {
-    "address": "123 Beach Ave",
-    "city": "Seaside",
-    "state": "CA",
-    "zip": "90210"
-  },
-  "bedrooms": 2,
-  "bathrooms": 2,
-  "price": 350000,
-  "description": "A beautiful condo with an ocean view, modern amenities, and easy beach access.",
-  "amenities": {
-    "ac": true,
-    "heating": true,
-    "washer_dryer": true,
-    "parking": true,
-    "beer": false,
-    "wifi": true,
-    "pets_allowed": false,
-    "pool": true
-  },
-  "image": "https://example.com/image.jpg",
-  "id": "unique_property_id",
-  "account_id": "owner_account_id"
+    "name": "Ocean View Condo",
+    "address": {
+        "address": "123 Beach Ave",
+        "city": "Seaside",
+        "state": "CA",
+        "zip": "90210"
+    },
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "price": 350000,
+    "description": "A beautiful condo with an ocean view, modern amenities, and easy beach access.",
+    "amenities": {
+        "ac": true,
+        "heating": true,
+        "washer_dryer": true,
+        "parking": true,
+        "beer": false,
+        "wifi": true,
+        "pets_allowed": false,
+        "pool": true
+    },
+    "image": "https://example.com/image.jpg",
+    "id": "unique_property_id",
+    "account_id": "owner_account_id"
 }
-
-###
+```
 
 ### Reservations:
 
@@ -141,6 +140,7 @@ When creating or updating a property, send the following JSON payload:
 | Get a specific reservation    | GET    | http://localhost:8000/api/reservations/{id}/ |
 | Update a specific reservation | PUT    | http://localhost:8000/api/reservations/{id}/ |
 | Cancel (delete) a reservation | DELETE | http://localhost:8000/api/reservations/{id}/ |
+
 ###
 
 ### JSON body for reservation data:
@@ -170,4 +170,4 @@ For each reservation, specify the check-in and check-out dates, the name under w
 | Delete a specific account | DELETE | http://localhost:8000/api/accounts/{id}/ |
 
 ---Json Body Here: Talk with team
-````
+```
