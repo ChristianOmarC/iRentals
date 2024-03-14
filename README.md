@@ -151,13 +151,13 @@ For each reservation, specify the check-in and check-out dates, the name under w
 
 ```json
 {
-  "checkin": "2024-01-01",
-  "checkout": "2024-01-07",
-  "reservation_name": "John Doe",
-  "property_id": "unique_property_id",
-  "account_id": "unique_account_id"
+    "checkin": "2024-01-01",
+    "checkout": "2024-01-07",
+    "reservation_name": "John Doe",
+    "property_id": "unique_property_id",
+    "account_id": "unique_account_id"
 }
-###
+```
 
 ### Accounts:
 
@@ -170,4 +170,7 @@ For each reservation, specify the check-in and check-out dates, the name under w
 | Delete a specific account | DELETE | http://localhost:8000/api/accounts/{id}/ |
 
 ---Json Body Here: Talk with team
+
+```
+
 ```
