@@ -94,7 +94,40 @@ iRental's frontend and backend systems work in harmony to provide a seamless use
 | Update a specific property | PUT    | http://localhost:8000/api/properties/id/ |
 | Delete a specific property | DELETE | http://localhost:8000/api/properties/id/ |
 
----Json Body Here: Talk with team
+### JSON body for property data:
+
+#### Create and Update a Property (SEND THIS JSON BODY):
+
+Ensure that each property has a unique name and address combination.
+
+````json
+{
+  "name": "Ocean View Condo",
+  "address": {
+    "address": "123 Beach Ave",
+    "city": "Seaside",
+    "state": "CA",
+    "zip": "90210"
+  },
+  "bedrooms": 2,
+  "bathrooms": 2,
+  "price": 350000,
+  "description": "A beautiful condo with an ocean view, modern amenities, and easy beach access.",
+  "amenities": {
+    "ac": true,
+    "heating": true,
+    "washer_dryer": true,
+    "parking": true,
+    "beer": false,
+    "wifi": true,
+    "pets_allowed": false,
+    "pool": true
+  },
+  "image": "https://example.com/image.jpg",
+  "id": "unique_property_id",
+  "account_id": "owner_account_id"
+}
+
 
 ### Reservations:
 
@@ -106,7 +139,21 @@ iRental's frontend and backend systems work in harmony to provide a seamless use
 | Update a specific reservation | PUT    | http://localhost:8000/api/reservations/{id}/ |
 | Cancel (delete) a reservation | DELETE | http://localhost:8000/api/reservations/{id}/ |
 
----Json Body Here: Talk with team
+### JSON body for reservation data:
+
+#### Create and Update a Reservation (SEND THIS JSON BODY):
+
+For each reservation, specify the check-in and check-out dates, the name under which the reservation is made, the associated property, and the account ID of the user making the reservation.
+
+```json
+{
+  "checkin": "2024-01-01",
+  "checkout": "2024-01-07",
+  "reservation_name": "John Doe",
+  "property_id": "unique_property_id",
+  "account_id": "unique_account_id"
+}
+
 
 ### Accounts:
 
@@ -119,3 +166,4 @@ iRental's frontend and backend systems work in harmony to provide a seamless use
 | Delete a specific account | DELETE | http://localhost:8000/api/accounts/{id}/ |
 
 ---Json Body Here: Talk with team
+````
