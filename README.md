@@ -173,12 +173,12 @@ For each reservation, specify the check-in and check-out dates, the name under w
 
 When creating or updating an account, send the following JSON payload:
 
-```
-    {
-  "email": "example@email.com",
-  "first_name": "John",
-  "last_name": "Doe",
-  "username": "johndoe",
-  "password": "securePassword123"
+```json
+{
+    "email": "example@email.com",
+    "first_name": "John",
+    "last_name": "Doe",
+    "username": "johndoe",
+    "password": "securePassword123"
 }
 ```
