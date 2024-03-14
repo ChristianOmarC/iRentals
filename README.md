@@ -41,6 +41,24 @@ Our project is built using cutting-edge technologies for both frontend and backe
 -   **JWT Auth**: For secure user authentication.
     ![JWT](https://img.shields.io/badge/-JWT%20Auth-000000?style=flat-square&logo=json-web-tokens&logoColor=white)
 
+## :gear: Setting Up Environment Variables (Essential Step!)
+
+> :warning: **Do not skip this step**: It's crucial for configuring your application correctly.
+
+Before running or deploying the application, setting up the necessary environment variables is indispensable. These variables configure your application to work with specific external services (like databases and APIs) securely and efficiently.
+
+### :key: How to Configure Environment Variables
+
+1. **Create a `.env` File**: In the root directory of your project, create a file named `.env`.
+2. **Add Your Variables**: Open the `.env` file with your favorite text editor, and include the necessary environment variables as shown below. Replace the placeholders with your actual data.
+
+```plaintext
+# Environment Configuration Example
+SIGNINGKEY="your_signing_key_here"
+VITE_API_HOST="http://localhost:8000"
+CORS_HOST="http://localhost:5173"
+```
+
 ## How To Run Application 🐳
 
 ![Docker](https://img.shields.io/badge/-Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
