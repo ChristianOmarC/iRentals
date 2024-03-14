@@ -129,7 +129,7 @@ Ensure that each property has a unique name and address combination.
   "id": "unique_property_id",
   "account_id": "owner_account_id"
 }
-
+###
 
 ### Reservations:
 
@@ -140,6 +140,7 @@ Ensure that each property has a unique name and address combination.
 | Get a specific reservation    | GET    | http://localhost:8000/api/reservations/{id}/ |
 | Update a specific reservation | PUT    | http://localhost:8000/api/reservations/{id}/ |
 | Cancel (delete) a reservation | DELETE | http://localhost:8000/api/reservations/{id}/ |
+###
 
 ### JSON body for reservation data:
 
@@ -155,7 +156,7 @@ For each reservation, specify the check-in and check-out dates, the name under w
   "property_id": "unique_property_id",
   "account_id": "unique_account_id"
 }
-
+###
 
 ### Accounts:
 
