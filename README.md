@@ -94,6 +94,8 @@ iRental's frontend and backend systems work in harmony to provide a seamless use
 | Update a specific property | PUT    | http://localhost:8000/api/properties/id/ |
 | Delete a specific property | DELETE | http://localhost:8000/api/properties/id/ |
 
+###
+
 ### JSON body for property data:
 
 #### Create and Update a Property (SEND THIS JSON BODY):
