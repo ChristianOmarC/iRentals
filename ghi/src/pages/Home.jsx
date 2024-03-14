@@ -21,9 +21,7 @@ const Home = () => {
                 </Link>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md p-6">
 
-            </div>
         </div>
     )
 }
