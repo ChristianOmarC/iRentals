@@ -47,12 +47,12 @@ class AccountToken(Token):  #dont touch
 class HttpError(BaseModel):
     detail: str
 
-class ReservationIn(BaseModel):#LoanIn
+class ReservationIn(BaseModel):
     checkin: str
     checkout: str
     reservation_name: str
-    property_id: str    #?
-    account_id: str #updated for account_id
+    property_id: str
+    account_id: str
 
 class ReservationOut(ReservationIn): #LoanOut(LoanIn)
     id: str
