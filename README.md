@@ -169,8 +169,16 @@ For each reservation, specify the check-in and check-out dates, the name under w
 | Update a specific account | PUT    | http://localhost:8000/api/accounts/{id}/ |
 | Delete a specific account | DELETE | http://localhost:8000/api/accounts/{id}/ |
 
----Json Body Here: Talk with team
+### JSON Body for Account Data
+
+When creating or updating an account, send the following JSON payload:
 
 ```
-
+    {
+  "email": "example@email.com",
+  "first_name": "John",
+  "last_name": "Doe",
+  "username": "johndoe",
+  "password": "securePassword123"
+}
 ```
