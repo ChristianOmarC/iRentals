@@ -84,23 +84,23 @@ iRental's frontend and backend systems work in harmony to provide a seamless use
 
 ## Accessing Endpoints to Send and View Data: Access Through Insomnia & Your Browser
 
-### Properties:
+# iRental API Documentation
 
-| Action                     | Method | URL                                      |
-| -------------------------- | ------ | ---------------------------------------- |
-| List properties            | GET    | http://localhost:8000/api/properties/    |
-| Create a property          | POST   | http://localhost:8000/api/properties/    |
-| Get a specific property    | GET    | http://localhost:8000/api/properties/id/ |
-| Update a specific property | PUT    | http://localhost:8000/api/properties/id/ |
-| Delete a specific property | DELETE | http://localhost:8000/api/properties/id/ |
+## Properties
 
-###
+### Endpoints
 
-### JSON body for property data:
+| Action                     | Method | URL                                         |
+| -------------------------- | ------ | ------------------------------------------- |
+| List properties            | GET    | `http://localhost:8000/api/properties/`     |
+| Create a property          | POST   | `http://localhost:8000/api/properties/`     |
+| Get a specific property    | GET    | `http://localhost:8000/api/properties/{id}` |
+| Update a specific property | PUT    | `http://localhost:8000/api/properties/{id}` |
+| Delete a specific property | DELETE | `http://localhost:8000/api/properties/{id}` |
 
-#### Create and Update a Property (SEND THIS JSON BODY):
+### JSON body for property data
 
-Ensure that each property has a unique name and address combination.
+When creating or updating a property, send the following JSON payload:
 
 ````json
 {
@@ -129,6 +129,7 @@ Ensure that each property has a unique name and address combination.
   "id": "unique_property_id",
   "account_id": "owner_account_id"
 }
+
 ###
 
 ### Reservations:
