@@ -9,9 +9,9 @@ function Dashboard() {
                 <div className="col-lg-8">
                     <div className="row">
                         <Cards />
+                        {/* <div className="col-12"></div>
                         <div className="col-12"></div>
-                        <div className="col-12"></div>
-                        <div className="col-12"></div>
+                        <div className="col-12"></div> */}
                     </div>
                 </div>
                 <div className="col-lg-4"></div>
