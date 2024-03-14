@@ -1,5 +1,5 @@
-import React from 'react'
 import './Logo.css'
+// import image from '../Dashboard/assets/items/Logo.png'
 
 function Logo() {
     const handleToggleSideBar = () => {
@@ -7,7 +7,8 @@ function Logo() {
     }
     return (
         <div className="d-flex align-items-center justify-content-between">
-            <a href="/" className="logo d-flex align-items-center">
+            <a href="#" className="logo d-flex align-items-center">
+                {/* <img src={image} alt="" className="Logo_Img" /> */}
                 <span className="d-none d-lg-block">Dashboard</span>
             </a>
             <i

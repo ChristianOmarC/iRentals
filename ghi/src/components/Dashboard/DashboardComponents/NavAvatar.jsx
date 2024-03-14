@@ -1,5 +1,4 @@
-import React from 'react'
-import profile_pic from './dashboard_img/profile_pic.png'
+import profile_pic from '../dashboard_img/profile_pic.png'
 
 function NavAvatar() {
     return (

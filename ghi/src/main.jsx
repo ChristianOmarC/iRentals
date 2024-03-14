@@ -14,6 +14,7 @@ import ListProperties from './components/ListProperties'
 import SignUpForm from './SignupForm'
 import LoginForm from './LoginForm'
 import CreateProperty from './components/CreateProperty'
+<<<<<<< HEAD
 import Dashboard from './components/Dashboard/Dashboard'
 import PropertyDetails from './components/PropertyDetails'
 import UpdateReservation from './components/UpdateReservation'
@@ -21,6 +22,9 @@ import ListReservations from './components/ListReservations'
 import CreateReservation from './components/CreateReservation'
 import ReservationDetail from './components/ReservationDetails'
 import UpdateProperty from './components/UpdateProperty'
+=======
+import Dashboard from './components/Dashboard/DashboardComponents/Dashboard'
+>>>>>>> dashpanel
 const router = createBrowserRouter([
     {
         path: '/',

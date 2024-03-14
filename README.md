@@ -1,172 +1,122 @@
-# Module3 Project Gamma
+<div align="center">
 
-## Getting started
+# 🏡 iRental: Unlocking the World of Property Rentals and Sales
 
-You have a project repository, now what? The next section
-lists all of the deliverables that are due at the end of the
-week. Below is some guidance for getting started on the
-tasks for this week.
+</div>
 
-## Install Extensions
+## Team:
 
--   Prettier: <https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode>
--   Black Formatter: <https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter>
+-   **Justin Leopard - **
+-   **Murray Milton - **
+-   **Prayag Patel - **
+-   **Christian Culajay - **
 
-## Deliverables
+## Design
 
--   [ ] Wire-frame diagrams
--   [ ] API documentation
--   [ ] Project is deployed to Caprover (BE, DB) & GitLab-pages (FE)
--   [ ] GitLab issue board is setup and in use (or project management tool of choice)
--   [ ] Journals
+iRental revolutionizes the property rental and sales market by providing a comprehensive platform that allows users to list, manage, and book properties with ease. From exotic vacations to city escapes, iRental offers a wide range of property options for renters and buyers alike. Sellers can effortlessly manage their listings, while users can explore and book stays in just a few clicks.
 
-## Project layout
+## Built With
 
-The layout of the project is just like all of the projects
-you did with `docker-compose` in module #2. You will create
-a directory in the root of the repository for each service
-that you add to your project just like those previous
-projects were setup.
+Our project is built using cutting-edge technologies for both frontend and backend development:
 
-### Directories
+### Front-end:
 
-Several directories have been added to your project. The
-directories `docs` and `journals` are places for you and
-your team-mates to, respectively, put any documentation
-about your project that you create and to put your
-project-journal entries. See the _README.md_ file in each
-directory for more info.
+-   **React**: To build a dynamic and responsive user interface.
+    ![React](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=white)
+-   **Tailwind CSS**: For custom, utility-first CSS.
+    ![Tailwind](https://img.shields.io/badge/-Tailwind%20CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)
+-   **Bootstrap**: For responsive design and layout.
+    ![Bootstrap](https://img.shields.io/badge/-Bootstrap-7952B3?style=flat-square&logo=bootstrap&logoColor=white)
+-   **Redux**: For managing application state.
+    ![Redux](https://img.shields.io/badge/-Redux-764ABC?style=flat-square&logo=redux&logoColor=white)
 
-The other directories, `ghi` and `api`, are services, that
-you can start building off of.
+### Back-end:
 
-Inside of `ghi` is a minimal React app that has an "under construction" page.
-This app is written using the [Vite](https://vitejs.dev/) bundler. The example
-code is also using [jsdoc](https://jsdoc.app/) to provide type hints for
-JavaScript. You are not required to use JSDoc yourself, and you will be removing
-these examples and providing your own code for `App.jsx`
+-   **FastAPI**: High-performance, easy to learn, fast to code framework.
+    ![FastAPI](https://img.shields.io/badge/-FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
+-   **MongoDB**: For flexible, scalable NoSQL database management.
+    ![MongoDB](https://img.shields.io/badge/-MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white)
+-   **Express**: Minimalist web framework for Node.js.
+    ![Express](https://img.shields.io/badge/-Express-000000?style=flat-square&logo=express&logoColor=white)
+-   **JWT Auth**: For secure user authentication.
+    ![JWT](https://img.shields.io/badge/-JWT%20Auth-000000?style=flat-square&logo=json-web-tokens&logoColor=white)
 
-Inside of `api` is a minimal FastAPI application.
-"Where are all the files?" you might ask? Well, the
-`main.py` file is the whole thing, and go take look inside
-of it... There's not even much in there..., hmm? That is
-FastAPI, we'll learn more about it in the coming days. Can
-you figure out what this little web-application does even
-though you haven't learned about FastAPI yet?
+## How To Run Application 🐳
 
-Also in `api` is a directory for your migrations.
-If you choose to use PostgreSQL, then you'll want to use
-migrations to control your database. Unlike Django, where
-migrations were automatically created for you, you'll write
-yours by hand using DDL. Don't worry about not knowing what
-DDL means; we have you covered. There's a sample migration
-in there that creates two tables so you can see what they
-look like.
+![Docker](https://img.shields.io/badge/-Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
 
-The Dockerfile and Dockerfile.dev run your migrations
-for you automatically.
+Follow these steps to get the application up and running on your local machine:
 
-### Installing python dependencies locally
+1. **Open your terminal.**
+2. **Navigate to the directory where you would like to clone the project.**
+3. **Clone the repo:** `git clone https://github.com/yourusername/irental-project.git`
+4. **Change the directory to the project folder.**
+5. **Ensure that your Docker Desktop Application is open.**
+6. **Run the following commands in sequence:**
+7. **docker volume create mongo-data:**
+8. **docker compose build:**
+9. **docker compose compose up:**
 
-In order for VSCode's built in code completion and intelligence to
-work correctly, it needs the dependencies from the requirements.txt file
-installed. We do this inside docker, but not in the workspace.
+## Features
 
-So we need to create a virtual environment and pip install the requirements.
+### Property Management:
 
-From inside the `api` folder:
+-   **List Properties**: Users can list their properties for rent or sale, including details like location, price, and amenities.
+-   **Manage Bookings**: Property owners can manage reservations, check-in/check-out dates, and availability.
+-   **Search and Filter**: Renters and buyers can search for properties based on location, price, and other filters.
 
-```bash
-python -m venv .venv
-```
+### User Accounts:
 
-Then activate the virtual environment
+-   **Secure Authentication**: Users can sign up, log in, and manage their accounts securely using JWT authentication.
+-   **Profile Management**: Users can update their profile information and preferences.
 
-```bash
-source .venv/bin/activate
-```
+### Reservation System:
 
-And finally install the dependencies
+-   **Reserve Properties**: Users can book properties for specific dates, with immediate confirmation.
+-   **Payment Integration**: Secure payment processing for bookings and rentals.
 
-```bash
-pip install -r requirements.txt
-```
+## How It All Comes Together
 
-Then make sure the venv is selected in VSCode by checking the lower right of the
-VSCode status bar
+iRental integrates these features through a user-friendly interface, backed by a robust backend that ensures smooth and secure operations. Our platform brings together property owners and travelers, making it easier than ever to find and book the perfect stay.
 
-### Other files
+## Integration: Seamless User Experience
 
-The following project files have been created as a minimal
-starting point. Please follow the guidance for each one for
-a most successful project.
+iRental's frontend and backend systems work in harmony to provide a seamless user experience. The frontend, built with React, Tailwind, and Bootstrap, offers a dynamic and responsive interface. Meanwhile, the backend ensures efficient data management and security with FastAPI, MongoDB, Express, and JWT Auth.
 
--   `docker-compose.yaml`: there isn't much in here, just a
-    **really** simple UI and FastAPI service. Add services
-    (like a database) to this file as you did with previous
-    projects in module #2.
--   `.gitlab-ci.yml`: This is your "ci/cd" file where you will
-    configure automated unit tests, code quality checks, and
-    the building and deployment of your production system.
-    Currently, all it does is deploy an "under construction"
-    page to your production UI on GitLab and a sample backend
-    to CapRover. We will learn much more about this file.
--   `.gitignore`: This is a file that prevents unwanted files
-    from getting added to your repository, files like
-    `pyc` files, `__pycache__`, etc. We've set it up so that
-    it has a good default configuration for Python projects.
--   `.env.sample`: This file is a template to copy when
-    creating environment variables for your team. Create a
-    copy called `.env` and put your own passwords in here
-    without fear of it being committed to git (see `.env`
-    listed in `.gitignore`). You can also put team related
-    environment variables in here, things like api and signing
-    keys that shouldn't be committed; these should be
-    duplicated in your deployed environments.
+## Accessing Endpoints to Send and View Data: Access Through Insomnia & Your Browser
 
-## How to complete the initial deploy
+### Properties:
 
-There will be further guidance on completing the initial
-deployment, but it just consists of these steps:
+| Action                     | Method | URL                                      |
+| -------------------------- | ------ | ---------------------------------------- |
+| List properties            | GET    | http://localhost:8000/api/properties/    |
+| Create a property          | POST   | http://localhost:8000/api/properties/    |
+| Get a specific property    | GET    | http://localhost:8000/api/properties/id/ |
+| Update a specific property | PUT    | http://localhost:8000/api/properties/id/ |
+| Delete a specific property | DELETE | http://localhost:8000/api/properties/id/ |
 
-### Setup GitLab repo/project
+---Json Body Here: Talk with team
 
--   make sure this project is in a group. If it isn't, stop
-    now and move it to a GitLab group
--   remove the fork relationship: In GitLab go to:
+### Reservations:
 
-    Settings -> General -> Advanced -> Remove fork relationship
+| Action                        | Method | URL                                          |
+| ----------------------------- | ------ | -------------------------------------------- |
+| List all reservations         | GET    | http://localhost:8000/api/reservations/      |
+| Create a reservation          | POST   | http://localhost:8000/api/reservations/      |
+| Get a specific reservation    | GET    | http://localhost:8000/api/reservations/{id}/ |
+| Update a specific reservation | PUT    | http://localhost:8000/api/reservations/{id}/ |
+| Cancel (delete) a reservation | DELETE | http://localhost:8000/api/reservations/{id}/ |
 
--   add these GitLab CI/CD variables:
-    -   PUBLIC_URL : this is your gitlab pages URL
-    -   VITE_APP_API_HOST: enter "blank" for now
+---Json Body Here: Talk with team
 
-#### Your GitLab pages URL
+### Accounts:
 
-You can't find this in GitLab until after you've done a deploy
-but you can figure it out yourself from your GitLab project URL.
+| Action                    | Method | URL                                      |
+| ------------------------- | ------ | ---------------------------------------- |
+| List all accounts         | GET    | http://localhost:8000/api/accounts/      |
+| Create an account         | POST   | http://localhost:8000/api/accounts/      |
+| Get a specific account    | GET    | http://localhost:8000/api/accounts/{id}/ |
+| Update a specific account | PUT    | http://localhost:8000/api/accounts/{id}/ |
+| Delete a specific account | DELETE | http://localhost:8000/api/accounts/{id}/ |
 
-If this is your project URL
-
-https://gitlab.com/GROUP_NAME/PROJECT_NAME
-
-then your GitLab pages URL will be
-
-https://GROUP_NAME.gitlab.io/PROJECT_NAME
-
-### Initialize CapRover
-
-1. Attain IP address and domain from an instructor
-1. Follow the steps in the CD Cookbook in Learn.
-
-### Update GitLab CI/CD variables
-
-Copy the service URL for your CapRover service and then paste
-that into the value for the REACT_APP_API_HOST CI/CD variable
-in GitLab.
-
-### Deploy it
-
-Merge a change into main to kick off the initial deploy. Once the build pipeline
-finishes you should be able to see an "under construction" page on your GitLab
-pages site.
+---Json Body Here: Talk with team
