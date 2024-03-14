@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 import Home from './pages/Home'
-import About from './pages/About'
 import Error from './pages/Error'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import store from './app/store'
@@ -28,7 +27,6 @@ const router = createBrowserRouter([
         errorElement: <Error />,
         children: [
             { index: true, element: <Home /> },
-            { path: 'about', element: <About /> },
             { path: 'properties', element: <ListProperties /> },
             { path: 'properties/:id', element: <PropertyDetails /> },
             { path: 'signup', element: <SignUpForm /> },

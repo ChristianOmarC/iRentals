@@ -67,7 +67,7 @@ export const iRentalApi = createApi({
             url: `/api/properties/${id}`,
             method: 'DELETE',
         }),
-        invalidateTags: (result, error, id) => [{ type: 'Property', id }],
+        invalidateTags: (result, error, id) => [{ type: 'Property', id: id }],
         }),
         createProperty: builder.mutation({
             query: (body) => ({
