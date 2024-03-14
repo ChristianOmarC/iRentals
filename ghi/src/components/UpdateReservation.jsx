@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import {
     useGetReservationByIdQuery,
     useUpdateReservationMutation,
@@ -7,9 +7,10 @@ import {
 
 const UpdateReservation = () => {
     const { id } = useParams()
+    const navigate = useNavigate()
     const { data: reservation, isLoading: reservationLoading } =
         useGetReservationByIdQuery(id)
-    const [updateReservation, { isLoading: updateLoading }] =
+    const [updateReservation, { isLoading: updateLoading, isSuccess, isError }] =
         useUpdateReservationMutation()
 
     const [formData, setFormData] = useState({
@@ -19,6 +20,16 @@ const UpdateReservation = () => {
 
     })
 
+    useEffect(() => {
+        if (reservation) {
+            setFormData({
+                checkin: reservation.checkin,
+                checkout: reservation.checkout,
+                reservation_name: reservation.reservation_name,
+            })
+        }
+    }, [reservation])
+
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -26,14 +37,20 @@ const UpdateReservation = () => {
         })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-             updateReservation({ id: id, ...formData })
+            await updateReservation({ id: id, ...formData })
         } catch (error) {
             console.error('Error updating reservation:', error)
         }
     }
+
+    useEffect(() => {
+        if (isSuccess) {
+            navigate(`/reservations/${id}`)
+        }
+    }, [isSuccess, id, navigate])
 
     if (reservationLoading) {
         return <div>Loading...</div>
@@ -48,6 +65,11 @@ const UpdateReservation = () => {
             <h1>Update Reservation</h1>
             <form onSubmit={handleSubmit}
                 className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                {isError && (
+                    <div className="text-red-500 mb-4">
+                        Error updating reservation. Please try again.
+                    </div>
+                )}
                 <div className="mb-4">
                     <label htmlFor="checkin"
                         className="block text-gray-700 text-sm font-bold mb-2"
