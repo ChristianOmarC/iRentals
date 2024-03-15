@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import SideBar from './SideBar'
 import Main from './Main'
+import Footer from './Footer'
 
 function DashApp() {
     return (
@@ -18,6 +19,7 @@ function DashApp() {
             <Header />
             <SideBar />
             <Main />
+            <Footer />
         </>
     )
 }

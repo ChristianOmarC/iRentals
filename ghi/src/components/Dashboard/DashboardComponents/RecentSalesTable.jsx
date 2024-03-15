@@ -1,4 +1,3 @@
-import React from 'react';
 
 function RecentSalesTable({ items }) {
     const handleStatus = status => {

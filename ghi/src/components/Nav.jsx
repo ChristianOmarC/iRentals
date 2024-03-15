@@ -1,6 +1,5 @@
 import { Link, NavLink } from 'react-router-dom'
 import { useGetTokenQuery, useLogoutMutation } from '../app/apiSlice'
-
 const Nav = () => {
     const { data: account, isLoading } = useGetTokenQuery()
     const [logout, logoutStatus] = useLogoutMutation()

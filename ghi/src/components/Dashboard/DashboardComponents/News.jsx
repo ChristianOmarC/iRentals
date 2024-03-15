@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import CardFilter from './CardFilter';
 import NewsPostItem from './NewsPostItem';
 import './news.css';
