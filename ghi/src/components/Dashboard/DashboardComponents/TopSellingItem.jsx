@@ -1,4 +1,3 @@
-import React from 'react';
 
 function TopSellingItem({ item }) {
     return (

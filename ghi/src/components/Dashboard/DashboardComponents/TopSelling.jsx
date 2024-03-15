@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import CardFilter from './CardFilter';
 import TopSellingItem from './TopSellingItem';
 import './topSelling.css';
@@ -6,26 +6,33 @@ import './topSelling.css';
 function TopSelling() {
     const [items, setItems] = useState([]);
     const [filter, setFilter] = useState('Today');
-    const handleFilterChange = filter => {
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState('');
+
+    const handleFilterChange = (filter) => {
         setFilter(filter);
     };
 
-    // you need intall the json server to run the backend api
-    // npm i json-server -g
-    // once installed globally, run the following code in terminal
-    // json-server --watch --port 4000 ./api/info.json
-    const fetchData = () => {
-        fetch('http://localhost:4000/topselling')
-            .then(res => res.json())
-            .then(data => {
-                setItems(data);
-            })
-            .catch(e => console.log(e.message));
+    const fetchData = async () => {
+        setIsLoading(true);
+        try {
+            const response = await fetch('http://localhost:4000/topselling');
+            if (!response.ok) throw new Error('Network response was not ok');
+            const data = await response.json();
+            setItems(data);
+        } catch (e) {
+            setError(e.message);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     useEffect(() => {
         fetchData();
     }, []);
+
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
 
     return (
         <div className="card top-selling overflow-auto">
@@ -47,9 +54,7 @@ function TopSelling() {
                         </tr>
                     </thead>
                     <tbody>
-                        {items &&
-                            items.length > 0 &&
-                            items.map(item => <TopSellingItem key={item._id} item={item} />)}
+                        {items.map(item => <TopSellingItem key={item._id} item={item} />)}
                     </tbody>
                 </table>
             </div>

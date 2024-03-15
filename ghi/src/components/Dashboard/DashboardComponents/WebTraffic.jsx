@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import WebTrafficChart from './WebTrafficChart';
 import CardFilter from './CardFilter';
 

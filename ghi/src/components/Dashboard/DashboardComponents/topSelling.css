@@ -1,14 +1,18 @@
-/* Top Selling */
+:root {
+    --table-bg-color: #f6f6fe;
+    --border-radius: 5px;
+}
+
 .dashboard .top-selling {
     font-size: 14px;
 }
 
 .dashboard .top-selling .table thead {
-    background: #f6f6fe !important;
+    background: var(--table-bg-color) !important;
 }
 
 .dashboard .top-selling .table thead th {
-    border: 0;
+    border-bottom: 0;
 }
 
 .dashboard .top-selling .table tbody td {
@@ -16,6 +20,29 @@
 }
 
 .dashboard .top-selling img {
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     max-width: 60px;
+}
+
+/* Additional styles for responsiveness and accessibility */
+.dashboard .top-selling .table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(246, 246, 254, 0.8);
+}
+
+/* Focus states for better accessibility */
+.dashboard .top-selling .table tbody tr:focus-within {
+    background-color: rgba(246, 246, 254, 0.8);
+    outline: none;
 }
