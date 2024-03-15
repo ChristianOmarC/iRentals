@@ -68,11 +68,6 @@ const navList = [
         icon: 'bi bi-life-preserver',
         description: 'Access support resources and contact customer service.',
     },
-    {
-        _id: 13,
-        name: 'Blank',
-        icon: 'bi bi-file-earmark',
-    },
 ]
 
 export default navList
