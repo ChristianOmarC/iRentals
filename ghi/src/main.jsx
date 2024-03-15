@@ -22,7 +22,7 @@ import CreateReservation from './components/CreateReservation'
 import ReservationDetail from './components/ReservationDetails'
 import UpdateProperty from './components/UpdateProperty'
 =======
-import Dashboard from './components/Dashboard/DashboardComponents/Dashboard'
+import DashApp from './components/Dashboard/DashboardComponents/DashApp'
 const router = createBrowserRouter([
     {
         path: '/',
@@ -41,6 +41,12 @@ const router = createBrowserRouter([
             { path: 'createreservation', element: <CreateReservation /> },
             { path: 'reservations/:id/update', element: <UpdateReservation /> },
             { path: 'properties/:id/update', element: <UpdateProperty /> },
+            { path: 'dashboard', element: <DashApp /> },
+            // { path: 'reservations', element: <ListReservations /> },
+            // { path: 'reservations/:id', element: <ReservationDetail /> },
+            // { path: 'createreservation', element: <CreateReservation /> },
+            // { path: 'reservations/:id/update', element: <UpdateReservation /> },
+            // { path: 'properties/:id/update', element: <UpdateProperty /> },
 
         ],
     },
