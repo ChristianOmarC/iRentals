@@ -1,0 +1,121 @@
+/* Base Calendar Styles */
+.fc {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #1a202c;
+    border-radius: 12px; /* Consistent rounded corners for the calendar */
+}
+
+/* Calendar Header */
+.fc-header-toolbar {
+    background-color: #ffffff;
+    color: #1a202c;
+    padding: 10px;
+    border-radius: 12px; /* Top rounded corners for the header */
+    border-bottom: 1px solid #e5e7eb; /* Bottom border for the header */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Shadow for the header */
+}
+
+/* Calendar Buttons - General Style */
+.fc-button {
+    background-color: #f6f6fe;
+    color: #4154f1;
+    border: 1px solid #4154f1; /* Consistent border color for buttons */
+    padding: 5px 10px;
+    border-radius: 8px; /* Rounded corners for buttons */
+    font-weight: 600; /* Consistent font weight for buttons */
+    transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+/* Calendar Buttons - Hover & Active States */
+.fc-button:hover,
+.fc-button-primary:not(:disabled).fc-button-active,
+.fc-button-primary:hover {
+    background-color: #eff0fd; /* Slightly lighter on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Shadow to lift button on hover */
+}
+
+/* Today Button - Specific Style */
+.fc-button-primary {
+    background-color: #4154f1;
+    color: #ffffff;
+    border: none; /* No border for the primary button */
+}
+
+/* Calendar Events */
+.fc-event {
+    background-color: #2eca6a;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px; /* Rounded corners for events */
+    font-size: 0.875rem; /* Smaller font size for event text */
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.fc-event:hover {
+    background-color: #28b461; /* Darker green on hover */
+}
+
+/* Dialog Styling */
+.dialog-background {
+    background-color: rgba(0, 0, 0, 0.4); /* Overlay background */
+    /* Other styles are consistent with the .dialog class, so they can be combined */
+}
+
+.dialog {
+    background-color: #ffffff;
+    border-radius: 20px; /* Consistent rounded corners */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Consistent shadow */
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    position: fixed; /* Fixed position for the dialog */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* High z-index to be on top */
+}
+
+/* Inputs and Buttons Inside Dialog */
+.input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+}
+
+.input:focus {
+    outline: 2px solid #4154f1; /* Focus outline for accessibility */
+    border-color: transparent;
+}
+
+.submit-button {
+    background-color: #4154f1;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 8px; /* Rounded corners for buttons */
+    transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+.submit-button:hover {
+    background-color: #1d4ed8; /* Slightly darker on hover */
+}
+
+/* Expanded Calendar Card */
+/* Expanded Calendar Card */
+.calendar-card.expanded {
+    width: 80%;
+    height: auto;
+    max-height: 90%;
+    position: fixed; /* Fixed position to be on top of other content */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100; /* High z-index to ensure it's above other content */
+    overflow-y: auto; /* Allow for scrolling on small screens */
+    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5),
+        /* Overlay effect */ 0 4px 20px rgba(0, 0, 0, 0.5); /* Shadow for prominence */
+} /* Ensure this closing brace is present */

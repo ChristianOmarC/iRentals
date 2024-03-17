@@ -1,4 +1,3 @@
-import React from 'react'
 import './dashApp.css'
 
 import './dashboard.css'
