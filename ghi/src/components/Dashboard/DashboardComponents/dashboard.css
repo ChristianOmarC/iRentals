@@ -75,3 +75,14 @@
     color: #ff771d;
     background: #ffecdf;
 }
+
+.map-container {
+    transition: all 0.3s ease;
+    /* Default size */
+}
+
+.map-container.expanded {
+    width: 100%; /* Or any larger size */
+    height: 80vh; /* Adjust based on your layout */
+    /* Additional styles for expanded state */
+}

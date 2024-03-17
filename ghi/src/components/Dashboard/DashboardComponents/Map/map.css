@@ -1,0 +1,36 @@
+/* map.css */
+.geocoder-container {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 50%;
+}
+
+/* Rest of your styles */
+
+.mapboxgl-ctrl-attrib {
+    color: #fff !important;
+}
+
+.mapboxgl-ctrl-attrib a {
+    color: #fff !important;
+}
+
+.mapboxgl-ctrl-attrib a:hover {
+    color: #fff !important;
+}
+.map-container {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.mapboxgl-ctrl-attrib,
+.mapboxgl-ctrl-logo {
+    display: none; /* Hide Mapbox attribution & logo */
+}
+
+/* Add any additional styles you need for the map */
