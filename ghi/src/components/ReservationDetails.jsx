@@ -1,5 +1,5 @@
 
-import React, {useState} from 'react'
+import React from 'react'
 import { useGetReservationByIdQuery, useDeleteReservationMutation } from '../app/apiSlice'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 
@@ -10,69 +10,62 @@ const ReservationDetail = () => {
         data: reservation,
         isLoading,
         isSuccess,
+        isError,
+        error,
     } = useGetReservationByIdQuery(id)
-const [deleteReservation, { isLoading: loading, isError: error}] = useDeleteReservationMutation();
+    const [deleteReservation, { isLoading: deleteLoading, isSuccess: deleteSuccess, isError: deleteError }] = useDeleteReservationMutation();
 
-
-    if (!deleteReservation) {
-        alert('Failed to delete reservation')
-    } else {
-        alert('Reservation Deleted')
-        navigate('/reservations')
+    const handleDeleteReservation = async () => {
+        try {
+            await deleteReservation(id).unwrap()
+        } catch (error) {
+            console.error('Error deleting reservation:', error)
+        }
     }
-// const handleDeleteReservation = async () => {
-//     //id.preventDefault()
-//     try {
-//       await deleteReservation(id);
-//       console.log(id)
-//     } catch (error) {
-//       console.error('Error deleting reservation:', error);
-//     }
-//   };
-
-// const PropertyDetails = () => {
-//     const { id } = useParams()
-//     const {
-//         property_data: property,
-//         isLoading,
-//         isSuccess,
-//     } = useGetPropertyByIdQuery(id)
 
     if (isLoading) {
         return <div>Loading...</div>
     }
 
-    if (!isSuccess) {
-        return <div>Failed to fetch reservation details</div>
+    if (isError) {
+        return <div>Error: {error.message}</div>
+    }
+
+    if (!isSuccess || !reservation) {
+        return <div>Reservation not found</div>
     }
 
     return (
-        <div>
-            <h1>{reservation.reservation_name}</h1>
-            <p>Check-In: {reservation.checkin}</p>
-            <p>Check-out: {reservation.checkout}</p>
-            <p>Property : {reservation.property_id}</p>
-            <Link to={`/reservations/${id}/update`}>
-                Update Reservation
-            </Link>
-            <button
-                className="btn btn-primary fw-bolder"
-                onClick={() => deleteReservation(id)}>
-                Delete
-            </button>
-
-            {/* <p>
-                Address: {property.address.address}, {property.address.city},{' '}
-                {property.address.state} {property.address.zip}
-            </p> */}
-            {/* <h2>Amenities</h2>
-            <ul>
-                {Object.entries(property.amenities).map(([key, value]) => (
-                    <li key={key}>
-                        {key}: {value ? 'Yes' : 'No'}
-                    </li>
-                ))}
-            </ul> */}
+        <div className="container mx-auto py-8">
+            <h1 className="text-3xl font-bold mb-4">{reservation.reservation_name}</h1>
+            <p className="mb-2">Check-In: {reservation.checkin}</p>
+            <p className="mb-2">Check-out: {reservation.checkout}</p>
+            <p className="mb-4">Property: {reservation.property_id}</p>
+            <div className="flex gap-4">
+                <Link
+                    to={`/reservations/${id}/update`}
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                >
+                    Update Reservation
+                </Link>
+                <button
+                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                    onClick={handleDeleteReservation}
+                    disabled={deleteLoading}
+                >
+                    {deleteLoading ? 'Deleting...' : 'Delete'}
+                </button>
+            </div>
+            {deleteSuccess && (
+                <div className="mt-4 text-green-500">
+                    Reservation deleted successfully
+                </div>
+            )}
+            {deleteError && (
+                <div className="mt-4 text-red-500">
+                    Error deleting reservation. Please try again.
+                </div>
+            )}
         </div>
     )
 }

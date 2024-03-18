@@ -1,11 +1,20 @@
 import React from 'react'
-import { useGetPropertyByIdQuery } from '../app/apiSlice'
-import { useParams, Link } from 'react-router-dom'
+import { useGetPropertyByIdQuery, useDeletePropertyMutation} from '../app/apiSlice'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 
 const PropertyDetails = () => {
+    const navigate = useNavigate()
     const { id } = useParams()
     const { data: property, isLoading, isSuccess, isError } = useGetPropertyByIdQuery(id)
+    const [deleteProperty, { isLoading: deleteLoading, isSuccess: deleteSuccess, isError: deleteError }] = useDeletePropertyMutation();
 
+    const handleDeleteProperty = async () => {
+        try {
+            await deleteProperty(id).unwrap()
+        } catch (error) {
+            console.error('Error deleting property:', error)
+        }
+    }
     if (isLoading) {
         return <div className="text-center">Loading...</div>
     }
@@ -24,7 +33,9 @@ const PropertyDetails = () => {
                 <Link to="/properties" className="text-blue-500 hover:underline">
                     &larr; Back to Properties
                 </Link>
+
             </div>
+
             <div className="bg-white shadow-md rounded-lg p-6">
                 {property.image && (
                     <img src={property.image} alt={property.name} className="w-full h-64 object-cover mb-4" />
@@ -57,11 +68,34 @@ const PropertyDetails = () => {
                 </div>
                 <div className="mt-8">
                     <Link
+                        to={`/createreservation/${id}`}
+                        className="bg-green-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                    >
+                        Make a Reservation
+                    </Link>
+                    <Link
                         to={`/properties/${id}/update`}
                         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                     >
                         Update Property
                     </Link>
+                    <button
+                        className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                        onClick={handleDeleteProperty}
+                        disabled={deleteLoading}
+                    >
+                        {deleteLoading ? 'Deleting...' : 'Delete'}
+                    </button>
+                    {deleteSuccess && (
+                        <div className="mt-4 text-green-500">
+                            Property deleted successfully
+                        </div>
+                    )}
+                    {deleteError && (
+                        <div className="mt-4 text-red-500">
+                            Error deleting property. Please try again.
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

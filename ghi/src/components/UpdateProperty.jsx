@@ -7,9 +7,6 @@ const UpdateProperty = () => {
     const navigate = useNavigate();
     const { data: property, isLoading: loadingProperty, isError, error } = useGetPropertyByIdQuery(id);
     const [updateProperty, { isLoading: updatingProperty }] = useUpdatePropertyMutation();
-    const [amenities, setAmenities] = useState(amenities)
-
-
 
     const [formData, setFormData] = useState({
         name: '',
@@ -30,11 +27,10 @@ const UpdateProperty = () => {
             wifi: false,
             pets_allowed: false,
             pool: false,
-        }
+        },
+        image: '',
+    });
 
-    })
-
-    //Will get the data from property{}
     useEffect(() => {
         if (property) {
             setFormData({
@@ -47,33 +43,50 @@ const UpdateProperty = () => {
                 bathrooms: property.bathrooms,
                 price: property.price,
                 description: property.description,
-                amenities: property.amenities || formData.amenities,
+                amenities: property.amenities,
+                image: property.image,
             });
         }
     }, [property]);
 
     const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        if (type === 'checkbox') {
-            setFormData(prevFormData => ({
-                ...prevFormData,
-                amenities: {
-                    ...prevFormData.amenities,
-                    [name]: checked,
-                },
-            }));
-        } else {
-            setFormData({
-                ...formData,
-                [name]: value,
-            });
-        }
+        const { name, value } = e.target;
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+        }));
     };
 
-     const handleSubmit = async (e) => {
+    const handleAmenityChange = (amenityKey) => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            amenities: {
+                ...prevFormData.amenities,
+                [amenityKey]: !prevFormData.amenities[amenityKey],
+            },
+        }));
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await updateProperty({ id, ...formData }).unwrap();
+            const updatedPropertyData = {
+                name: formData.name,
+                address: {
+                    address: formData.address,
+                    city: formData.city,
+                    state: formData.state,
+                    zip: formData.zip,
+                },
+                bedrooms: parseInt(formData.bedrooms),
+                bathrooms: parseFloat(formData.bathrooms),
+                price: parseFloat(formData.price),
+                description: formData.description,
+                amenities: formData.amenities,
+                image: formData.image,
+            };
+
+            await updateProperty({ id, ...updatedPropertyData }).unwrap();
             alert('Property updated successfully!');
             navigate(`/properties/${id}`);
         } catch (error) {
@@ -82,11 +95,11 @@ const UpdateProperty = () => {
     };
 
     if (loadingProperty) {
-        return <div>Loading...</div>
+        return <div>Loading...</div>;
     }
 
-    if (!property) {
-        return <div>property not found</div>
+    if (isError) {
+        return <div>Error: {error.message}</div>;
     }
 
     return (
@@ -107,8 +120,9 @@ const UpdateProperty = () => {
                         id="name"
                         type="text"
                         placeholder="Name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
                     />
                 </div>
                 <div className="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -124,8 +138,9 @@ const UpdateProperty = () => {
                             id="address"
                             type="text"
                             placeholder="Address"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
+                            name="address"
+                            value={formData.address}
+                            onChange={handleChange}
                         />
                     </div>
                     <div>
@@ -140,8 +155,9 @@ const UpdateProperty = () => {
                             id="city"
                             type="text"
                             placeholder="City"
-                            value={city}
-                            onChange={(e) => setCity(e.target.value)}
+                            name="city"
+                            value={formData.city}
+                            onChange={handleChange}
                         />
                     </div>
                     <div>
@@ -156,8 +172,9 @@ const UpdateProperty = () => {
                             id="state"
                             type="text"
                             placeholder="State"
-                            value={state}
-                            onChange={(e) => setState(e.target.value)}
+                            name="state"
+                            value={formData.state}
+                            onChange={handleChange}
                         />
                     </div>
                     <div>
@@ -172,8 +189,9 @@ const UpdateProperty = () => {
                             id="zip"
                             type="text"
                             placeholder="ZIP Code"
-                            value={zip}
-                            onChange={(e) => setZip(e.target.value)}
+                            name="zip"
+                            value={formData.zip}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -190,8 +208,9 @@ const UpdateProperty = () => {
                             id="bedrooms"
                             type="number"
                             placeholder="Number of Bedrooms"
-                            value={bedrooms}
-                            onChange={(e) => setBedrooms(e.target.value)}
+                            name="bedrooms"
+                            value={formData.bedrooms}
+                            onChange={handleChange}
                         />
                     </div>
                     <div>
@@ -206,8 +225,9 @@ const UpdateProperty = () => {
                             id="bathrooms"
                             type="number"
                             placeholder="Number of Bathrooms"
-                            value={bathrooms}
-                            onChange={(e) => setBathrooms(e.target.value)}
+                            name="bathrooms"
+                            value={formData.bathrooms}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -223,8 +243,9 @@ const UpdateProperty = () => {
                         id="price"
                         type="number"
                         placeholder="Price"
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
+                        name="price"
+                        value={formData.price}
+                        onChange={handleChange}
                     />
                 </div>
                 <div className="mb-4">
@@ -238,48 +259,60 @@ const UpdateProperty = () => {
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="description"
                         placeholder="Description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
+                        name="description"
+                        value={formData.description}
+                        onChange={handleChange}
                     ></textarea>
                 </div>
                 <div className="mb-4">
                     <span className="block text-gray-700 text-sm font-bold mb-2">
                         Amenities
                     </span>
-                    {Object.keys(initialAmenities).map((amenityKey) => (
+                    {Object.keys(formData.amenities).map((amenityKey) => (
                         <div key={amenityKey} className="mb-2">
                             <label className="flex items-center space-x-3">
                                 <input
                                     type="checkbox"
-                                    checked={amenities[amenityKey]}
-                                    onChange={() =>
-                                        handleAmenityChange(amenityKey)
-                                    }
+                                    checked={formData.amenities[amenityKey]}
+                                    onChange={() => handleAmenityChange(amenityKey)}
                                     className="form-checkbox h-5 w-5"
                                 />
                                 <span>
-                                    {amenityKey
-                                        .replace(/_/g, ' ')
-                                        .toUpperCase()}
+                                    {amenityKey.replace(/_/g, ' ').toUpperCase()}
                                 </span>
                             </label>
                         </div>
                     ))}
                 </div>
+                <div className="mb-4">
+                    <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="image"
+                    >
+                        Image URL
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="image"
+                        type="text"
+                        placeholder="Image URL"
+                        name="image"
+                        value={formData.image}
+                        onChange={handleChange}
+                    />
+                </div>
                 <div className="flex items-center justify-between">
                     <button
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         type="submit"
-                        disabled={updatePropertyLoading}
-                    //onClick={handleSubmit}
+                        disabled={updatingProperty}
                     >
-                        Update Property
+                        {updatingProperty ? 'Updating...' : 'Update Property'}
                     </button>
                 </div>
             </form>
         </div>
-    )
+    );
 }
 
-
-export default UpdateProperty
+export default UpdateProperty;

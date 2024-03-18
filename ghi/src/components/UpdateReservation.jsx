@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import {
     useGetReservationByIdQuery,
     useUpdateReservationMutation,
@@ -7,9 +7,10 @@ import {
 
 const UpdateReservation = () => {
     const { id } = useParams()
+    const navigate = useNavigate()
     const { data: reservation, isLoading: reservationLoading } =
         useGetReservationByIdQuery(id)
-    const [updateReservation, { isLoading: updateLoading }] =
+    const [updateReservation, { isLoading: updateLoading, isSuccess, isError }] =
         useUpdateReservationMutation()
 
     const [formData, setFormData] = useState({
@@ -19,6 +20,16 @@ const UpdateReservation = () => {
 
     })
 
+    useEffect(() => {
+        if (reservation) {
+            setFormData({
+                checkin: reservation.checkin,
+                checkout: reservation.checkout,
+                reservation_name: reservation.reservation_name,
+            })
+        }
+    }, [reservation])
+
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -26,14 +37,25 @@ const UpdateReservation = () => {
         })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-             updateReservation({ id: id, ...formData })
+            await updateReservation({
+                id: id,
+                ...formData,
+                property_id: reservation.property_id,
+                account_id: reservation.account_id,
+            })
         } catch (error) {
             console.error('Error updating reservation:', error)
         }
     }
+
+    useEffect(() => {
+        if (isSuccess) {
+            navigate(`/reservations/${id}`)
+        }
+    }, [isSuccess, id, navigate])
 
     if (reservationLoading) {
         return <div>Loading...</div>
@@ -43,11 +65,17 @@ const UpdateReservation = () => {
         return <div>Reservation not found</div>
     }
 
+    console.log(reservation)
     return (
         <div className="max-w-4xl mx-auto p-5">
             <h1>Update Reservation</h1>
             <form onSubmit={handleSubmit}
                 className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                {isError && (
+                    <div className="text-red-500 mb-4">
+                        Error updating reservation. Please try again.
+                    </div>
+                )}
                 <div className="mb-4">
                     <label htmlFor="checkin"
                         className="block text-gray-700 text-sm font-bold mb-2"
@@ -94,33 +122,17 @@ const UpdateReservation = () => {
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="property_id"
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                    >
-                        Property ID:
-                    </label>
                     <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        type="text"
-                        id="property_id"
+                        type="hidden"
                         name="property_id"
-                        value={formData.property_id}
-                        onChange={handleChange}
+                        value={reservation.property_id}
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="account_id"
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                    >
-                        Account ID:
-                    </label>
                     <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        type="text"
-                        id="account_id"
+                        type="hidden"
                         name="account_id"
-                        value={formData.account_id}
-                        onChange={handleChange}
+                        value={reservation.account_id}
                     />
                 </div>
                 <button type="submit" disabled={updateLoading}>

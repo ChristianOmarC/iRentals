@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
 const ReservationCard = ({ reservation }) => {
     const { id, checkin, checkout, reservation_name, property_id, guest_id } =
         reservation
