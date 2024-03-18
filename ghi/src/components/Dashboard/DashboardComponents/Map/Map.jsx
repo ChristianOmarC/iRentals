@@ -1,83 +1,99 @@
-import React, { useRef, useState } from "react";
-import ReactMapGL, { Layer, Marker, NavigationControl, Source } from "react-map-gl";
-import MapBoxGeocoder from "@mapbox/mapbox-gl-geocoder";
-import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import React, { useRef, useState, useEffect } from "react";
+import ReactMapGL, { Marker, NavigationControl, Source, Layer } from "react-map-gl";
 import { Box } from "@mui/material";
-import { TOKEN } from "./Geocoder";
+import Geocoder, { TOKEN } from "./Geocoder";
+import 'mapbox-gl/dist/mapbox-gl.css'
 import './map.css';
 
-const Map = ({ setNewPlace, newPlace, polygonCord, layerColor, viewport, setViewport }) => {
+const Map = ({ setNewPlace, newPlace, viewport, setViewport, polygonCord, layerColor }) => {
     const mapRef = useRef();
-    const geocoderContainerRef = useRef();
-    const [geocoder, setGeocoder] = useState(null);
+    const [geojson, setGeojson] = useState(null);
+    const [error, setError] = useState(null);
 
-
-    const initializeGeocoder = () => {
-        const newGeocoder = new MapBoxGeocoder({
-            accessToken: TOKEN,
-            mapboxgl: mapRef.current.getMap(),
-            marker: false
-        });
-
-        newGeocoder.on('result', (e) => {
-            setNewPlace({ lng: e.result.geometry.coordinates[0], lat: e.result.geometry.coordinates[1] });
-            mapRef.current.flyTo({
-                center: e.result.geometry.coordinates,
-                zoom: 16
-            });
-        });
-
-        setGeocoder(newGeocoder);
-    };
-
-    const handleMapLoad = () => {
-        if (geocoder === null) {
-            initializeGeocoder();
-            geocoderContainerRef.current.appendChild(geocoder.onAdd(mapRef.current.getMap()));
+    useEffect(() => {
+        // Check if polygonCord data is available
+        if (!polygonCord) {
+            setError("Polygon data not available.");
+            return;
         }
+
+        // Construct GeoJSON object
+        const geojsonData = {
+            type: "Feature",
+            geometry: {
+                type: "Polygon",
+                coordinates: [polygonCord],
+            },
+        };
+
+        // Update state with GeoJSON data
+        setGeojson(geojsonData);
+        setError(null);
+    }, [polygonCord]);
+
+    // Handle click on map to add new place
+    const handleAddClick = (e) => {
+        setNewPlace({
+            lat: e?.lngLat?.lat,
+            lng: e?.lngLat?.lng,
+        });
     };
 
-    const handleMapClick = (event) => {
-        const { lngLat } = event;
-        setNewPlace({
-            lng: lngLat.lng,
-            lat: lngLat.lat,
-        });
+    // Define layer styles
+    const layerStyle = {
+        id: "maine",
+        type: "fill",
+        source: "maine",
+        layout: {},
+        paint: {
+            "fill-color": layerColor || "#0080ff",
+            "fill-opacity": 0.5,
+        },
+    };
+
+    const layerOutlineStyle = {
+        id: "outline",
+        type: "line",
+        source: "maine",
+        layout: {},
+        paint: {
+            "line-color": "#000",
+            "line-width": 3,
+        },
     };
 
     return (
-        <Box
-            sx={{
-                width: '100%',
-                height: 400,
-                position: 'relative',
-                '& .map-container': {
-                    width: '100%',
-                    height: '100%',
-                },
-            }}
-        >
-
+        <Box sx={{ width: '100%', height: '400px', position: 'relative' }}>
+            {error && <div>Error: {error}</div>}
+            {/* <div className="geocoder-container"> */}
+            <Geocoder setNewPlace={setNewPlace} mapRef={mapRef} />
+            {/* </div> */}
             <div className="map-container">
-
                 <ReactMapGL
                     ref={mapRef}
+                    width="100%"
+                    height="400px"
                     mapboxAccessToken={TOKEN}
                     initialViewState={viewport}
-                    onViewportChange={setViewport}
+                    onViewportChange={nextViewport => setViewport(nextViewport)}
                     mapStyle="mapbox://styles/mapbox/streets-v11"
-                    onLoad={handleMapLoad}
-                    onDblClick={handleMapClick}
+                    onDblClick={handleAddClick}
                     transitionDuration="200"
+                    attributionControl={true}
                 >
+                    {geojson && (
+                        <Source id="my-data" type="geojson" data={geojson}>
+                            <Layer {...layerOutlineStyle} />
+                            <Layer {...layerStyle} />
+                        </Source>
+                    )}
                     {newPlace && (
                         <Marker
-                            longitude={newPlace.lng}
                             latitude={newPlace.lat}
-                        >
-                            {/* You can customize your marker here */}
-                            <div className="marker"></div>
-                        </Marker>
+                            longitude={newPlace.lng}
+                            draggable
+                            onDragEnd={(e) => setNewPlace({ lng: e.lngLat.lng, lat: e.lngLat.lat })}
+                        />
                     )}
                     <NavigationControl position="bottom-right" />
                 </ReactMapGL>
