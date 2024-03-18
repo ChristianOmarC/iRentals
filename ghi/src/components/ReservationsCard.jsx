@@ -1,9 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import { useGetPropertyByIdQuery } from '../app/apiSlice'
 const ReservationCard = ({ reservation }) => {
-    const { id, checkin, checkout, reservation_name, property_id, guest_id } =
+
+    const { id, checkin, checkout, reservation_name, property_id } =
         reservation
+    const { data: property, isLoading, isSuccess, isError } = useGetPropertyByIdQuery(property_id)
+    console.log(property)
     return (
         <div className="max-w-sm rounded overflow-hidden shadow-lg">
             <div className="px-6 py-4">
@@ -23,11 +26,28 @@ const ReservationCard = ({ reservation }) => {
             </div>
             <div className="px-3 py-1">
                 <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-                    Property ID: {property_id}
+                    {isSuccess && (
+                        <div>
+                            <h1>{property.name}</h1>
+                            {property.address && (
+                                <p>{property.address.address}, {property.address.city}, {property.address.state}, {property.address.zip}</p>
+                            )}
+                            <p>{property.bedrooms} Bedrooms</p>
+                            <p>{property.bathrooms} Bathrooms</p>
+                            <p>Price: ${property.price}</p>
+                            <p>{property.description}</p>
+                            {property.amenities && (
+                                <ul>
+                                    {Object.entries(property.amenities).map(([amenity, available]) => (
+                                        available && <li key={amenity}>{amenity}</li>
+                                    ))}
+                                </ul>
+                            )}
+                            <img src={property.image} alt={property.name} />
+                        </div>
+                    )}
                 </span>
-                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">
-                    Guest ID: {guest_id}
-                </span>
+
             </div>
         </div>
     )
