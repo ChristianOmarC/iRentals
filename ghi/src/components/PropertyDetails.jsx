@@ -68,6 +68,12 @@ const PropertyDetails = () => {
                 </div>
                 <div className="mt-8">
                     <Link
+                        to={`/createreservation`}
+                        className="bg-green-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                    >
+                        Make a Reservation
+                    </Link>
+                    <Link
                         to={`/properties/${id}/update`}
                         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                     >

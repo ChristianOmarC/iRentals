@@ -102,9 +102,8 @@ const CreateReservation = () => {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="property_id"
                             type="text"
-                            placeholder="property_id"
+                            readOnly={true}
                             value={property_id}
-                            onChange={(e) => setPropertyId(e.target.value)}
                         />
                     </div>
                     <div>
@@ -112,15 +111,13 @@ const CreateReservation = () => {
                             className="block text-gray-700 text-sm font-bold mb-2"
                             htmlFor="Guest"
                         >
-                            Guest ID
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="account_id"
-                            type="text"
+                            type="hidden"
                             placeholder="Guest"
                             value={account_id}
-                            onChange={(e) => setAccountId(e.target.value)}
                         />
                     </div>
                 <div className="flex items-center justify-between">
