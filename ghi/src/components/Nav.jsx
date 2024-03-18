@@ -1,5 +1,6 @@
 import { Link, NavLink } from 'react-router-dom'
 import { useGetTokenQuery, useLogoutMutation } from '../app/apiSlice'
+
 const Nav = () => {
     const { data: account, isLoading } = useGetTokenQuery()
     const [logout, logoutStatus] = useLogoutMutation()
@@ -9,7 +10,6 @@ const Nav = () => {
     return (
         <nav className="flex items-center justify-between flex-wrap bg-teal-500 p-6 ">
             <div className="flex items-center flex-shrink-0 text-white mr-6">
-                <svg className="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z" /></svg>
                 <svg className="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z" /></svg>
                 <span className="font-semibold text-xl tracking-tight">Tailwind CSS</span>
             </div>
@@ -23,29 +23,33 @@ const Nav = () => {
                     <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                         <NavLink to={'/'}>Home</NavLink>
                     </a>
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                        <NavLink to={'/signup'}>Sign Up </NavLink>
-                    </a>
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                        <NavLink to={'/login'}>Log In</NavLink>
-                    </a>
+                    {!account && (
+                        <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                            <NavLink to={'/signup'}>Sign Up </NavLink>
+                        </a>)}
+                    {!account && (
+                        <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                            <NavLink to={'/login'}>Log In</NavLink>
+                        </a>)}
                     <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                         <NavLink to={'/properties'}>Properties</NavLink>
                     </a>
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                        <NavLink to={'/createproperty'}>Create Property</NavLink>
-                    </a>
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                        <NavLink to={'/reservations'}>Reservations</NavLink>
-                    </a>
-                    {/* {account && (
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                        <NavLink to={'/createreservation'}>Create Reservation</NavLink>
-                    </a>)} */}
                     {account && (
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                        <NavLink to={'/dashboard'}>Dashboard</NavLink>
-                    </a>
+                        <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                            <NavLink to={'/createproperty'}>Create Property</NavLink>
+                        </a>)}
+                    {account && (
+                        <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                            <NavLink to={'/reservations'}>Reservations</NavLink>
+                        </a>)}
+                    {account && (
+                        <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                            <NavLink to={'/createreservation'}>Create Reservation</NavLink>
+                        </a>)}
+                    {account && (
+                        <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                            <NavLink to={'/dashboard'}>Dashboard</NavLink>
+                        </a>)}
                 </div>
                 <div>
                     {account && (
