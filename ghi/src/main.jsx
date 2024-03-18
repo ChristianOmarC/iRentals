@@ -10,14 +10,17 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import store from './app/store'
 import { Provider } from 'react-redux'
 import ListProperties from './components/ListProperties'
-import ReservationDetail from './components/ReservationDetails'
-import ListReservations from './components/ListReservations'
-import CreateReservation from './components/CreateReservation'
-import UpdateReservation from './components/UpdateReservation'
 import SignUpForm from './SignupForm'
 import LoginForm from './LoginForm'
 import CreateProperty from './components/CreateProperty'
+import Dashboard from './components/Dashboard/DashboardComponents/DashApp'
+import PropertyDetails from './components/PropertyDetails'
+import UpdateReservation from './components/UpdateReservation'
+import ListReservations from './components/ListReservations'
+import CreateReservation from './components/CreateReservation'
+import ReservationDetail from './components/ReservationDetails'
 import UpdateProperty from './components/UpdateProperty'
+
 import DashApp from './components/Dashboard/DashboardComponents/DashApp'
 const router = createBrowserRouter([
     {
@@ -27,16 +30,22 @@ const router = createBrowserRouter([
         children: [
             { index: true, element: <Home /> },
             { path: 'properties', element: <ListProperties /> },
-            // { path: 'properties/:id', element: <PropertyDetails /> },
+            { path: 'properties/:id', element: <PropertyDetails /> },
             { path: 'signup', element: <SignUpForm /> },
             { path: 'login', element: <LoginForm /> },
             { path: 'createproperty', element: <CreateProperty /> },
-            { path: 'dashboard', element: <DashApp /> },
+            { path: 'dashboard', element: <Dashboard /> },
             { path: 'reservations', element: <ListReservations /> },
             { path: 'reservations/:id', element: <ReservationDetail /> },
             { path: 'createreservation', element: <CreateReservation /> },
             { path: 'reservations/:id/update', element: <UpdateReservation /> },
             { path: 'properties/:id/update', element: <UpdateProperty /> },
+            { path: 'dashboard', element: <DashApp /> },
+            // { path: 'reservations', element: <ListReservations /> },
+            // { path: 'reservations/:id', element: <ReservationDetail /> },
+            // { path: 'createreservation', element: <CreateReservation /> },
+            // { path: 'reservations/:id/update', element: <UpdateReservation /> },
+            // { path: 'properties/:id/update', element: <UpdateProperty /> },
 
         ],
     },
