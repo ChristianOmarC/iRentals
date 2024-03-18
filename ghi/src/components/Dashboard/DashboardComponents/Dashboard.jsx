@@ -6,8 +6,11 @@ import RecentSales from './RecentSales';
 import TopSelling from './TopSelling';
 import RecentActivity from './RecentActivity';
 import News from './News';
-import Calendar from "./Calendar";
+import CalendarCard from "./CalendarCard";
 import Map from "./Map/Map";
+// import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
+
 import CardFilter from "./CardFilter"; // Import the CardFilter component
 
 function Dashboard() {
@@ -19,6 +22,11 @@ function Dashboard() {
         width: "100%",
         height: "400px",
     });
+
+    const [isCalendarExpanded, setIsCalendarExpanded] = useState(false);
+    const handleExpandToggle = () => {
+        setIsCalendarExpanded(!isCalendarExpanded)
+    }
 
     // Handler function to update the viewport state based on the selected filter
     const handleFilterChange = (filterType) => {
@@ -45,7 +53,7 @@ function Dashboard() {
                             <RecentSales />
                         </div>
                         <div className="col-12">
-                            <Calendar />
+                            {/* <Calendar /> */}
                         </div>
                         <div className="col-12">
                             <TopSelling />
@@ -55,8 +63,15 @@ function Dashboard() {
                 <div className="col-lg-4">
                     <CardFilter filterChange={handleFilterChange} /> {/* Place CardFilter above or wherever suitable */}
                     <Map viewport={viewport} setViewport={setViewport} /> {/* Ensure the Map component can accept and utilize these props */}
-                    {/* <RecentActivity /> */}
-                    {/* <News /> */}
+                    <div className="calendar-card-spacing">
+                        <Button onClick={handleExpandToggle} variant="contained">
+                            {isCalendarExpanded ? 'Shrink Calendar' : 'Expand Calendar'}
+                        </Button>
+
+                        <CalendarCard toggleExpand={handleExpandToggle} isExpanded={isCalendarExpanded} />
+                    </div>
+
+
                 </div>
             </div>
         </section>
