@@ -17,7 +17,9 @@ const ReservationDetail = () => {
 
     const handleDeleteReservation = async () => {
         try {
-            await deleteReservation(id).unwrap()
+            await deleteReservation(id).unwrap();
+            alert('Reservation deleted successfully');
+            navigate('/reservations');
         } catch (error) {
             console.error('Error deleting reservation:', error)
         }

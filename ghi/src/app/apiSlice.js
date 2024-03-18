@@ -63,11 +63,13 @@ export const iRentalApi = createApi({
             }),
         }),
         deleteProperty: builder.mutation({
-        query: (id) => ({
-            url: `/api/properties/${id}`,
-            method: 'DELETE',
-        }),
-        invalidateTags: (result, error, id) => [{ type: 'Property', id: id }],
+            query: (id) => ({
+                url: `/api/properties/${id}`,
+                method: 'DELETE',
+            }),
+            invalidateTags: (result, error, id) => [
+                { type: 'Property', id: id },
+            ],
         }),
         createProperty: builder.mutation({
             query: (body) => ({
@@ -78,10 +80,13 @@ export const iRentalApi = createApi({
         }),
         getAllReservations: builder.query({
             query: () => '/api/reservations',
+            providesTags: ['Reservations'],
         }),
         getReservationById: builder.query({
             query: (id) => `/api/reservations/${id}`,
-            providesTags: (result, error, id) => [{ type: 'Reservation', id: id}],
+            providesTags: (result, error, id) => [
+                { type: 'Reservation', id: id },
+            ],
         }),
         updateReservation: builder.mutation({
             query: ({ id, ...put }) => ({
@@ -91,11 +96,11 @@ export const iRentalApi = createApi({
             }),
         }),
         deleteReservation: builder.mutation({
-            query: (id) =>({
-            url: `/api/reservations/${id}`,
-            method: 'DELETE',
+            query: (id) => ({
+                url: `/api/reservations/${id}`,
+                method: 'DELETE',
             }),
-            invalidatesTags: (result, error, id) => [{ type: 'Reservation', id: id}],
+            invalidatesTags: ['Reservations'],
         }),
         createReservation: builder.mutation({
             query: (body) => ({
