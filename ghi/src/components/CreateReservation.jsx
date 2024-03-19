@@ -1,41 +1,77 @@
-import React from 'react'
-import { useState } from 'react'
-import { useCreateReservationMutation } from '../app/apiSlice'
+// import React from 'react'
+// import { useState } from 'react'
+// import { useCreateReservationMutation } from '../app/apiSlice'
+
+// const CreateReservation = () => {
+//     const [checkin, setCheckin ] = useState('')
+//     const [checkout, setCheckout ] = useState('')
+//     const [reservation_name, setReservationName ] = useState('')
+//     const [property_id, setPropertyId] =  useState('')
+//     const [account_id, setAccountId] = useState('')
+
+//     const [addReservation, { isLoading, isSuccess, isError, error }] =
+//         useCreateReservationMutation()
+
+
+
+//     const handleSubmit = async (event) => {
+//         event.preventDefault()
+//         const reservationData = {
+//             checkin,
+//             checkout,
+//             reservation_name,
+//             property_id,
+//             account_id,
+//         }
+//         console.log(reservationData)
+//         //setGuestId(self.account_id)
+//         try {
+//             await addReservation(reservationData).unwrap()
+//             alert('Reservation added successfully')
+//             // Reset form if needed
+//         } catch (error) {
+//             console.error('Failed to add reservation: ', error)
+//             alert('Failed to add reservation')
+//         }
+//     }
+
+//     if (isLoading) return <div>Loading...</div>
+
+import React, { useState } from 'react';
+import { useCreateReservationMutation } from '../app/apiSlice';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const CreateReservation = () => {
-    const [checkin, setCheckin ] = useState('')
-    const [checkout, setCheckout ] = useState('')
-    const [reservation_name, setReservationName ] = useState('')
-    const [property_id, setPropertyId] =  useState('')
-    const [account_id, setAccountId] = useState('')
+    const { propertyId } = useParams();
+    const navigate = useNavigate();
 
-    const [addReservation, { isLoading, isSuccess, isError, error }] =
-        useCreateReservationMutation()
+    const [checkin, setCheckin] = useState('');
+    const [checkout, setCheckout] = useState('');
+    const [reservation_name, setReservationName] = useState('');
+    const [property_id, setPropertyId] = useState(propertyId);
+    const [account_id, setAccountId] = useState('');
 
-
+    const [addReservation, { isLoading }] = useCreateReservationMutation();
 
     const handleSubmit = async (event) => {
-        event.preventDefault()
+        event.preventDefault();
         const reservationData = {
             checkin,
             checkout,
             reservation_name,
             property_id,
             account_id,
-        }
-        console.log(reservationData)
-        //setGuestId(self.account_id)
-        try {
-            await addReservation(reservationData).unwrap()
-            alert('Reservation added successfully')
-            // Reset form if needed
-        } catch (error) {
-            console.error('Failed to add reservation: ', error)
-            alert('Failed to add reservation')
-        }
-    }
+        };
 
-    if (isLoading) return <div>Loading...</div>
+        try {
+            await addReservation(reservationData).unwrap();
+            alert('Reservation added successfully');
+            navigate('/reservations');
+        } catch (error) {
+            console.error('Failed to add reservation: ', error);
+            alert('Failed to add reservation');
+        }
+    };
 
     return (
         <div className="max-w-4xl mx-auto p-5">
