@@ -12,7 +12,9 @@ const ReservationDetail = () => {
         isError,
         error,
     } = useGetReservationByIdQuery(id)
+    console.log(reservation)
     const [deleteReservation, { isLoading: deleteLoading, isSuccess: deleteSuccess, isError: deleteError }] = useDeleteReservationMutation();
+
 
     const handleDeleteReservation = async () => {
         try {
@@ -59,7 +61,6 @@ const ReservationDetail = () => {
                 </ul>
             )}
             <img src={property.image} alt={property.name} />
-
             <div className="flex gap-4">
                 <Link
                     to={`/reservations/${id}/update`}
