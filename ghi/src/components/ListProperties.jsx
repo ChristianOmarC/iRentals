@@ -3,7 +3,6 @@ import { useGetAllPropertiesQuery } from '../app/apiSlice'
 import PropertyCard from './PropertyCard'
 import { setQuery } from '../app/querySlice'
 import { useState } from 'react'
-import propertyData from './data/propertyData'
 
 const ListProperties = () => {
     const query = useSelector((state) => state.query.value)
@@ -16,7 +15,7 @@ const ListProperties = () => {
     const filteredData = () => {
         if (!data || !data.properties) return []
 
-        let filtered = propertyData
+        let filtered = data.properties
 
         if (query) {
             filtered = filtered.filter((p) => p.name.toLowerCase().includes(query.toLowerCase()))

@@ -4,12 +4,17 @@ import Cards from "./Cards";
 import Reports from './Reports';
 import RecentSales from './RecentSales';
 import TopSelling from './TopSelling';
+import RecentActivity from './RecentActivity';
+import News from './News';
 import CalendarCard from "./CalendarCard";
 import Map from "./Map/Map";
+// import Button from '@material-ui/core/Button';
 import Button from '@mui/material/Button';
-import CardFilter from "./CardFilter";
+
+import CardFilter from "./CardFilter"; // Import the CardFilter component
 
 function Dashboard() {
+    // Initialize viewport state for the Map component
     const [viewport, setViewport] = useState({
         latitude: 37.7577,
         longitude: -122.4376,
@@ -23,7 +28,9 @@ function Dashboard() {
         setIsCalendarExpanded(!isCalendarExpanded)
     }
 
+    // Handler function to update the viewport state based on the selected filter
     const handleFilterChange = (filterType) => {
+        // Example: Adjust the viewport based on filter selection
         if (filterType === 'Today') {
             setViewport({ ...viewport, zoom: 10 });
         } else if (filterType === 'This Month') {
@@ -44,6 +51,9 @@ function Dashboard() {
                         </div>
                         <div className="col-12">
                             <RecentSales />
+                        </div>
+                        <div className="col-12">
+                            {/* <Calendar /> */}
                         </div>
                         <div className="col-12">
                             <TopSelling />

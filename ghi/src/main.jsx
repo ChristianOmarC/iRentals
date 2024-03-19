@@ -33,14 +33,16 @@ const router = createBrowserRouter([
             { path: 'login', element: <LoginForm /> },
             { path: 'createproperty', element: <CreateProperty /> },
             { path: 'dashboard', element: <DashApp /> },
-            { path: 'reservations', element: <ListReservations /> },
-            { path: 'reservations/:id', element: <ReservationDetail /> },
-            { path: 'createreservation/:propertyId', element: <CreateReservation /> },
+            { path: 'reservations', element: <ListReservations />},
+            { path: 'reservations/:id', element: <ReservationDetail />},
+            { path: 'createreservation/:propertyId', element: <CreateReservation />},
             { path: 'reservations/:id/update', element: <UpdateReservation /> },
-            { path: 'properties/:id/update', element: <UpdateProperty /> },
+            { path: 'properties/:id/update', element: <UpdateProperty />},
+
         ],
     },
 ])
+
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <Provider store={store}>
