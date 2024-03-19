@@ -12,10 +12,10 @@ const ReservationDetail = () => {
         isError,
         error,
     } = useGetReservationByIdQuery(id)
-
-    const [deleteReservation, { isLoading: deleteLoading, isSuccess: deleteSuccess, isError: deleteError }] = useDeleteReservationMutation();
-    //const { data: property, isLoading: propertyLoading, isSuccess: successProperty, isError: errorProperty } = useGetPropertyByIdQuery(reservation.property_id)
     console.log(reservation)
+    const [deleteReservation, { isLoading: deleteLoading, isSuccess: deleteSuccess, isError: deleteError }] = useDeleteReservationMutation();
+
+
     const handleDeleteReservation = async () => {
         try {
             await deleteReservation(id).unwrap();
@@ -37,6 +37,8 @@ const ReservationDetail = () => {
     if (!isSuccess || !reservation) {
         return <div>Reservation not found</div>
     }
+    const { data: property, isLoading: propertyLoading, isSuccess: successProperty, isError: errorProperty } = useGetPropertyByIdQuery(reservation.property_id)
+
 
     return (
         <div className="container mx-auto py-8">
@@ -44,10 +46,11 @@ const ReservationDetail = () => {
             <p className="mb-2">Check-In: {reservation.checkin}</p>
             <p className="mb-2">Check-out: {reservation.checkout}</p>
             <p className="mb-4">Property: {reservation.property_id}</p>
-            {property.name}
-            {property.address && (
+            <p className="mb-2" >{property.name}</p>
+            <p className="mb-2" >{property.address && (
                 <p>Address: {property.address.address}, {property.address.city}, {property.address.state}, {property.address.zip}</p>
-            )}
+            )}</p>
+
             <p>{property.bedrooms} Bedrooms</p>
             <p>{property.bathrooms} Bathrooms</p>
             <p>Price: ${property.price}</p>
