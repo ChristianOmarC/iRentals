@@ -6,8 +6,8 @@ import Nav from "./Nav"
 function Header() {
     return (
         <header
-            id="header"
-            className={`header  fixed-top d-flex align-items-center`}
+            id="dashboard-header" // Updated ID for specificity
+            className="fixed-top d-flex align-items-center"
         >
             <Logo />
             <SearchBar />

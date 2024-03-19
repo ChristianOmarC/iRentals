@@ -11,12 +11,7 @@ const navList = [
     },
     {
         _id: 3,
-        name: 'Register',
-        icon: 'bi bi-card-list',
-    },
-    {
-        _id: 4,
-        name: 'Login',
+        name: 'Logout',
         icon: 'bi bi-box-arrow-in-right',
     },
     {
