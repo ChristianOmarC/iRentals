@@ -180,7 +180,6 @@ const CreatePropertyForm = () => {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="bedrooms"
                             type="number"
-                            min = "0"
                             placeholder="Number of Bedrooms"
                             value={bedrooms}
                             onChange={(e) => setBedrooms(e.target.value)}
