@@ -6,7 +6,6 @@ const ReservationCard = ({ reservation }) => {
     const { id, checkin, checkout, reservation_name, property_id } =
         reservation
     const { data: property, isLoading, isSuccess, isError } = useGetPropertyByIdQuery(property_id)
-    console.log(property)
     return (
         <div className="max-w-sm rounded overflow-hidden shadow-lg">
             <div className="px-6 py-4">
@@ -28,22 +27,11 @@ const ReservationCard = ({ reservation }) => {
                 <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
                     {isSuccess && (
                         <div>
-                            <h1>{property.name}</h1>
+                            Name: {property.name}
                             {property.address && (
-                                <p>{property.address.address}, {property.address.city}, {property.address.state}, {property.address.zip}</p>
+                                <p>Address: {property.address.address}, {property.address.city}, {property.address.state}, {property.address.zip}</p>
                             )}
-                            <p>{property.bedrooms} Bedrooms</p>
-                            <p>{property.bathrooms} Bathrooms</p>
-                            <p>Price: ${property.price}</p>
-                            <p>{property.description}</p>
-                            {property.amenities && (
-                                <ul>
-                                    {Object.entries(property.amenities).map(([amenity, available]) => (
-                                        available && <li key={amenity}>{amenity}</li>
-                                    ))}
-                                </ul>
-                            )}
-                            <img src={property.image} alt={property.name} />
+
                         </div>
                     )}
                 </span>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useGetReservationByIdQuery, useDeleteReservationMutation } from '../app/apiSlice'
+import { useGetReservationByIdQuery, useDeleteReservationMutation, useGetPropertyByIdQuery } from '../app/apiSlice'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 
 const ReservationDetail = () => {
@@ -12,8 +12,10 @@ const ReservationDetail = () => {
         isError,
         error,
     } = useGetReservationByIdQuery(id)
-    const [deleteReservation, { isLoading: deleteLoading, isSuccess: deleteSuccess, isError: deleteError }] = useDeleteReservationMutation();
 
+    const [deleteReservation, { isLoading: deleteLoading, isSuccess: deleteSuccess, isError: deleteError }] = useDeleteReservationMutation();
+    //const { data: property, isLoading: propertyLoading, isSuccess: successProperty, isError: errorProperty } = useGetPropertyByIdQuery(reservation.property_id)
+    console.log(reservation)
     const handleDeleteReservation = async () => {
         try {
             await deleteReservation(id).unwrap();
@@ -42,6 +44,22 @@ const ReservationDetail = () => {
             <p className="mb-2">Check-In: {reservation.checkin}</p>
             <p className="mb-2">Check-out: {reservation.checkout}</p>
             <p className="mb-4">Property: {reservation.property_id}</p>
+            {property.name}
+            {property.address && (
+                <p>Address: {property.address.address}, {property.address.city}, {property.address.state}, {property.address.zip}</p>
+            )}
+            <p>{property.bedrooms} Bedrooms</p>
+            <p>{property.bathrooms} Bathrooms</p>
+            <p>Price: ${property.price}</p>
+            <p>Description: {property.description}</p>
+            {property.amenities && (
+                <ul>
+                    {Object.entries(property.amenities).map(([amenity, available]) => (
+                        available && <li key={amenity}>{amenity}</li>
+                    ))}
+                </ul>
+            )}
+            <img src={property.image} alt={property.name} />
             <div className="flex gap-4">
                 <Link
                     to={`/reservations/${id}/update`}
