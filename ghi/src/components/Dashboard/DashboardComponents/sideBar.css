@@ -158,3 +158,38 @@
 .sidebar-nav .nav-content a.active i {
     background-color: #4154f1;
 }
+
+/* Ensure the list items have no padding or margin that would offset the nav links */
+.sidebar-nav li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    width: 100%; /* Full width */
+}
+
+/* Style the nav links to fill the entire space of the list item */
+.sidebar-nav .nav-link {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: #4154f1;
+    transition: 0.3s;
+    background: #f6f9ff;
+    padding: 10px 15px;
+    border-radius: 4px;
+    width: calc(100% - 30px); /* Adjust for padding */
+    text-align: left; /* Align text to the left */
+    border: none; /* Remove borders */
+}
+
+/* Adjust hover state to fill the entire width */
+.sidebar-nav .nav-link:hover,
+.sidebar-nav .nav-link:focus {
+    color: #4154f1;
+    background: #e6e6e6; /* Slightly different color for demonstration */
+    outline: none; /* Remove focus outline */
+    width: 100%; /* Fill to the full width */
+    padding-left: 15px; /* Maintain padding on the left */
+    padding-right: 15px; /* Maintain padding on the right */
+}

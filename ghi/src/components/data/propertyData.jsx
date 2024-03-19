@@ -22,7 +22,7 @@ const propertyData = [
             "pets_allowed": false,
             "pool": false
         },
-        "image": "https://unsplash.com/photos/JIUjvqe2ZHg"
+        "image": "https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?q=80&w=2503&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
         "name": "Modern Suburban House",
@@ -46,7 +46,7 @@ const propertyData = [
             "pets_allowed": true,
             "pool": true
         },
-        "image": "https://unsplash.com/photos/JIUjvqe2ZHg"
+        "image": "https://images.unsplash.com/photo-1416331108676-a22ccb276e35?q=80&w=3267&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
         "name": "Cozy Studio Apartment",
@@ -70,7 +70,7 @@ const propertyData = [
             "pets_allowed": true,
             "pool": false
         },
-        "image": "https://unsplash.com/photos/JIUjvqe2ZHg"
+        "image": "https://images.unsplash.com/photo-1528913775512-624d24b27b96?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
         "name": "Luxury Downtown Condo",
@@ -94,7 +94,7 @@ const propertyData = [
             "pets_allowed": false,
             "pool": true
         },
-        "image": "https://unsplash.com/photos/JIUjvqe2ZHg"
+        "image": "https://plus.unsplash.com/premium_photo-1661954372617-15780178eb2e?q=80&w=3260&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
         "name": "Historic Brick Townhouse",
@@ -118,7 +118,7 @@ const propertyData = [
             "pets_allowed": true,
             "pool": false
         },
-        "image": "https://unsplash.com/photos/JIUjvqe2ZHg"
+        "image": "https://images.unsplash.com/photo-1613545325278-f24b0cae1224?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
         "name": "Beachfront Villa",
@@ -142,7 +142,7 @@ const propertyData = [
             "pets_allowed": true,
             "pool": true
         },
-        "image": "https://unsplash.com/photos/JIUjvqe2ZHg"
+        "image": "https://images.unsplash.com/photo-1506126279646-a697353d3166?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
         "name": "Mountain Retreat Cabin",
@@ -166,7 +166,7 @@ const propertyData = [
             "pets_allowed": true,
             "pool": false
         },
-        "image": "https://unsplash.com/photos/JIUjvqe2ZHg"
+        "image": "https://images.unsplash.com/photo-1628744448840-55bdb2497bd4?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
         "name": "Urban Penthouse Suite",
@@ -190,7 +190,7 @@ const propertyData = [
             "pets_allowed": false,
             "pool": true
         },
-        "image": "https://unsplash.com/photos/JIUjvqe2ZHg"
+        "image": "https://plus.unsplash.com/premium_photo-1661913412680-c274b6fea096?q=80&w=3262&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
         "name": "Garden Cottage",
@@ -214,7 +214,7 @@ const propertyData = [
             "pets_allowed": true,
             "pool": false
         },
-        "image": "https://unsplash.com/photos/JIUjvqe2ZHg"
+        "image": "https://images.unsplash.com/photo-1641998277833-3a911b7b56d8?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
         "name": "Central City Apartment",
@@ -238,7 +238,7 @@ const propertyData = [
             "pets_allowed": true,
             "pool": false
         },
-        "image": "https://unsplash.com/photos/JIUjvqe2ZHg"
+        "image": "https://images.unsplash.com/photo-1612965607446-25e1332775ae?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     }
 ]
 
