@@ -16,7 +16,7 @@ const ListProperties = () => {
     const filteredData = () => {
         if (!data || !data.properties) return []
 
-        let filtered = propertyData
+        let filtered = data.properties
 
         if (query) {
             filtered = filtered.filter((p) => p.name.toLowerCase().includes(query.toLowerCase()))
