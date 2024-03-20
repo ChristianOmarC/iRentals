@@ -1,36 +1,14 @@
 from fastapi.testclient import TestClient
 from queries.reservations import ReservationsRepo
-from pydantic import BaseModel
 from main import app
 from authenticator import authenticator
-from fastapi import APIRouter, Depends, FastAPI
-from pydantic import BaseModel
+from fastapi import APIRouter, Depends
 from typing import List
+from models import ReservationList, AccountOut
 
 client = TestClient(app)
 
 router = APIRouter()
-
-class ReservationIn(BaseModel):
-    checkin: str
-    checkout: str
-    reservation_name: str
-    property_id: str
-    account_id: str
-
-class ReservationOut(ReservationIn):
-    id: str
-    reservation_name: str
-
-class ReservationList(BaseModel):
-    reservations : List[ReservationOut]
-
-class AccountOut(BaseModel):
-    id: str
-    email: str
-    first_name: str
-    last_name: str
-    username: str
 
 @app.get("/api/reservations", response_model=ReservationList)
 def list_reservations_by_account(
@@ -80,21 +58,4 @@ def test_list_reservations():
                     "id": "65eb3f7be3b05dcfaea1c43b"
                 }
             ]
-        }
-
-# def create_reservation():
-#     #Arrange
-#     app.dependency_overrides[ReservationsRepo] = FakeReservationRepo
-#     res = client.post("api/reservations")
-#     assert res.status_code == 200
-#     assert res.json() == [
-
-#         {
-#             "checkin": "2023-12-24",
-#             "checkout": "2023-12-31",
-#             "reservation_name": "Holiday Stay",
-#             "property_id": "65eb3f6ee3b05dcfaea1c43a",
-#             "account_id": "65f88f2772fc829e0b9896d8a",
-#         }
-#     ]
-
+    }
