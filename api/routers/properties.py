@@ -12,6 +12,7 @@ from models import PropertyOut, PropertyIn, PropertyList
 from authenticator import authenticator
 from typing import List
 
+
 router = APIRouter()
 
 @router.post("/api/properties", response_model=PropertyOut)
