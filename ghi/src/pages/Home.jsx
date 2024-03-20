@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
+import { useGetTokenQuery} from '../app/apiSlice'
 
 const Home = () => {
+    const { data: account, isLoading } = useGetTokenQuery()
     const testimonials = [
         {
             id: 1,
@@ -49,7 +51,20 @@ const Home = () => {
                         View Properties
                     </Link>
                 </div>
-
+                {!account && (
+                    <div className="bg-white rounded-lg shadow-md p-6">
+                        <h2 className="text-2xl font-bold mb-4">Join us!</h2>
+                        <p className="mb-4">
+                            Sign up today to make a reservation at your dream spot, easy and stress free like your future vacation!
+                        </p>
+                        <Link
+                            to="/signup"
+                            className="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                        >
+                            Sign up!
+                        </Link>
+                    </div>)}
+                {account && (
                 <div className="bg-white rounded-lg shadow-md p-6">
                     <h2 className="text-2xl font-bold mb-4">List Your Property</h2>
                     <p className="mb-4">
@@ -61,8 +76,8 @@ const Home = () => {
                     >
                         List a Property
                     </Link>
-                </div>
-
+                </div>)}
+                {account && (
                 <div className="bg-white rounded-lg shadow-md p-6">
                     <h2 className="text-2xl font-bold mb-4">Manage Reservations</h2>
                     <p className="mb-4">
@@ -74,7 +89,7 @@ const Home = () => {
                     >
                         View Reservations
                     </Link>
-                </div>
+                </div>)}
             </div>
 
             <div className="mt-12">

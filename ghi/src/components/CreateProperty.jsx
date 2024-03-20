@@ -1,5 +1,7 @@
-import { useState } from 'react'
-import { useCreatePropertyMutation } from '../app/apiSlice'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useCreatePropertyMutation, useGetTokenQuery } from '../app/apiSlice'
+import { use } from 'echarts'
 
 const CreatePropertyForm = () => {
     const [name, setName] = useState('')
@@ -22,6 +24,8 @@ const CreatePropertyForm = () => {
         pets_allowed: false,
         pool: false,
     }
+
+    const navigate = useNavigate()
     const [amenities, setAmenities] = useState(initialAmenities)
 
     const [addProperty, { isLoading, isSuccess, isError, error }] =
@@ -63,6 +67,7 @@ const CreatePropertyForm = () => {
     }
 
     if (isLoading) return <div>Loading...</div>
+    if (isSuccess) return navigate('/properties')
 
     return (
         <div className="max-w-4xl mx-auto p-5">

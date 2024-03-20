@@ -1,5 +1,5 @@
 import React from 'react'
-import { useGetReservationByIdQuery, useDeleteReservationMutation, useGetPropertyByIdQuery } from '../app/apiSlice'
+import { useGetReservationByIdQuery, useDeleteReservationMutation, useGetPropertyByIdQuery, useGetTokenQuery } from '../app/apiSlice'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 
 const ReservationDetail = () => {
@@ -15,7 +15,7 @@ const ReservationDetail = () => {
     console.log(reservation)
     const [deleteReservation, { isLoading: deleteLoading, isSuccess: deleteSuccess, isError: deleteError }] = useDeleteReservationMutation();
 
-
+    const { data: account, isLoading: accountLoading } = useGetTokenQuery()
     const handleDeleteReservation = async () => {
         try {
             await deleteReservation(id).unwrap();
@@ -30,14 +30,24 @@ const ReservationDetail = () => {
         return <div>Loading...</div>
     }
 
-    if (isError) {
-        return <div>Error: {error.message}</div>
+    if (accountLoading) {
+        return <div className="text-center">Loading...</div>
+    }
+
+    if (deleteError) {
+        return <div>Error: Could not cancel reservation </div>
     }
 
     if (!isSuccess || !reservation) {
         return <div>Reservation not found</div>
     }
     const { data: property, isLoading: propertyLoading, isSuccess: successProperty, isError: errorProperty } = useGetPropertyByIdQuery(reservation.property_id)
+
+    if (deleteSuccess) {
+        return navigate('/reservations')
+    }
+
+    const user = account.account
     return (
         <div className="container mx-auto py-8">
             <h1 className="text-3xl font-bold mb-4">{reservation.reservation_name}</h1>
@@ -62,6 +72,7 @@ const ReservationDetail = () => {
             )}
             <img src={property.image} alt={property.name} />
 
+            {user.id === reservation.account_id && (
             <div className="flex gap-4">
                 <Link
                     to={`/reservations/${id}/update`}
@@ -74,17 +85,17 @@ const ReservationDetail = () => {
                     onClick={handleDeleteReservation}
                     disabled={deleteLoading}
                 >
-                    {deleteLoading ? 'Deleting...' : 'Delete'}
+                    {deleteLoading ? 'Cancelling...' : 'Cancel'}
                 </button>
-            </div>
+            </div>)}
             {deleteSuccess && (
                 <div className="mt-4 text-green-500">
-                    Reservation deleted successfully
+                    Reservation cancelled successfully
                 </div>
             )}
             {deleteError && (
                 <div className="mt-4 text-red-500">
-                    Error deleting reservation. Please try again.
+                    Error cancelling reservation. Please try again.
                 </div>
             )}
         </div>

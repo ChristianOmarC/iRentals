@@ -1,42 +1,3 @@
-// import React from 'react'
-// import { useState } from 'react'
-// import { useCreateReservationMutation } from '../app/apiSlice'
-
-// const CreateReservation = () => {
-//     const [checkin, setCheckin ] = useState('')
-//     const [checkout, setCheckout ] = useState('')
-//     const [reservation_name, setReservationName ] = useState('')
-//     const [property_id, setPropertyId] =  useState('')
-//     const [account_id, setAccountId] = useState('')
-
-//     const [addReservation, { isLoading, isSuccess, isError, error }] =
-//         useCreateReservationMutation()
-
-
-
-//     const handleSubmit = async (event) => {
-//         event.preventDefault()
-//         const reservationData = {
-//             checkin,
-//             checkout,
-//             reservation_name,
-//             property_id,
-//             account_id,
-//         }
-//         console.log(reservationData)
-//         //setGuestId(self.account_id)
-//         try {
-//             await addReservation(reservationData).unwrap()
-//             alert('Reservation added successfully')
-//             // Reset form if needed
-//         } catch (error) {
-//             console.error('Failed to add reservation: ', error)
-//             alert('Failed to add reservation')
-//         }
-//     }
-
-//     if (isLoading) return <div>Loading...</div>
-
 import React, { useState } from 'react';
 import { useCreateReservationMutation } from '../app/apiSlice';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -89,7 +50,7 @@ const CreateReservation = () => {
                     <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="reservation_name"
-                        type="text"
+                        required type="text"
                         placeholder="Reservation Name"
                         value={reservation_name}
                         onChange={(e) => setReservationName(e.target.value)}
