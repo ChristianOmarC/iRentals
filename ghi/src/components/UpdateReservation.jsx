@@ -77,6 +77,21 @@ const UpdateReservation = () => {
                     </div>
                 )}
                 <div className="mb-4">
+                    <label htmlFor="reservation_name"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                    >
+                        Reservation Name:
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        type="text"
+                        id="reservation_name"
+                        name="reservation_name"
+                        value={formData.reservation_name}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="mb-4">
                     <label htmlFor="checkin"
                         className="block text-gray-700 text-sm font-bold mb-2"
                     >
@@ -103,21 +118,6 @@ const UpdateReservation = () => {
                         id="checkout"
                         name="checkout"
                         value={formData.checkout}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="reservation_name"
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                    >
-                        Reservation Name:
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        type="text"
-                        id="reservation_name"
-                        name="reservation_name"
-                        value={formData.reservation_name}
                         onChange={handleChange}
                     />
                 </div>

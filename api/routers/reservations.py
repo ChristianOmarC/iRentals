@@ -28,7 +28,7 @@ def update_reservation(
     account_data: dict = Depends(authenticator.get_current_account_data),
     reservations_repo: ReservationsRepo = Depends()
 ):
-    updated_reservation = reservations_repo.update(reservation_id, reservation_update) #account_id=account_data["id"])
+    updated_reservation = reservations_repo.update(reservation_id, reservation_update)
     if updated_reservation:
         return updated_reservation
     else:
@@ -46,7 +46,7 @@ def delete_reservation(
     reservation_id: str, repo: ReservationsRepo = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data)
     ):
-    if not repo.delete_reservation(reservation_id): #guest_id=account_data["id"]):
+    if not repo.delete_reservation(reservation_id):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Reservation not found")
     return {"message": "Reservation deleted successfully"}
 
@@ -55,7 +55,7 @@ def get_reservation_by_account(
     reservation_id: str, repo: ReservationsRepo = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data)
     ):
-    reservation = repo.get_one(reservation_id)#, guest_id=account_data["id"])
+    reservation = repo.get_one(reservation_id)
     if reservation is None:
         raise HTTPException(status_code=404, detail="Reservation not found")
     return reservation

@@ -58,15 +58,14 @@ export const iRentalApi = createApi({
             providesTags: (id) => [{ type: 'Property', id: id }, 'Property', 'Account'],
         }),
         updateProperty: builder.mutation({
-            query(data) {
-            const { id, ...body } = data
-            return {
+            query: ({ id, ...put }) => ({
                 url: `/api/properties/${id}`,
                 method: 'PUT',
-                body,
-            }
-        },
-            invalidatesTags: ({ id }) => [{ type: 'Property', id: id }, 'Account'],
+                body: put,
+            }),
+
+            // invalidatesTags: ({ id }) => [{ type: 'Property', id}, 'Account'],
+            invalidatesTags:['Property']
         }),
         deleteProperty: builder.mutation({
         query: (id) => ({

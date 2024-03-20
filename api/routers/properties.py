@@ -47,7 +47,8 @@ def update_property(
     account_data: dict = Depends(authenticator.get_current_account_data),
     properties_repo: PropertiesRepo = Depends()
 ):
-    updated_property = properties_repo.update(property_id, property_update, account_id=account_data['id'])
+    print(property_id)
+    updated_property = properties_repo.update(account_data['id'], property_id, property_update,)
     if updated_property:
         return PropertyOut(**updated_property)
     else:
@@ -55,7 +56,7 @@ def update_property(
 
 @router.delete("/api/properties/{property_id}", status_code=status.HTTP_200_OK)
 def delete_property(property_id: str, repo: PropertiesRepo = Depends(), account_data: dict = Depends(authenticator.get_current_account_data)):
-    if not repo.delete_property(property_id): # account_id=account_data['id']):
+    if not repo.delete_property(property_id):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Property not found")
     return {"message": "Property deleted successfully"}
 

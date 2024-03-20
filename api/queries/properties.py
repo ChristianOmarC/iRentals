@@ -41,12 +41,12 @@ class PropertiesRepo(MongoQueries):
 
     def update(self, account_id: str,  property_id: str, property_update: PropertyIn) -> PropertyOut | None:
         try:
-            self.collection.update_one(
-                {'_id': ObjectId(property_id), 'account_id': account_id},
+            update_result = self.collection.update_one(
+                {'account_id': account_id, '_id': ObjectId(property_id)},
                 {'$set': property_update.dict(exclude_unset=True)}
             )
-            
-            return self.get_one(property_id)
+            if update_result.modified_count:
+                return self.get_one(property_id)
         except InvalidId:
             return None
 
