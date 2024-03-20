@@ -1,7 +1,5 @@
-import React from 'react';
 import { useGetReservationByIdQuery, useDeleteReservationMutation, useGetPropertyByIdQuery, useGetTokenQuery } from '../app/apiSlice';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-
 const ReservationDetail = () => {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -12,11 +10,8 @@ const ReservationDetail = () => {
         isError: reservationError,
         error: reservationErrorDetails,
     } = useGetReservationByIdQuery(id);
-
     const [deleteReservation, { isLoading: deleteLoading, isSuccess: deleteSuccess, isError: deleteError }] = useDeleteReservationMutation();
-
     const { data: account, isLoading: accountLoading } = useGetTokenQuery();
-
     const propertyId = reservation?.property_id;
     const {
         data: property,
@@ -24,35 +19,28 @@ const ReservationDetail = () => {
         isSuccess: propertySuccess,
         isError: propertyError,
     } = useGetPropertyByIdQuery(propertyId, { skip: !propertyId });
-
     const handleDeleteReservation = async () => {
         try {
             await deleteReservation(id).unwrap();
-            alert('Reservation deleted successfully');
+            alert('Reservation cancelled successfully');
             navigate('/reservations');
         } catch (error) {
             console.error('Error deleting reservation:', error);
         }
     };
-
     if (reservationLoading || accountLoading || propertyLoading) {
         return <div>Loading...</div>;
     }
-
     if (reservationError) {
         return <div>Error: {reservationErrorDetails.message}</div>;
     }
-
     if (!reservationSuccess || !reservation) {
         return <div>Reservation not found</div>;
     }
-
     if (deleteSuccess) {
         navigate('/reservations');
     }
-
     const user = account?.account;
-
     return (
         <div className="container mx-auto py-8">
             <h1 className="text-3xl font-bold mb-4">{reservation.reservation_name}</h1>
@@ -74,7 +62,6 @@ const ReservationDetail = () => {
                 </>
             )}
             {propertyError && <p>Error loading property details.</p>}
-
             {user?.id === reservation.account_id && (
                 <div className="flex gap-4">
                     <Link
@@ -100,5 +87,4 @@ const ReservationDetail = () => {
         </div>
     );
 };
-
 export default ReservationDetail;

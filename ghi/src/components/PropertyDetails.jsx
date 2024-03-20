@@ -33,6 +33,7 @@ const PropertyDetails = () => {
     if (deleteSuccess) {
         return navigate('/properties')
     }
+    
 
     const user = account.account
     return (
