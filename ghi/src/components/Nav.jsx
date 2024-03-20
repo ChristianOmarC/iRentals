@@ -1,12 +1,15 @@
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 import { useGetTokenQuery, useLogoutMutation } from '../app/apiSlice'
 
 const Nav = () => {
-    const { data: account, isLoading } = useGetTokenQuery()
+    const { data: account, isLoading, isSuccess } = useGetTokenQuery()
     const [logout, logoutStatus] = useLogoutMutation()
-    console.log(logoutStatus)
 
-    if (isLoading) return <div>Loading....</div>
+    if (isLoading) {
+        return <div>Loading....</div>
+    }
+
     return (
         <nav className="flex items-center justify-between flex-wrap bg-teal-500 p-6 ">
             <div className="flex items-center flex-shrink-0 text-white mr-6">
@@ -20,36 +23,23 @@ const Nav = () => {
             </div>
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto text-center">
                 <div className="text-sm lg:flex-grow">
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                        <NavLink to={'/'}>Home</NavLink>
-                    </a>
+                    <NavLink href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" style={{ textDecoration: "none" }} to={'/'}>Home</NavLink>
                     {!account && (
-                        <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                            <NavLink to={'/signup'}>Sign Up </NavLink>
-                        </a>)}
+                        <NavLink href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" style={{ textDecoration: "none" }} to={'/signup'}>Sign Up </NavLink>
+                    )}
                     {!account && (
-                        <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                            <NavLink to={'/login'}>Log In</NavLink>
-                        </a>)}
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                        <NavLink to={'/properties'}>Properties</NavLink>
-                    </a>
+                        <NavLink href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" style={{ textDecoration: "none" }} to={'/login'}>Log In</NavLink>
+                    )}
+                    <NavLink href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" style={{ textDecoration: "none" }} to={'/properties'}>Properties</NavLink>
                     {account && (
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                        <NavLink to={'/createproperty'}>Create Property</NavLink>
-                    </a> )}
+                        <NavLink href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" style={{ textDecoration: "none" }} to={'/createproperty'}>Create Property</NavLink>
+                    )}
                     {account && (
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                        <NavLink to={'/reservations'}>Reservations</NavLink>
-                    </a> )}
+                        <NavLink href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" style={{ textDecoration: "none" }} to={'/reservations'}>Reservations</NavLink>
+                    )}
                     {account && (
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                        <NavLink to={'/createreservation'}>Create Reservation</NavLink>
-                    </a>)}
-                    {account && (
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                        <NavLink to={'/dashboard'}>Dashboard</NavLink>
-                    </a> )}
+                        <NavLink href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" style={{ textDecoration: "none" }} to={'/dashboard'}>Dashboard</NavLink>
+                    )}
                 </div>
                 <div>
                     {account && (

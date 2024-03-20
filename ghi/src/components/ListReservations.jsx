@@ -4,7 +4,7 @@ import ReservationCard from './ReservationsCard'
 
 const ListReservations = () => {
     const { data: reservations, isLoading, isSuccess, isError, error } = useGetAllReservationsQuery()
-
+    console.log(reservations)
     if (isLoading) {
         return <div>Loading...</div>
     }
@@ -21,7 +21,7 @@ const ListReservations = () => {
         <div className="container mx-auto py-8">
             <h1 className="text-3xl font-bold mb-6">List of Reservations</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {reservations.map((reservation) => (
+                {reservations.reservations.map((reservation) => (
                     <ReservationCard
                         key={reservation.id}
                         reservation={reservation}

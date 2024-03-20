@@ -1,5 +1,5 @@
-import React from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useCreateReservationMutation } from '../app/apiSlice'
 
 const CreateReservation = () => {
@@ -8,6 +8,8 @@ const CreateReservation = () => {
     const [reservation_name, setReservationName ] = useState('')
     const [property_id, setPropertyId] =  useState('')
     const [account_id, setAccountId] = useState('')
+
+    const navigate = useNavigate()
 
     const [addReservation, { isLoading, isSuccess, isError, error }] =
         useCreateReservationMutation()
@@ -35,7 +37,9 @@ const CreateReservation = () => {
         }
     }
 
+
     if (isLoading) return <div>Loading...</div>
+    if (isSuccess) return navigate('/reservations')
 
     return (
         <div className="max-w-4xl mx-auto p-5">
@@ -53,7 +57,7 @@ const CreateReservation = () => {
                     <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="reservation_name"
-                        type="text"
+                        required type="text"
                         placeholder="Reservation Name"
                         value={reservation_name}
                         onChange={(e) => setReservationName(e.target.value)}

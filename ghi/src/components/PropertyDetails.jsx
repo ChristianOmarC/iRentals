@@ -1,13 +1,13 @@
 import React from 'react'
-import { useGetPropertyByIdQuery, useDeletePropertyMutation} from '../app/apiSlice'
+import { useGetTokenQuery, useGetPropertyByIdQuery, useDeletePropertyMutation } from '../app/apiSlice'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 
 const PropertyDetails = () => {
     const navigate = useNavigate()
     const { id } = useParams()
-    const { data: property, isLoading, isSuccess, isError } = useGetPropertyByIdQuery(id)
+    const { data: property, isLoading: propertyLoading, isSuccess, isError } = useGetPropertyByIdQuery(id)
+    const { data: account, isLoading: accountLoading } = useGetTokenQuery()
     const [deleteProperty, { isLoading: deleteLoading, isSuccess: deleteSuccess, isError: deleteError }] = useDeletePropertyMutation();
-
     const handleDeleteProperty = async () => {
         try {
             await deleteProperty(id).unwrap()
@@ -15,7 +15,11 @@ const PropertyDetails = () => {
             console.error('Error deleting property:', error)
         }
     }
-    if (isLoading) {
+    if (propertyLoading) {
+        return <div className="text-center">Loading...</div>
+    }
+
+    if (accountLoading) {
         return <div className="text-center">Loading...</div>
     }
 
@@ -26,7 +30,11 @@ const PropertyDetails = () => {
     if (!property) {
         return <div className="text-center text-gray-500">Property not found</div>
     }
+    if (deleteSuccess) {
+        return navigate('/properties')
+    }
 
+    const user = account.account
     return (
         <div className="container mx-auto py-8">
             <div className="mb-8">
@@ -67,25 +75,28 @@ const PropertyDetails = () => {
                     </div>
                 </div>
                 <div className="mt-8">
-                    <Link
-                        to={`/createreservation`}
-                        className="bg-green-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                    >
-                        Make a Reservation
-                    </Link>
-                    <Link
-                        to={`/properties/${id}/update`}
-                        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                    >
-                        Update Property
-                    </Link>
-                    <button
-                        className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-                        onClick={handleDeleteProperty}
-                        disabled={deleteLoading}
-                    >
-                        {deleteLoading ? 'Deleting...' : 'Delete'}
-                    </button>
+                    {account && (
+                        <Link
+                            to={`/createreservation`}
+                            className="bg-green-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                        >
+                            Make a Reservation
+                        </Link>)}
+                    {user.id === property.account_id && (
+                        <Link
+                            to={`/properties/${id}/update`}
+                            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                        >
+                            Update Property
+                        </Link>)}
+                    {user.id === property.account_id && (
+                        <button
+                            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                            onClick={handleDeleteProperty}
+                            disabled={deleteLoading}
+                        >
+                            {deleteLoading ? 'Deleting...' : 'Delete'}
+                        </button>)}
                     {deleteSuccess && (
                         <div className="mt-4 text-green-500">
                             Property deleted successfully

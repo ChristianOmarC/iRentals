@@ -11,7 +11,7 @@ export const iRentalApi = createApi({
             query: () => ({
                 url: '/token',
             }),
-            provideTags: ['Account', 'Review'],
+            providesTags: ['Account'],
         }),
         signup: builder.mutation({
             query: (body) => ({
@@ -19,6 +19,7 @@ export const iRentalApi = createApi({
                 body,
                 method: 'POST',
             }),
+            invalidatesTags: ['Account']
         }),
         login: builder.mutation({
             query: (info) => {
@@ -37,7 +38,7 @@ export const iRentalApi = createApi({
                     credentials: 'include',
                 }
             },
-            invalidateTags: (result) => {
+            invalidatesTags: (result) => {
                 return (result && ['Account']) || []
             },
         }),
@@ -46,28 +47,33 @@ export const iRentalApi = createApi({
                 url: '/token',
                 method: 'DELETE',
             }),
-            invalidateTags: ['Account'],
+            invalidatesTags: ['Account']
         }),
         getAllProperties: builder.query({
             query: () => '/api/properties',
+            providesTags: (id) => [{ type: 'Property', id: id },'Property', 'Account'],
         }),
         getPropertyById: builder.query({
             query: (id) => `/api/properties/${id}`,
-            providesTags: (result, error, id) => [{ type: 'Property', id: id }],
+            providesTags: (id) => [{ type: 'Property', id: id }, 'Property', 'Account'],
         }),
         updateProperty: builder.mutation({
-            query: ({ id, ...put }) => ({
+            query(data) {
+            const { id, ...body } = data 
+            return {
                 url: `/api/properties/${id}`,
                 method: 'PUT',
-                body: put,
-            }),
+                body,
+            }
+        },
+            invalidatesTags: ({result, error, id }) => [{ type: 'Property', id }, 'Account'],
         }),
         deleteProperty: builder.mutation({
         query: (id) => ({
             url: `/api/properties/${id}`,
             method: 'DELETE',
         }),
-        invalidateTags: (result, error, id) => [{ type: 'Property', id: id }],
+        invalidatesTags: (id) => [{ type: 'Property', id: id },'Property', 'Account'],
         }),
         createProperty: builder.mutation({
             query: (body) => ({
@@ -75,27 +81,33 @@ export const iRentalApi = createApi({
                 body,
                 method: 'POST',
             }),
+            invalidatesTags:['Property']
         }),
         getAllReservations: builder.query({
             query: () => '/api/reservations',
+            providesTags: (id) => [{ type: 'Reservation', id: id },'Reservation', 'Account'],
         }),
         getReservationById: builder.query({
             query: (id) => `/api/reservations/${id}`,
-            providesTags: (result, error, id) => [{ type: 'Reservation', id: id}],
+            providesTags: (id) => [{ type: 'Reservation', id: id }, 'Account'],
         }),
         updateReservation: builder.mutation({
-            query: ({ id, ...put }) => ({
+            query(data) {
+            const { id, ...body } = data 
+            return {
                 url: `/api/reservations/${id}`,
                 method: 'PUT',
-                body: put,
-            }),
+                body,
+            }
+        },
+            invalidatesTags: ({result, error, id}) => [{ type: 'Reservation', id }, 'Account'],
         }),
         deleteReservation: builder.mutation({
             query: (id) =>({
             url: `/api/reservations/${id}`,
             method: 'DELETE',
             }),
-            invalidatesTags: (result, error, id) => [{ type: 'Reservation', id: id}],
+            invalidatesTags: (id) => [{ type: 'Reservation', id: id },'Reservation', 'Account'],
         }),
         createReservation: builder.mutation({
             query: (body) => ({
@@ -103,6 +115,7 @@ export const iRentalApi = createApi({
                 body,
                 method: 'POST',
             }),
+            invalidatesTags:['Reservation', 'Account']
         }),
     }),
 })

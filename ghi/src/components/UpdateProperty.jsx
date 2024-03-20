@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { useGetPropertyByIdQuery, useUpdatePropertyMutation } from '../app/apiSlice'
+import { useGetPropertyByIdQuery, useGetTokenQuery, useUpdatePropertyMutation } from '../app/apiSlice'
 
 const UpdateProperty = () => {
     const { id } = useParams();

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from typing import List
-from models import ReservationIn, ReservationOut, PydanticObjectId, PropertyOut
+from models import ReservationIn, ReservationOut, ReservationList, PydanticObjectId, PropertyOut
 from queries.reservations import ReservationsRepo
 from authenticator import authenticator
 from queries.properties import PropertiesRepo
@@ -34,9 +34,12 @@ def update_reservation(
     else:
         raise HTTPException(status_code=404, detail="Reservation not found.")
 
-@router.get("/api/reservations", response_model=List[ReservationOut])
-def list_reservations_by_account(reservations_repo: ReservationsRepo = Depends(), account_data: dict = Depends(authenticator.get_current_account_data)):
-    return reservations_repo.get_all()
+@router.get("/api/reservations", response_model=ReservationList)
+def list_reservations_by_account(
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    reservations_repo: ReservationsRepo = Depends()
+    ):
+    return ReservationList(reservations=reservations_repo.get_all(guest_id=account_data['id']))
 
 @router.delete("/api/reservations/{reservation_id}", status_code=status.HTTP_200_OK)
 def delete_reservation(
