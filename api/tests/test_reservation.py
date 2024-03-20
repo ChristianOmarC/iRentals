@@ -5,7 +5,7 @@ from main import app
 client = TestClient(app=app)
 
 class FakeReservationRepo:
-    def get_all(self, limit, offset):
+    def get_all(self):
         return [
             {
             "checkin": "2023-12-24",
