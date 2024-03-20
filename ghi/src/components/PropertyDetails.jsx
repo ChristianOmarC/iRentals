@@ -68,7 +68,7 @@ const PropertyDetails = () => {
                 </div>
                 <div className="mt-8">
                     <Link
-                        to={`/createreservation`}
+                        to={`/createreservation/${id}`}
                         className="bg-green-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                     >
                         Make a Reservation

@@ -13,7 +13,7 @@ import ListProperties from './components/ListProperties'
 import SignUpForm from './SignupForm'
 import LoginForm from './LoginForm'
 import CreateProperty from './components/CreateProperty'
-import DashApp from './components/Dashboard/DashboardComponents/DashApp'
+//import DashApp from './components/Dashboard/DashboardComponents/DashApp'
 import PropertyDetails from './components/PropertyDetails'
 import UpdateReservation from './components/UpdateReservation'
 import ListReservations from './components/ListReservations'
@@ -32,10 +32,10 @@ const router = createBrowserRouter([
             { path: 'signup', element: <SignUpForm /> },
             { path: 'login', element: <LoginForm /> },
             { path: 'createproperty', element: <CreateProperty /> },
-            { path: 'dashboard', element: <Dashboard /> },
+            //{ path: 'dashboard', element: <Dashboard /> },
             { path: 'reservations', element: <ListReservations />},
             { path: 'reservations/:id', element: <ReservationDetail />},
-            { path: 'createreservation', element: <CreateReservation />},
+            { path: 'createreservation/:propertyId', element: <CreateReservation />},
             { path: 'reservations/:id/update', element: <UpdateReservation /> },
             { path: 'properties/:id/update', element: <UpdateProperty /> },
         ],
