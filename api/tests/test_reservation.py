@@ -57,84 +57,97 @@ class FakeReservationRepo:
         return False
 
 
-# def test_list_reservations():
-#     app.dependency_overrides[authenticator.get_current_account_data] = fake_current_account
-#     app.dependency_overrides[ReservationsRepo] = lambda: FakeReservationRepo()
-#     res = client.get("/api/reservations")
+def test_list_reservations():
+    app.dependency_overrides[authenticator.get_current_account_data] = fake_current_account
+    app.dependency_overrides[ReservationsRepo] = lambda: FakeReservationRepo()
+    res = client.get("/api/reservations")
+    app.dependency_overrides = {}
+    assert res.status_code ==200
+    assert res.json() == { "reservations": []}
 
-#     #assert res.status_code ==200
-#     assert res.json() == { "reservations": []}
-
-# def test_create_reservation():
-#     app.dependency_overrides[authenticator.get_current_account_data] = fake_current_account
-
-
-#     reservation_data = {
-#         "checkin": "2023-12-24",
-#         "checkout": "2023-12-31",
-#         "reservation_name": "Holiday Stay",
-#         "property_id": "65eb3f6ee3b05dcfaea1c43a",
-#         "account_id": "65eb3f6ee3b05dcfaea1c43a",
-#     }
-#     res = client.post("/api/reservations", json=reservation_data)
-
-#     app.dependency_overrides = {}
-#     #assert res.status_code == 200
-#     assert res.json()["checkin"] == reservation_data["checkin"]
-#     assert res.json()["checkout"] == reservation_data["checkout"]
-#     assert res.json()["reservation_name"] == reservation_data["reservation_name"]
-#     assert res.json()["property_id"] == reservation_data["property_id"]
-#     assert res.json()["account_id"] == reservation_data["account_id"]
-#     assert "id" in res.json()
-
-# def test_update_reservation():
-
-#     app.dependency_overrides[authenticator.get_current_account_data] = fake_current_account
-#     app.dependency_overrides[ReservationsRepo] = lambda: FakeReservationRepo()
-#     reservation_id = "65eb3f6ee3b05dcfaea1c43a"
-
-#     reservation_data = {
-#         "checkin": "2023-12-24",
-#         "checkout": "2023-12-31",
-#         "reservation_name": "Holiday Stay",
-#         "property_id": "65eb3f6ee3b05dcfaea1c43a",
-#         "account_id": "65eb3f6ee3b05dcfaea1c43a",
-# "        id": "65eb3f6ee3b05dcfaea1c43a"
-
-#     }
-#     #create_res = client.put(f"/api/reservations/{id}", json=reservation_data)
-#     #created_reservation_id = create_res.json()["id"]
+def test_create_reservation():
+    app.dependency_overrides[authenticator.get_current_account_data] = fake_current_account
 
 
-#     updated_reservation_data = {
-#         "checkin": "2023-12-25",
-#         "checkout": "2023-12-31",
-#         "reservation_name": "Updated Stay",
-#         "property_id": "65eb3f6ee3b05dcfaea1c43a",
-#         "account_id": "65eb3f6ee3b05dcfaea1c43a",
-#         "id": "65eb3f6ee3b05dcfaea1c43a"
-#     }
+    reservation_data = {
+        "checkin": "2023-12-24",
+        "checkout": "2023-12-31",
+        "reservation_name": "Holiday Stay",
+        "property_id": "65eb3f6ee3b05dcfaea1c43a",
+        "account_id": "65eb3f6ee3b05dcfaea1c43a",
+    }
+    res = client.post("/api/reservations", json=reservation_data)
+
+    app.dependency_overrides = {}
+    assert res.status_code == 200
+    assert res.json()["checkin"] == reservation_data["checkin"]
+    assert res.json()["checkout"] == reservation_data["checkout"]
+    assert res.json()["reservation_name"] == reservation_data["reservation_name"]
+    assert res.json()["property_id"] == reservation_data["property_id"]
+    assert res.json()["account_id"] == reservation_data["account_id"]
+    assert "id" in res.json()
+
+def test_update_reservation():
+
+    app.dependency_overrides[authenticator.get_current_account_data] = fake_current_account
+    app.dependency_overrides[ReservationsRepo] = lambda: FakeReservationRepo()
+    id = "65eb3f6ee3b05dcfaea1c43a"
+
+    reservation_data = {
+        "checkin": "2023-12-24",
+        "checkout": "2023-12-31",
+        "reservation_name": "Holiday Stay",
+        "property_id": "65eb3f6ee3b05dcfaea1c43a",
+        "account_id": "65eb3f6ee3b05dcfaea1c43a",
+
+    }
+    create_res = client.post(f"/api/reservations/{id}", json=reservation_data)
+    created_reservation_id = create_res.json()["id"]
+    print(created_reservation_id)
+
+    updated_reservation_data = {
+        "checkin": "2023-12-25",
+        "checkout": "2023-12-31",
+        "reservation_name": "Updated Stay",
+        "property_id": "65eb3f6ee3b05dcfaea1c43a",
+        "account_id": "65eb3f6ee3b05dcfaea1c43a",
+    }
 
 
-#     update_res = client.put(f"/api/reservations/{reservation_id}", json=updated_reservation_data)
+    update_res = client.put(f"/api/reservations/{id}", json=updated_reservation_data)
 
-#     app.dependency_overrides = {}
+    app.dependency_overrides = {}
 
-#     assert update_res.status_code == 200
-#     assert update_res.json()["checkin"] == updated_reservation_data["checkin"]
-#     assert update_res.json()["checkout"] == updated_reservation_data["checkout"]
-#     assert update_res.json()["reservation_name"] == updated_reservation_data["reservation_name"]
-#     assert update_res.json()["property_id"] == updated_reservation_data["property_id"]
-#     assert update_res.json()["account_id"] == updated_reservation_data["account_id"]
-#     assert "id" in update_res.json()
+    assert update_res.status_code == 200
+    assert update_res.json()["checkin"] == updated_reservation_data["checkin"]
+    assert update_res.json()["checkout"] == updated_reservation_data["checkout"]
+    assert update_res.json()["reservation_name"] == updated_reservation_data["reservation_name"]
+    assert update_res.json()["property_id"] == updated_reservation_data["property_id"]
+    assert update_res.json()["account_id"] == updated_reservation_data["account_id"]
+    assert "id" in update_res.json()
 
 
 #Delete
 def test_delete_reservation():
     app.dependency_overrides[authenticator.get_current_account_data] = fake_current_account
-    app.dependency_overrides[ReservationsRepo] = lambda: FakeReservationRepo()
-    reservation_id = "65eb3f6ee3b05dcfaea1c43a"
+    reservation_repo = FakeReservationRepo()
+    app.dependency_overrides[ReservationsRepo] = lambda: reservation_repo
 
-    delete_res = client.delete(f"/api/reservations/{reservation_id}")
+    # Create a reservation
+    reservation_data = {
+        "checkin": "2023-12-24",
+        "checkout": "2023-12-31",
+        "reservation_name": "Holiday Stay",
+        "property_id": "65eb3f6ee3b05dcfaea1c43a",
+        "account_id": "65eb3f6ee3b05dcfaea1c43a",
+    }
+    create_res = client.post("/api/reservations", json=reservation_data)
+    created_reservation_id = create_res.json()["id"]
 
-    assert delete_res.status_code == 204
+    # Delete the reservation
+    delete_res = client.delete(f"/api/reservations/{created_reservation_id}")
+
+    app.dependency_overrides = {}
+
+    assert delete_res.status_code == 200
+    assert delete_res.json() == {"message": "Reservation deleted successfully"}
