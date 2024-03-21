@@ -9,9 +9,9 @@ const CreatePropertyForm = () => {
     const [city, setCity] = useState('')
     const [state, setState] = useState('')
     const [zip, setZip] = useState('')
-    const [bedrooms, setBedrooms] = useState(0)
-    const [bathrooms, setBathrooms] = useState(0)
-    const [price, setPrice] = useState(0)
+    const [bedrooms, setBedrooms] = useState('')
+    const [bathrooms, setBathrooms] = useState('')
+    const [price, setPrice] = useState('')
     const [description, setDescription] = useState('')
     const [imageUrl, setImageUrl] = useState('')
     const initialAmenities = {
@@ -184,6 +184,8 @@ const CreatePropertyForm = () => {
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="bedrooms"
+                            min="0"
+                            max="50"
                             type="number"
                             placeholder="Number of Bedrooms"
                             value={bedrooms}
@@ -200,6 +202,8 @@ const CreatePropertyForm = () => {
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="bathrooms"
+                            min="0"
+                            max="50"
                             type="number"
                             placeholder="Number of Bathrooms"
                             value={bathrooms}

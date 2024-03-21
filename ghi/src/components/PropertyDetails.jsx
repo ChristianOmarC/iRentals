@@ -11,6 +11,7 @@ const PropertyDetails = () => {
     const handleDeleteProperty = async () => {
         try {
             await deleteProperty(id).unwrap()
+            alert('Property deleted successfully');
         } catch (error) {
             console.error('Error deleting property:', error)
         }
@@ -33,7 +34,7 @@ const PropertyDetails = () => {
     if (deleteSuccess) {
         return navigate('/properties')
     }
-    
+
 
     const user = account.account
     return (

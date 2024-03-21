@@ -2,20 +2,29 @@ from fastapi.testclient import TestClient
 from queries.reservations import ReservationsRepo
 from main import app
 from authenticator import authenticator
-from fastapi import APIRouter, Depends, FastAPI
-from models import ReservationList, AccountOut, ReservationIn, ReservationList, ReservationOut
+from fastapi import APIRouter, Depends
+from models import (
+    AccountOut,
+    ReservationIn,
+    ReservationList,
+    ReservationOut,
+)
 from typing import List
 
 client = TestClient(app=app)
 
 router = APIRouter()
 
+
 @app.get("/api/reservations", response_model=ReservationList)
 def list_reservations_by_account(
     account_data: AccountOut = Depends(authenticator.get_current_account_data),
     reservations_repo: ReservationsRepo = Depends(),
-    ):
-    return ReservationList(reservations=reservations_repo.get_all(guest_id=account_data['id']))
+):
+    return ReservationList(
+        reservations=reservations_repo.get_all(guest_id=account_data['id'])
+    )
+
 
 def fake_get_current_account_data():
     return {
@@ -26,9 +35,12 @@ def fake_get_current_account_data():
         "username": "BillyBob",
     }
 
+
 class FakeReservationRepo:
     def __init__(self):
+
         self.reservations = []
+
     def get_all(self, guest_id: str) -> List[dict]:
         return [
             {
@@ -40,7 +52,12 @@ class FakeReservationRepo:
                 "account_id": guest_id,
             }
         ]
-    def create(self, reservation: ReservationIn, guest_id: str) -> ReservationOut:
+
+    def create(
+        self,
+        reservation: ReservationIn,
+        guest_id: str
+    ) -> ReservationOut:
         reservation_id = str(len(self.reservations) + 1)
         new_reservation = ReservationOut(
             id=reservation_id,
@@ -62,15 +79,13 @@ class FakeReservationRepo:
 
 
 def test_list_reservations():
-    # Arrange
-    app.dependency_overrides[authenticator.get_current_account_data] = fake_get_current_account_data
+    app.dependency_overrides[
+        authenticator.get_current_account_data
+    ] = fake_get_current_account_data
     app.dependency_overrides[ReservationsRepo] = lambda: FakeReservationRepo()
-    # Act
     res = client.get("/api/reservations")
-    #cleanup
     app.dependency_overrides = {}
 
-    # Assert
     assert res.status_code == 200
     assert res.json() == {
             "reservations": [
@@ -85,8 +100,11 @@ def test_list_reservations():
             ]
     }
 
+
 def test_create_reservation():
-    app.dependency_overrides[authenticator.get_current_account_data] = fake_get_current_account_data
+    app.dependency_overrides[
+        authenticator.get_current_account_data
+    ] = fake_get_current_account_data
     reservation_data = {
         "checkin": "2023-12-24",
         "checkout": "2023-12-31",
@@ -95,21 +113,26 @@ def test_create_reservation():
         "account_id": "65eb3f6ee3b05dcfaea1c43a",
     }
     res = client.post("/api/reservations", json=reservation_data)
-    #cleanup
     app.dependency_overrides = {}
     assert res.status_code == 200
     assert res.json()["checkin"] == reservation_data["checkin"]
     assert res.json()["checkout"] == reservation_data["checkout"]
-    assert res.json()["reservation_name"] == reservation_data["reservation_name"]
+    assert res.json()[
+        "reservation_name"
+    ] == reservation_data[
+        "reservation_name"
+    ]
     assert res.json()["property_id"] == reservation_data["property_id"]
     assert res.json()["account_id"] == reservation_data["account_id"]
     assert "id" in res.json()
 
+
 def test_delete_reservation():
-    app.dependency_overrides[authenticator.get_current_account_data] = fake_get_current_account_data
+    app.dependency_overrides[
+        authenticator.get_current_account_data
+    ] = fake_get_current_account_data
     reservation_repo = FakeReservationRepo()
     app.dependency_overrides[ReservationsRepo] = lambda: reservation_repo
-    # Create a reservation
     reservation_data = {
         "checkin": "2023-12-24",
         "checkout": "2023-12-31",
@@ -119,7 +142,6 @@ def test_delete_reservation():
     }
     create_res = client.post("/api/reservations", json=reservation_data)
     created_reservation_id = create_res.json()["id"]
-    # Delete the reservation
     delete_res = client.delete(f"/api/reservations/{created_reservation_id}")
     app.dependency_overrides = {}
     assert delete_res.status_code == 200

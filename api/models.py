@@ -3,6 +3,7 @@ from jwtdown_fastapi.authentication import Token
 from bson.objectid import ObjectId
 from typing import List
 
+
 class PydanticObjectId(ObjectId):
     @classmethod
     def __get_validators__(cls):
@@ -13,16 +14,18 @@ class PydanticObjectId(ObjectId):
         if value:
             try:
                 ObjectId(value)
-            except:
-                raise ValueError(f"Not a valid object id: {value}")
+            except Exception as e:
+                raise ValueError(f"Not a valid object id: {value}") from e
         return value
+
 
 class AccountIn(BaseModel):
     email: str
     first_name: str
     last_name: str
     username: str
-    password: str #dont touch
+    password: str
+
 
 class AccountOut(BaseModel):
     id: str
@@ -31,21 +34,27 @@ class AccountOut(BaseModel):
     last_name: str
     username: str
 
+
 class Account(AccountOut):
-    hashed_password: str  #dont touch
+    hashed_password: str
+
 
 class DeleteStatus(BaseModel):
     success: bool
 
-class AccountForm(BaseModel):  #dont touch
+
+class AccountForm(BaseModel):
     username: str
     password: str
 
-class AccountToken(Token):  #dont touch
+
+class AccountToken(Token):
     account: AccountOut
+
 
 class HttpError(BaseModel):
     detail: str
+
 
 class ReservationIn(BaseModel):
     checkin: str
@@ -54,16 +63,20 @@ class ReservationIn(BaseModel):
     property_id: str
     account_id: str
 
-class ReservationOut(ReservationIn): #LoanOut(LoanIn)
-    id: str
-    reservation_name: str #updated for reservation_name
 
-class Reservation(ReservationIn): #Loan(LoanIn)
+class ReservationOut(ReservationIn):
+    id: str
+    reservation_name: str
+
+
+class Reservation(ReservationIn):
     id: PydanticObjectId
     guest_id: str
 
+
 class ReservationList(BaseModel):
-    reservations : List[ReservationOut]
+    reservations: List[ReservationOut]
+
 
 class Amenities(BaseModel):
     ac: bool
@@ -75,11 +88,13 @@ class Amenities(BaseModel):
     pets_allowed: bool
     pool: bool
 
+
 class Address(BaseModel):
     address: str
     city: str
     state: str
     zip: str
+
 
 class PropertyIn(BaseModel):
     name: str
@@ -91,16 +106,17 @@ class PropertyIn(BaseModel):
     amenities: Amenities
     image: str
 
+
 class Property(PropertyIn):
     id: PydanticObjectId
     rating: float = 0.0
+
 
 class PropertyOut(PropertyIn):
     id: str
     account_id: str
     rating: float = 0.0
 
+
 class PropertyList(BaseModel):
     properties: List[PropertyOut]
-
-

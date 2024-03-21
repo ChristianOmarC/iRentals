@@ -1,5 +1,4 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
 import { useGetTokenQuery, useLogoutMutation } from '../app/apiSlice'
 
 const Nav = () => {
@@ -36,9 +35,6 @@ const Nav = () => {
                     )}
                     {account && (
                         <NavLink href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" style={{ textDecoration: "none" }} to={'/reservations'}>Reservations</NavLink>
-                    )}
-                    {account && (
-                        <NavLink href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" style={{ textDecoration: "none" }} to={'/dashboard'}>Dashboard</NavLink>
                     )}
                 </div>
                 <div>

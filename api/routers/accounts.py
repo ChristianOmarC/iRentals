@@ -6,9 +6,8 @@ from fastapi import (
     APIRouter,
     Request,
 )
-from jwtdown_fastapi.authentication import Token
 from queries.accounts import AccountRepo, DuplicateAccountError
-from models import AccountIn, AccountOut, AccountToken, AccountForm, Account
+from models import AccountIn, AccountToken, AccountForm, Account
 from authenticator import authenticator
 
 router = APIRouter()

@@ -8,8 +8,6 @@ db = client["mongo-data"]
 DATABASE_URL = os.environ.get("DATABASE_URL")
 DB_NAME = os.environ.get("DB_NAME")
 
-# client = MongoClient(DATABASE_URL)
-# db = client[DB_NAME]
 
 class MongoQueries:
     @property
@@ -18,8 +16,6 @@ class MongoQueries:
         return db[self.collection_name]
 
 
-
-# Use for the holding
 db_users = []
 db_properties = []
 db_reservations = []

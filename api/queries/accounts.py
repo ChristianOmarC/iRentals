@@ -1,20 +1,13 @@
-from pymongo import MongoClient
-from bson.objectid import ObjectId
-from bson.errors import InvalidId
 from models import AccountIn, Account
 from .client import MongoQueries
-
 
 
 class DuplicateAccountError(ValueError):
     pass
 
+
 class AccountRepo(MongoQueries):
     collection_name = "accounts"
-    # @property
-    # def collection(self):
-    #     return db["accounts"]
-
 
     def create(self, info: AccountIn, hashed_password: str):
         if self.get(username=info.username) is not None:

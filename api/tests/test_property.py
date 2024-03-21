@@ -4,6 +4,7 @@ from main import app
 
 client = TestClient(app=app)
 
+
 class FakePropertyRepo:
     def get_all(self):
         return [
@@ -35,6 +36,7 @@ class FakePropertyRepo:
                         "rating": 0.0
                         }
         ]
+
 
 def test_get_all_properties():
     # Arrange

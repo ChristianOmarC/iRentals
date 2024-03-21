@@ -1,13 +1,13 @@
-from pymongo import MongoClient
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
 from models import PropertyIn, PropertyOut
 from .client import MongoQueries
 
+
 class PropertiesRepo(MongoQueries):
     collection_name = "properties"
 
-    def create(self, property : PropertyIn, account_id: str) -> PropertyOut:
+    def create(self, property: PropertyIn, account_id: str) -> PropertyOut:
         property_dict = property.dict()
         property_dict['account_id'] = account_id
 
@@ -38,8 +38,12 @@ class PropertiesRepo(MongoQueries):
             property['id'] = str(property['_id'])
         return property
 
-
-    def update(self, account_id: str,  property_id: str, property_update: PropertyIn) -> PropertyOut | None:
+    def update(
+            self,
+            account_id: str,
+            property_id: str,
+            property_update: PropertyIn
+    ) -> PropertyOut | None:
         try:
             update_result = self.collection.update_one(
                 {'account_id': account_id, '_id': ObjectId(property_id)},
@@ -49,7 +53,6 @@ class PropertiesRepo(MongoQueries):
                 return self.get_one(property_id)
         except InvalidId:
             return None
-
 
     def delete_property(self, property_id: str) -> bool:
         result = self.collection.delete_one({"_id": ObjectId(property_id)})
