@@ -2,9 +2,9 @@ from fastapi.testclient import TestClient
 from queries.reservations import ReservationsRepo
 from main import app
 from authenticator import authenticator
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, FastAPI
+from models import ReservationList, AccountOut, ReservationIn, ReservationList, ReservationOut
 from typing import List
-from models import ReservationList, AccountOut
 
 client = TestClient(app)
 
@@ -27,6 +27,8 @@ def fake_get_current_account_data():
     }
 
 class FakeReservationRepo:
+    def __init__(self):
+        self.reservations = []
     def get_all(self, guest_id: str) -> List[dict]:
         return [
             {
@@ -38,7 +40,18 @@ class FakeReservationRepo:
                 "account_id": guest_id,
             }
         ]
-
+    def create(self, reservation: ReservationIn, guest_id: str) -> ReservationOut:
+        reservation_id = str(len(self.reservations) + 1)
+        new_reservation = ReservationOut(
+            id=reservation_id,
+            checkin=reservation.checkin,
+            checkout=reservation.checkout,
+            reservation_name=reservation.reservation_name,
+            property_id=reservation.property_id,
+            account_id=guest_id
+        )
+        self.reservations.append(new_reservation)
+        return new_reservation
 def test_list_reservations():
     # Arrange
     app.dependency_overrides[authenticator.get_current_account_data] = fake_get_current_account_data
@@ -59,3 +72,45 @@ def test_list_reservations():
                 }
             ]
     }
+
+def test_create_reservation():
+    app.dependency_overrides[authenticator.get_current_account_data] = fake_get_current_account_data
+    reservation_data = {
+        "checkin": "2023-12-24",
+        "checkout": "2023-12-31",
+        "reservation_name": "Holiday Stay",
+        "property_id": "65eb3f6ee3b05dcfaea1c43a",
+        "account_id": "65eb3f6ee3b05dcfaea1c43a",
+    }
+    res = client.post("/api/reservations", json=reservation_data)
+    assert res.status_code == 200
+    assert res.json()["checkin"] == reservation_data["checkin"]
+    assert res.json()["checkout"] == reservation_data["checkout"]
+    assert res.json()["reservation_name"] == reservation_data["reservation_name"]
+    assert res.json()["property_id"] == reservation_data["property_id"]
+    assert res.json()["account_id"] == reservation_data["account_id"]
+    assert "id" in res.json()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

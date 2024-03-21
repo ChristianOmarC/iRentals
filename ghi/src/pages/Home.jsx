@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
-import { useGetTokenQuery} from '../app/apiSlice'
+import { useGetTokenQuery } from '../app/apiSlice'
 
 const Home = () => {
     const { data: account, isLoading } = useGetTokenQuery()
@@ -65,31 +65,31 @@ const Home = () => {
                         </Link>
                     </div>)}
                 {account && (
-                <div className="bg-white rounded-lg shadow-md p-6">
-                    <h2 className="text-2xl font-bold mb-4">List Your Property</h2>
-                    <p className="mb-4">
-                        Have a property to rent out? List it on iRentals and reach a wide audience of potential tenants. Our user-friendly platform makes it easy to manage your listings.
-                    </p>
-                    <Link
-                        to="/createproperty"
-                        className="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                    >
-                        List a Property
-                    </Link>
-                </div>)}
+                    <div className="bg-white rounded-lg shadow-md p-6">
+                        <h2 className="text-2xl font-bold mb-4">List Your Property</h2>
+                        <p className="mb-4">
+                            Have a property to rent out? List it on iRentals and reach a wide audience of potential tenants. Our user-friendly platform makes it easy to manage your listings.
+                        </p>
+                        <Link
+                            to="/createproperty"
+                            className="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                        >
+                            List a Property
+                        </Link>
+                    </div>)}
                 {account && (
-                <div className="bg-white rounded-lg shadow-md p-6">
-                    <h2 className="text-2xl font-bold mb-4">Manage Reservations</h2>
-                    <p className="mb-4">
-                        Keep track of your reservations and manage your rental bookings efficiently. View upcoming reservations, communicate with guests, and streamline your rental process.
-                    </p>
-                    <Link
-                        to="/reservations"
-                        className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded"
-                    >
-                        View Reservations
-                    </Link>
-                </div>)}
+                    <div className="bg-white rounded-lg shadow-md p-6">
+                        <h2 className="text-2xl font-bold mb-4">Manage Reservations</h2>
+                        <p className="mb-4">
+                            Keep track of your reservations and manage your rental bookings efficiently. View upcoming reservations, communicate with guests, and streamline your rental process.
+                        </p>
+                        <Link
+                            to="/reservations"
+                            className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded"
+                        >
+                            View Reservations
+                        </Link>
+                    </div>)}
             </div>
 
             <div className="mt-12">
