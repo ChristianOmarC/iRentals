@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, FastAPI
 from models import ReservationList, AccountOut, ReservationIn, ReservationList, ReservationOut
 from typing import List
 
-client = TestClient(app)
+client = TestClient(app=app)
 
 router = APIRouter()
 
@@ -52,12 +52,24 @@ class FakeReservationRepo:
         )
         self.reservations.append(new_reservation)
         return new_reservation
+
+    def delete_reservation(self, reservation_id: str) -> bool:
+        for reservation in self.reservations:
+            if reservation.id == reservation_id:
+                self.reservations.remove(reservation)
+                return True
+        return False
+
+
 def test_list_reservations():
     # Arrange
     app.dependency_overrides[authenticator.get_current_account_data] = fake_get_current_account_data
     app.dependency_overrides[ReservationsRepo] = lambda: FakeReservationRepo()
     # Act
     res = client.get("/api/reservations")
+    #cleanup
+    app.dependency_overrides = {}
+
     # Assert
     assert res.status_code == 200
     assert res.json() == {
@@ -83,6 +95,8 @@ def test_create_reservation():
         "account_id": "65eb3f6ee3b05dcfaea1c43a",
     }
     res = client.post("/api/reservations", json=reservation_data)
+    #cleanup
+    app.dependency_overrides = {}
     assert res.status_code == 200
     assert res.json()["checkin"] == reservation_data["checkin"]
     assert res.json()["checkout"] == reservation_data["checkout"]
@@ -91,26 +105,22 @@ def test_create_reservation():
     assert res.json()["account_id"] == reservation_data["account_id"]
     assert "id" in res.json()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def test_delete_reservation():
+    app.dependency_overrides[authenticator.get_current_account_data] = fake_get_current_account_data
+    reservation_repo = FakeReservationRepo()
+    app.dependency_overrides[ReservationsRepo] = lambda: reservation_repo
+    # Create a reservation
+    reservation_data = {
+        "checkin": "2023-12-24",
+        "checkout": "2023-12-31",
+        "reservation_name": "Holiday Stay",
+        "property_id": "65eb3f6ee3b05dcfaea1c43a",
+        "account_id": "65eb3f6ee3b05dcfaea1c43a",
+    }
+    create_res = client.post("/api/reservations", json=reservation_data)
+    created_reservation_id = create_res.json()["id"]
+    # Delete the reservation
+    delete_res = client.delete(f"/api/reservations/{created_reservation_id}")
+    app.dependency_overrides = {}
+    assert delete_res.status_code == 200
+    assert delete_res.json() == {"message": "Reservation deleted successfully"}
