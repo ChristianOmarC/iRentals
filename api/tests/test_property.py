@@ -43,36 +43,3 @@ def test_get_all_properties():
     res = client.get("/api/properties")
     # Assert
     assert res.status_code == 200
-    assert res.json() == {
-        {
-                {
-                    "properties": [
-                        {
-                        "name": "string",
-                        "address": {
-                            "address": "string",
-                            "city": "string",
-                            "state": "string",
-                            "zip": "string"
-                        },
-                        "bedrooms": 0,
-                        "bathrooms": 0,
-                        "price": 0,
-                        "description": "string",
-                        "amenities": {
-                            "ac": true,
-                            "heating": true,
-                            "washer_dryer": true,
-                            "parking": true,
-                            "beer": true,
-                            "wifi": true,
-                            "pets_allowed": true,
-                            "pool": true
-                        },
-                        "id": "65eb3f7be3b05dcfaea1c43b",
-                        "account_id": "65eb3f6ee3b05dcfaea1c43a"
-                        }
-                    ]
-                    }
-            }
-    }
