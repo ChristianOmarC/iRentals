@@ -2,11 +2,9 @@ from fastapi.testclient import TestClient
 from queries.reservations import ReservationsRepo
 from main import app
 from authenticator import authenticator
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 from models import (
-    AccountOut,
     ReservationIn,
-    ReservationList,
     ReservationOut,
 )
 from typing import List
