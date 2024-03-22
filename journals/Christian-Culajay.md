@@ -4,11 +4,11 @@ A reflection on any design conversations that you had
 At least one ah-ha! moment that you had during your coding, however small
 
 3/22/24
-
+Today we were able to get out unit tests on the pipeline working! Deployment will be postponed as a stretch goal for next week along with several other ideas we want to include. Team has worked tirelessly to make this app work and we're extremely proud of what we've accomplished!
 
 
 3/21/24
-
+Team worked together on deploying our application. Unfortunately ran into several bugs and failed implementations. We eventually were able to get at least the lint job working.
 
 
 3/20/24

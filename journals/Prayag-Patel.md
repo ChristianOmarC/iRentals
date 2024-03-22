@@ -1,6 +1,4 @@
-##3/4/2024
-Today we tried to do our endpoint for propertites, we got most of them done.
-We need to work on our models tomorrow, so they work with reservation on work on front authentication.
+
 
 Reminder:
 -work on issues barnch and learn how to use it
@@ -53,6 +51,8 @@ Backend auth was finished and updated our models
 
 ## 3/4/2024
 
+Today we tried to do our endpoint for propertites, we got most of them done.
+We need to work on our models tomorrow, so they work with reservation and work on front authentication.
 Finished routesfor properties
 
 ## 3/3/2024
