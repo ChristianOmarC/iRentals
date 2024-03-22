@@ -9,7 +9,7 @@ class PropertiesRepo(MongoQueries):
 
     def create(self, property: PropertyIn, account_id: str) -> PropertyOut:
         property_dict = property.dict()
-        property_dict['account_id'] = account_id
+        property_dict["account_id"] = account_id
 
         result = self.collection.insert_one(property_dict)
         property_dict["id"] = str(result.inserted_id)
@@ -18,36 +18,33 @@ class PropertiesRepo(MongoQueries):
     def get_all(self):
         res = []
         for property in self.collection.find():
-            property['id'] = str(property['_id'])
+            property["id"] = str(property["_id"])
             res.append(property)
         return res
 
     def get_all_for_account(self, account_id: str):
         res = []
-        for property in self.collection.find({'account_id': account_id}):
-            property['id'] = str(property['_id'])
+        for property in self.collection.find({"account_id": account_id}):
+            property["id"] = str(property["_id"])
             res.append(property)
         return res
 
     def get_one(self, property_id: str):
         try:
-            property = self.collection.find_one({'_id': ObjectId(property_id)})
+            property = self.collection.find_one({"_id": ObjectId(property_id)})
         except InvalidId:
             property = None
         if property is not None:
-            property['id'] = str(property['_id'])
+            property["id"] = str(property["_id"])
         return property
 
     def update(
-            self,
-            account_id: str,
-            property_id: str,
-            property_update: PropertyIn
+        self, account_id: str, property_id: str, property_update: PropertyIn
     ) -> PropertyOut | None:
         try:
             update_result = self.collection.update_one(
-                {'account_id': account_id, '_id': ObjectId(property_id)},
-                {'$set': property_update.dict(exclude_unset=True)}
+                {"account_id": account_id, "_id": ObjectId(property_id)},
+                {"$set": property_update.dict(exclude_unset=True)},
             )
             if update_result.modified_count:
                 return self.get_one(property_id)
