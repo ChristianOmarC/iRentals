@@ -67,7 +67,7 @@ def test_list_reservations():
     app.dependency_overrides[
         authenticator.get_current_account_data
     ] = fake_get_current_account_data
-    app.dependency_overrides[ReservationsRepo] = lambda: FakeReservationRepo()
+    app.dependency_overrides[ReservationsRepo] = FakeReservationRepo
     res = client.get("/api/reservations")
     app.dependency_overrides = {}
 
