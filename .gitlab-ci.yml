@@ -15,11 +15,11 @@ lint-test-job:
 # Run flake8 to check for code quality
 # And also optionally run unit tests
 tests:
-    # variables:
-    #     CORS_HOST: http://localhost:5173
-    #     DATABASE_URL: mongodb://example_user:secret@mongo
-    #     DB_NAME: db-name-for-your-app-db
-    #     SIGNING_KEY: ${SIGNINGKEY}
+    variables:
+        # CORS_HOST: http://localhost:5173
+        DATABASE_URL: mongodb://example_user:secret@mongo
+        DB_NAME: db-name-for-your-app-db
+        SIGNING_KEY: ${SIGNINGKEY}
     image: python:3-bullseye
     stage: test
     needs:
